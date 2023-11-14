@@ -8,22 +8,25 @@ const Navbar = () => {
     const handleLogin = () => {
         setUser(true);
     }
-
+    const handleLogout = () => {
+        setUser(false);
+    }
 
     return (
         <div className='navbar'>
             <div className='navbar-links'>
                 <div className='navbar-links_logo'>
+                    <Link to="/"> 
                     <h1>VezLand</h1>
+                    </Link>
                 </div>
             </div>
             <div className="navbar-sign">
             {user ? (
             <>
-                <Link to="/create"> 
-                     <button type='button' className='primary-btn' >Create</button>
-                </Link>
-                <button type='button' className='secondary-btn'>Connect</button>
+            <Link to="/logout"> 
+            <button type='button' className='secondary-btn' onClick={handleLogout}>Выход</button>
+            </Link>
             </>
             ): (
             <>

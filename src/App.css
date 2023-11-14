@@ -2,3 +2,23 @@ body{
     background: var(--color-bg);
     scroll-behavior: smooth;
 }
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.section__padding{
+    padding: 4rem 6rem;
+}
+
+@keyframes scale-up-center {
+    0% {
+      -webkit-transform: scale(0.5);
+              transform: scale(0.5);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+  }
