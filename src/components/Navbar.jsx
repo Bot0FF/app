@@ -1,8 +1,12 @@
 import React from 'react';
 import './navbar.css'
 import { Link } from "react-router-dom"
+import AuthService from '../services/auth.service'
 
 const Navbar = () => {
+
+    const user = AuthService.getCurrentUser();
+
     return (
         <div className='navbar'>
             <div className='navbar-links'>
@@ -12,14 +16,32 @@ const Navbar = () => {
                     </Link>
                 </div>
             </div>
+            {user
+            ?
             <div className="navbar-sign">
-                <Link to="/login"> 
-                    <button type='button' className='primary-btn'>Вход</button>
-                </Link>
-                <Link to="/register"> 
-                    <button type='button' className='secondary-btn'>Регистрация</button>
-                </Link>
+            <Link to="/"> 
+                <button 
+                    type='button' 
+                    className='primary-btn'
+                    onClick={AuthService.logout()}
+                    >Выход
+                </button>
+            </Link>
             </div>
+            :
+            <div className="navbar-sign">
+            <Link to="/login"> 
+                <button 
+                    type='button' 
+                    className='primary-btn'
+                    >Вход
+                </button>
+            </Link>
+            <Link to="/register"> 
+                <button type='button' className='secondary-btn'>Регистрация</button>
+            </Link>
+            </div>
+            }
         </div>
     );
 };
