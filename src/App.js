@@ -1,40 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
-import AppRouters from './common/AppRouters';
-import AuthService from './services/auth.service';
-import EventBus from './common/EventBus'
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from './components/navbar/Navbar';
+import Greeting from './components/greeting/Greeting'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
+import Main from './components/main/Main'
+import { Context } from '.';
+import {observer} from "mobx-react-lite";
 
 const App = () => {
-  const[user, setUser] = useState(undefined);
+  const {store} = useContext(Context);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser;
-
-    if(user) {
-      setUser(user);
-    }
-
-    EventBus.on('logout', () => {
-      logout();
-    });
-
-    return () => {
-      EventBus.remove('logout');
+    if(localStorage.getItem('token')) {
+      store.checkAuth();
     }
   }, []);
-
-  const logout = () => {
-    AuthService.logout();
-    setUser(undefined);
-  }
 
   return (
     <div>
       <Navbar/>
-      <AppRouters/>
+
+      <Routes>
+          <Route exact path='/' element={<Greeting/>}/> 
+          <Route exact path='/login' element={<Login/>}/> 
+          <Route exact path='/register' element={<Register/>}/> 
+          <Route exact path='/main' element={<Main/>}/> 
+        </Routes>
      </div>
   );
 };
 
-export default App;
+export default observer(App);
