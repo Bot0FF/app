@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const API_URL = 'http://localhost:8080';
+export const API_URL = "http://localhost:8080";
 
 //запрос с базовым URL
 const $api = axios.create({
-    // withCredentials: true,
     baseURL: API_URL
 });
 

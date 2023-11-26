@@ -3,11 +3,6 @@ body{
     scroll-behavior: smooth;
 }
 
-a{
-    text-decoration: none;
-    color: inherit;
-}
-
 .section__padding{
     padding: 4rem 6rem;
 }

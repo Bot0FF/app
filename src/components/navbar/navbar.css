@@ -6,24 +6,13 @@
   border-bottom: 2px solid #493a3a;
 }
 
-.navbar-links{
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.navbar-links_logo{
-  margin-right: 2rem;
+.navbar-logo{
   display: flex;
   align-items: center;
   color: #8b6e6e;
-}
-
-.navbar-links_logo h1{
   font-family: var(--font-family);
   font-weight: bold;
-  font-size: 28px;
+  font-size: 18px;
   line-height: 17px;
 }
 
@@ -33,28 +22,25 @@
   align-items: center;
 }
 
-.navbar-sign .primary-btn,
-.navbar-menu_container-links-sign .primary-btn
+.navbar-sign .primary-btn
 {
   background: var(--primary-btn);
-  border-radius: 10px;
 }
-.navbar-sign .secondary-btn,
-.navbar-menu_container-links-sign .secondary-btn
+
+.navbar-sign .secondary-btn
 {
   background: transparent;
   border: 1px solid var(--primary-color);
   margin: 0 1rem;
   color: var(--primary-color);
-  border-radius: 10px;
 }
 
-.navbar-sign button,
-.navbar-menu_container button{
+.navbar-sign button{
   color: #fff;
   padding: 0.5rem 1rem;
   font-family: var(--font-family);
   font-weight: 500;
   border: none;
   font-size: 16px;
+  border-radius: 10px;
 }

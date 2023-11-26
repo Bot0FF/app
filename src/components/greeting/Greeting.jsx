@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import "./greeting.css";
 
-const Main = () => {
+const Greeting = () => {
     return (
-        <div>
-            
+        <div className="greeting">
+            <h1>Добро пожаловать в игру!</h1>
         </div>
     );
 };
 
-export default Main;
+export default Greeting;

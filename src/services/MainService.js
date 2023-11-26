@@ -1,24 +1,24 @@
-import $api from '../http/index'
+import $api from "../http/index";
 
 
 const mainPage = () => {
-    return $api.get('/');
+    return $api.get("/");
 };
     
 const moveUp = () => {
-    return $api.get('/move/up');
+    return $api.get("/move/up");
 };
 
 const moveDown = () => {
-    return $api.get('/move/down');
+    return $api.get("/move/down");
 };
 
 const moveLeft = () => {
-    return $api.get('/move/left');
+    return $api.get("/move/left");
 };
 
 const moveRight = () => {
-    return $api.get('/move/right');
+    return $api.get("/move/right");
 };
 
 const UserService = {

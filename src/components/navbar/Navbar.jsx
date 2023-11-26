@@ -1,59 +1,52 @@
-import React, { useContext } from 'react';
-import './navbar.css'
-import { Link } from "react-router-dom"
-import { observer } from 'mobx-react-lite';
-import { Context } from '../../index';
+import React, { useContext } from "react";
+import "./navbar.css";
+import { NavLink } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../index";
 
-const Navbar = () => {
-    const {store} = useContext(Context);
+const Navbar = ({auth}) => {
+    const { store } = useContext(Context);
 
     return (
-        store.isAuth
-        ?
-        <div className='navbar'>
-            <div className='navbar-links'>
-                <div className='navbar-links_logo'>
-                    <Link to="/"> 
+        auth
+            ?
+            <div className="navbar">
+                <div className="navbar-logo">
                     <h1>VezLand</h1>
-                    </Link>
                 </div>
-            </div>
-            <div className="navbar-sign">
-                <Link to="/logout"> 
-                    <button 
-                        type='button' 
-                        className='primary-btn'
+                <div className="navbar-sign">
+                    <NavLink to="/">
+                        <button
+                            type="button"
+                            className="primary-btn"
+                            onClick={(e) => store.logout()}
                         >Выход
-                    </button>
-                </Link>
-            </div>
-        </div>
-        :
-        <div className='navbar'>
-            <div className='navbar-links'>
-                <div className='navbar-links_logo'>
-                    <Link to="/"> 
-                    <h1>VezLand</h1>
-                    </Link>
+                        </button>
+                    </NavLink>
                 </div>
             </div>
-            <div className="navbar-sign">
-                <Link to="/login"> 
-                    <button 
-                        type='button' 
-                        className='primary-btn'
+            :
+            <div className="navbar">
+                <div className="navbar-logo">
+                        <h1>VezLand</h1>
+                </div>
+                <div className="navbar-sign">
+                    <NavLink to="/login">
+                        <button
+                            type="button"
+                            className="primary-btn"
                         >Вход
-                    </button>
-                </Link>
-                <Link to="/register"> 
-                    <button 
-                        type='button' 
-                        className='secondary-btn'
+                        </button>
+                    </NavLink>
+                    <NavLink to="/register">
+                        <button
+                            type="button"
+                            className="secondary-btn"
                         >Регистрация
-                    </button>
-                </Link>
+                        </button>
+                    </NavLink>
+                </div>
             </div>
-        </div>
     );
 };
 

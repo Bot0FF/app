@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_URL } from "./index";
 
 export default class Store {
-    user = '';
+    user = {};
     isAuth = false;
 
     constructor() {
@@ -23,7 +23,7 @@ export default class Store {
         try {
             const response = await AuthService.login(username, password);
             console.log(response);
-            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem("token", response.data.accessToken);
             this.setUser(response.data.username);
             this.setAuth(true);
         } catch(e) {
@@ -35,7 +35,7 @@ export default class Store {
         try {
             const response = await AuthService.registration(username, password);
             console.log(response)
-            localStorage.setItem('token', response.data.accessToken);
+            localStorage.setItem("token", response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.username);
         } catch (e) {
@@ -46,7 +46,7 @@ export default class Store {
     async logout () {
         try {
             await AuthService.logout();
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             this.setAuth(false);
             this.setUser({});
         } catch (e) {
@@ -56,13 +56,12 @@ export default class Store {
 
     async checkAuth() {
         try {
-            const response = await axios.get(`${API_URL}/`, {withCredentials: true})
-            console.log(response);
-            localStorage.setItem('token', response.data.accessToken);
+            const response = await axios.get(`${API_URL}/refresh`)
+            localStorage.setItem("token", response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.username);
         } catch (e) {
-            console.log(e.response);
+            // console.log(e.response);
         }
     }
 }

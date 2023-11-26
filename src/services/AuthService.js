@@ -1,7 +1,7 @@
-import $api from '../common/index';
+import $api from "../common/index";
 
 const login = async (username, password) => {
-    return $api.post('/auth', {
+    return $api.post("/auth", {
         username, 
         password
     });
@@ -12,7 +12,7 @@ const logout = async () => {
 };
 
 const register = async (username, email, password) => {
-    return $api.post('/register', {
+    return $api.post("/register", {
         username,
         email,
         password
