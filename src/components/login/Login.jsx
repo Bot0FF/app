@@ -34,7 +34,10 @@ const Login = () => {
                     <div className="login-button">
                         <button
                             className="login-writeButton"
-                            onClick={() => store.login(username, password)}> 
+                            onClick={(e) => {
+                                e.preventDefault();
+                                store.login(username, password)
+                                }}> 
                             <span>Войти</span>
                         </button>
                     </div>

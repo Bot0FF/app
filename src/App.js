@@ -14,12 +14,17 @@ const App = () => {
   const {store} = useContext(Context);
 
   useEffect(() => {
-    if(localStorage.getItem('token')) {
+    if(localStorage.getItem('accessToken')) {
       store.checkAuth();
     }
   }, []);
 
+  if(store.isLoading) {
+    return <div><h1>Загрузка...</h1></div>
+  }
+
   return (
+
     store.isAuth
       ?
       <div>  

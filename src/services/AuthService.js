@@ -8,7 +8,7 @@ const login = async (username, password) => {
 };  
 
 const logout = async () => {
-    return $api.post("/logout");
+    return $api.get("/logout");
 };
 
 const register = async (username, email, password) => {

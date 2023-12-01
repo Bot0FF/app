@@ -4,40 +4,43 @@ import axios from "axios";
 import { API_URL } from "./index";
 
 export default class Store {
-    user = {};
+    user;
     isAuth = false;
+    isLoading = false;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    setUser(username) {
-        this.user = username;
+    setUser(user) {
+        this.user = user;
     }
 
     setAuth(bool) {
         this.isAuth = bool;
     }
 
+    setLoading(bool) {
+        this.isLoading = bool;
+    }
+
     async login (username, password) {
         try {
             const response = await AuthService.login(username, password);
-            console.log(response);
-            localStorage.setItem("token", response.data.accessToken);
-            this.setUser(response.data.username);
+            localStorage.setItem("accessToken", response.data.accessToken);
             this.setAuth(true);
+            this.setUser(response.data.player);
         } catch(e) {
             console.log(e.response);
         }
     }
 
-    async registration (username, password) {
+    async register (username, email, password) {
         try {
-            const response = await AuthService.registration(username, password);
-            console.log(response)
-            localStorage.setItem("token", response.data.accessToken);
+            const response = await AuthService.register(username, email, password);
+            localStorage.setItem("accessToken", response.data.accessToken);
             this.setAuth(true);
-            this.setUser(response.data.username);
+            this.setUser(response.data.player);
         } catch (e) {
             console.log(e.response);
         }
@@ -46,7 +49,7 @@ export default class Store {
     async logout () {
         try {
             await AuthService.logout();
-            localStorage.removeItem("token");
+            localStorage.removeItem("accessToken");
             this.setAuth(false);
             this.setUser({});
         } catch (e) {
@@ -55,13 +58,16 @@ export default class Store {
     }
 
     async checkAuth() {
+        this.setLoading(true);
         try {
-            const response = await axios.get(`${API_URL}/refresh`)
-            localStorage.setItem("token", response.data.accessToken);
+            const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true})
+            localStorage.setItem("accessToken", response.data.accessToken);
             this.setAuth(true);
-            this.setUser(response.data.username);
+            this.setUser(response.data.player);
         } catch (e) {
-            // console.log(e.response);
+            console.log(e.response);
+        } finally {
+            this.setLoading(false);
         }
     }
 }
