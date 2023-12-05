@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
-import Store from './common/store'
+import StateUser from './common/StateUser'
 
-const store = new Store();
+const stateUser = new StateUser();
 
 export const Context = createContext({
-    store
+    stateUser
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Context.Provider value={{store}}>
+    <Context.Provider value={{stateUser}}>
         <BrowserRouter>
             <App />
         </BrowserRouter>

@@ -1,14 +1,14 @@
-import $api from "../common/index";
+import $api from "./UrlService";
 
 const login = async (username, password) => {
     return $api.post("/auth", {
-        username, 
+        username,
         password
     });
 };  
 
 const logout = async () => {
-    return $api.get("/logout");
+    return $api.post("/logout");
 };
 
 const register = async (username, email, password) => {
@@ -19,10 +19,15 @@ const register = async (username, email, password) => {
     });
 };
 
+const checkAuth = async () => {
+    return $api.get();
+};
+
 const AuthService = {
     register,
     login,
-    logout
+    logout,
+    checkAuth
 };
   
 export default AuthService;

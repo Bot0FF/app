@@ -7,7 +7,7 @@ const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {store} = useContext(Context);
+    const {stateUser} = useContext(Context);
 
     return (
         <div className='register section__padding'>
@@ -43,7 +43,7 @@ const Register = () => {
                             className='register-writeButton'
                             onClick={(e) => {
                                 e.preventDefault();
-                                store.register(username, email, password)
+                                stateUser.register(username, email, password)
                                 }}
                             >Регистрация
                         </button>

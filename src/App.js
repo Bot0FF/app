@@ -6,36 +6,28 @@ import Greeting from "./components/greeting/Greeting";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Main from "./components/main/Main";
-
 import { Context } from "./index";
 import { observer } from "mobx-react-lite";
 
 const App = () => {
-  const {store} = useContext(Context);
+  const {stateUser} = useContext(Context);
 
   useEffect(() => {
-    if(localStorage.getItem('accessToken')) {
-      store.checkAuth();
-    }
-  }, []);
-
-  if(store.isLoading) {
-    return <div><h1>Загрузка...</h1></div>
-  }
+    stateUser.checkAuth();
+  });
 
   return (
-
-    store.isAuth
+    stateUser.isAuth
       ?
       <div>  
-        <Navbar auth={true}/>
+        <Navbar/>
         <Routes>
           <Route exact path="/im" element={<Main/>}/> 
         </Routes>
       </div>  
       :
       <div>
-        <Navbar auth={false}/>
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Greeting/>}/> 
           <Route path="/login" element={<Login/>}/> 

@@ -6,7 +6,12 @@ import {observer} from "mobx-react-lite";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {store} = useContext(Context);
+    const {stateUser} = useContext(Context);
+
+    let login = (e) => {
+        e.preventDefault();
+        stateUser.login(username, password);
+    }
 
     return (
         <div className="login section__padding">
@@ -34,10 +39,7 @@ const Login = () => {
                     <div className="login-button">
                         <button
                             className="login-writeButton"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                store.login(username, password)
-                                }}> 
+                            onClick={login}> 
                             <span>Войти</span>
                         </button>
                     </div>

@@ -4,11 +4,15 @@ import { NavLink } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
 
-const Navbar = ({auth}) => {
-    const { store } = useContext(Context);
+const Navbar = () => {
+    const {stateUser} = useContext(Context);
+
+    let logout = () => {
+        stateUser.logout();
+    };
 
     return (
-        auth
+        stateUser.isAuth
             ?
             <div className="navbar">
                 <div className="navbar-logo">
@@ -19,7 +23,7 @@ const Navbar = ({auth}) => {
                         <button
                             type="button"
                             className="primary-btn"
-                            onClick={(e) => store.logout()}
+                            onClick={logout}
                         >Выход
                         </button>
                     </NavLink>

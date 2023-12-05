@@ -1,32 +1,19 @@
-import $api from "../http/index";
+import $api from "./UrlService";
 
 
 const mainPage = () => {
     return $api.get("/");
 };
     
-const moveUp = () => {
-    return $api.get("/move/up");
+const moveUser = async (direction) => {
+    return $api.post("/move", {
+        direction: direction
+    });
 };
 
-const moveDown = () => {
-    return $api.get("/move/down");
-};
-
-const moveLeft = () => {
-    return $api.get("/move/left");
-};
-
-const moveRight = () => {
-    return $api.get("/move/right");
-};
-
-const UserService = {
+const MainService = {
     mainPage,
-    moveUp,
-    moveDown,
-    moveLeft,
-    moveRight,
+    moveUser
 };
   
-export default UserService;
+export default MainService;
