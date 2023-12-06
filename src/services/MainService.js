@@ -1,19 +1,15 @@
 import $api from "./UrlService";
+import { updateUser } from "../index";
 
-
-const mainPage = () => {
+export const mainPage = async () => {
     return $api.get("/");
 };
     
-const moveUser = async (direction) => {
-    return $api.post("/move", {
+export const moveUser = async (direction) => {
+    $api.post("/move", {
         direction: direction
-    });
+    })
+    .then(response => {
+        updateUser(response.data, true)
+    })
 };
-
-const MainService = {
-    mainPage,
-    moveUser
-};
-  
-export default MainService;

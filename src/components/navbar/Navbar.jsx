@@ -6,7 +6,7 @@ import { Context } from "../../index";
 
 const Navbar = () => {
     const {stateUser} = useContext(Context);
-
+    
     let logout = () => {
         stateUser.logout();
     };

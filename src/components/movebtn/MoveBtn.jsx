@@ -1,32 +1,14 @@
-import React, {useContext} from "react";
+import React from "react";
 import "./moveBtn.css";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
-import MainService from "../../services/MainService"
 import { observer } from "mobx-react-lite";
-import { Context } from "../../index";
+import { moveUser } from "../../services/MainService";
 
 const MoveBtn = () => {
-    const {stateUser} = useContext(Context);
 
-    let moveUp = async () => {
-        const response = await MainService.moveUser("up");
-        stateUser.setUser(response.data);
-    }
-
-    let moveLeft = async () => {
-        const response = await MainService.moveUser("left");
-        stateUser.setUser(response.data);
-    }
-
-    let moveRight = async () => {
-        const response = await MainService.moveUser("right");
-        stateUser.setUser(response.data);
-    }
-
-    let moveDown = async () => {
-        const response = await MainService.moveUser("down");
-        stateUser.setUser(response.data);
+    let move = async (direction) => {
+        moveUser(direction);
     }
 
     return (
@@ -35,7 +17,7 @@ const MoveBtn = () => {
             <Button 
                 variant="outlined" 
                 size="medium"
-                onClick={moveUp}
+                onClick={() => move("up")}
                 >Север
             </Button>
             </div>
@@ -43,13 +25,13 @@ const MoveBtn = () => {
             <Button 
                 variant="outlined" 
                 size="medium"
-                onClick={moveLeft}
+                onClick={() => move("left")}
                 >Запад
             </Button>
             <Button 
                 variant="outlined" 
                 size="medium"
-                onClick={moveRight}
+                onClick={() => move("right")}
                 >Восток
             </Button>
             </div>
@@ -57,7 +39,7 @@ const MoveBtn = () => {
             <Button 
                 variant="outlined" 
                 size="medium"
-                onClick={moveDown}
+                onClick={() => move("down")}
                 >Юг
             </Button>
             </div>
