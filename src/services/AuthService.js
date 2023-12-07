@@ -1,24 +1,49 @@
 import $api from "./UrlService";
+import { updateUser } from "../index";
 
 export const login = async (username, password) => {
-    return $api.post("/auth", {
+    $api.post("/auth", {
         username,
         password
-    });
+    })
+    .then(response => {
+        updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
+    })
 };  
 
 export const logout = async () => {
-    return $api.post("/logout");
+    $api.post("/logout")
+    .then(response => {
+        updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
+    })
 };
 
 export const register = async (username, email, password) => {
-    return $api.post("/register", {
+    $api.post("/register", {
         username,
         email,
         password
-    });
+    })
+    .then(response => {
+        updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
+    })
 };
 
 export const checkAuth = async () => {
-    return $api.get();
+    $api.get()
+    .then(response => {
+        updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
+    })
 };

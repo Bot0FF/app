@@ -1,16 +1,15 @@
-import React, { useContext, useState } from "react";
-import "./login.css"
-import { Context } from "../../index";
+import React, { useState } from "react";
+import "./login.css";
 import {observer} from "mobx-react-lite";
+import {login} from "../../services/AuthService";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {stateUser} = useContext(Context);
 
-    let login = (e) => {
+    let tryLogin = (e) => {
         e.preventDefault();
-        stateUser.login(username, password);
+        login(username, password);
     }
 
     return (
@@ -39,7 +38,7 @@ const Login = () => {
                     <div className="login-button">
                         <button
                             className="login-writeButton"
-                            onClick={login}> 
+                            onClick={tryLogin}> 
                             <span>Войти</span>
                         </button>
                     </div>

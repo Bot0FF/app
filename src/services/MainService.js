@@ -2,7 +2,13 @@ import $api from "./UrlService";
 import { updateUser } from "../index";
 
 export const mainPage = async () => {
-    return $api.get("/");
+    $api.get("/")
+    .then(response => {
+        updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
+    })
 };
     
 export const moveUser = async (direction) => {
@@ -11,5 +17,8 @@ export const moveUser = async (direction) => {
     })
     .then(response => {
         updateUser(response.data, true)
+    },
+    error => {
+        console.log(error.response.data);
     })
 };

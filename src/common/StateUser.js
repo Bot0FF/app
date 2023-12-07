@@ -1,5 +1,4 @@
 import { makeAutoObservable } from "mobx"
-import { checkAuth } from "../services/AuthService";
 
 export default class StateUser {
     user = {};
@@ -12,14 +11,5 @@ export default class StateUser {
     setUser(user, bool) {
         this.user = user;
         this.isAuth = bool;
-    }
-
-    async checkAuth() {
-        try {
-            const response = await checkAuth();
-            this.setUser(response.data, true);
-        } catch (e) {
-            console.log(e.response);
-        }
     }
 }

@@ -3,12 +3,13 @@ import "./navbar.css";
 import { NavLink } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
+import {logout} from "../../services/AuthService";
 
 const Navbar = () => {
     const {stateUser} = useContext(Context);
     
-    let logout = () => {
-        stateUser.logout();
+    let tryLogout = () => {
+        logout();
     };
 
     return (
@@ -23,7 +24,7 @@ const Navbar = () => {
                         <button
                             type="button"
                             className="primary-btn"
-                            onClick={logout}
+                            onClick={tryLogout}
                         >Выход
                         </button>
                     </NavLink>

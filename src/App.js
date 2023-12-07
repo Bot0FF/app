@@ -6,6 +6,7 @@ import Greeting from "./components/greeting/Greeting";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Main from "./components/main/Main";
+import {checkAuth} from "./services/AuthService"
 import { Context } from "./index";
 import { observer } from "mobx-react-lite";
 
@@ -13,7 +14,7 @@ const App = () => {
   const {stateUser} = useContext(Context);
 
   useEffect(() => {
-    stateUser.checkAuth();
+    checkAuth();
   });
 
   return (
