@@ -2,7 +2,8 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
+import { mail } from './common/MailUser';
 import StateUser from './common/StateUser'
 
 const stateUser = new StateUser();
@@ -20,7 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Context.Provider value={{stateUser}}>
         <BrowserRouter>
-            <App/>
+            <App mail={mail}/>
         </BrowserRouter>
     </Context.Provider>
 );

@@ -15,17 +15,17 @@ const Main = () => {
                     <a>MAP</a>
                 </div>
                 <div className="hp-item">
-                    <Tooltip title="HP" placement="top" arrow>
-                        <a>HP: {100}</a>
+                    <Tooltip title="HP" placement="left" arrow>
+                        <a>HP: {stateUser.user.hp}</a>
                     </Tooltip>
                 </div>
                 <div className="mana-item">
-                    <Tooltip title="MANA" placement="top" arrow>
-                        <a>MANA: {100}</a>
+                    <Tooltip title="MANA" placement="right" arrow>
+                        <a>MANA: {stateUser.user.mana}</a>
                     </Tooltip>
                 </div>
                 <div className="position-item">
-                    <a>POSITION: {stateUser.user.posY}</a>
+                    <a>POSITION: {`${stateUser.user.posX} / ${stateUser.user.posY} `}</a>
                 </div>
             </div>
             <MoveBtn />

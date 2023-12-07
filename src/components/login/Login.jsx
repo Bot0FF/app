@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 import {observer} from "mobx-react-lite";
 import {login} from "../../services/AuthService";
@@ -6,10 +7,11 @@ import {login} from "../../services/AuthService";
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    let tryLogin = (e) => {
-        e.preventDefault();
+    let tryLogin = () => {
         login(username, password);
+        navigate("/im");
     }
 
     return (

@@ -9,8 +9,9 @@ import Main from "./components/main/Main";
 import {checkAuth} from "./services/AuthService"
 import { Context } from "./index";
 import { observer } from "mobx-react-lite";
+import Dialogs from "./components/mail/Dialogs";
 
-const App = () => {
+const App = (props) => {
   const {stateUser} = useContext(Context);
 
   useEffect(() => {
@@ -23,7 +24,8 @@ const App = () => {
       <div>  
         <Navbar/>
         <Routes>
-          <Route exact path="/im" element={<Main/>}/> 
+          <Route path="/im" element={<Main/>}/> 
+          <Route path="/mail/*" element={<Dialogs mail={props.mail}/>}/> 
         </Routes>
       </div>  
       :

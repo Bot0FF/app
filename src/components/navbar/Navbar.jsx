@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import "./navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
 import {logout} from "../../services/AuthService";
 
 const Navbar = () => {
     const {stateUser} = useContext(Context);
+    const navigate = useNavigate();
     
     let tryLogout = () => {
         logout();
+        navigate("/")
     };
 
     return (
