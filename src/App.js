@@ -25,7 +25,7 @@ const App = (props) => {
         <Navbar/>
         <Routes>
           <Route path="/im" element={<Main/>}/> 
-          <Route path="/mail/*" element={<Dialogs mail={props.mail}/>}/> 
+          <Route path="/mail/*" element={<Dialogs mailState={props.mailState} dispatch={props.dispatch}/>}/> 
         </Routes>
       </div>  
       :

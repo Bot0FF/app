@@ -1,21 +1,28 @@
 import React from 'react';
-import "./dialogs.css";
+import "./mail.css";
 import DialogItem from './DialogItem';
 import Message from './Message';
 
 const Dialogs = (props) => {
 
-    let newMessage = React.createRef();
+    let mailState = props.mailState;
+    let newMessageBody = props.mailState.newMessageBody;
+
+    let updateNewMessageBody = (e) => {
+        let body = e.target.value;
+        let action = {type: "UPDATE_NEW_MESSAGE_BODY", body: body};
+        props.dispatch(action);
+    };
 
     let sendMessage = () => {
-        let text = newMessage.current.value;
-        console.log(text)
-    }
+        let action = {type: "SEND_MESSAGE"};
+        props.dispatch(action);
+    };
 
-    let dialogs = props.mail.dialogs
+    let dialogs = mailState.dialogs
         .map((dialog) => <DialogItem from={dialog.from} id={dialog.id}/>);
 
-    let messages = props.mail.messages
+    let messages = mailState.messages
         .map((message) => <Message message={message.message}/>)
 
     return (
@@ -27,7 +34,11 @@ const Dialogs = (props) => {
                 {messages}
                 <br />
                 <div>
-                    <textarea ref={newMessage}/>
+                    <textarea 
+                        value={newMessageBody}
+                        onChange={updateNewMessageBody}
+                        placeholder="Введите сообщение..."    
+                    />
                 </div>
                 <div>
                     <button

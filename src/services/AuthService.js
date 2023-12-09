@@ -10,7 +10,7 @@ export const login = async (username, password) => {
         updateUser(response.data, true)
     },
     error => {
-        console.log(error.response.data);
+        console.log(error.code);
     })
 };  
 
@@ -20,7 +20,7 @@ export const logout = async () => {
         updateUser(response.data, true)
     },
     error => {
-        console.log(error.response.data);
+        console.log(error.code);
     })
 };
 
@@ -34,7 +34,7 @@ export const register = async (username, email, password) => {
         updateUser(response.data, true)
     },
     error => {
-        console.log(error.response.data);
+        console.log(error.code);
     })
 };
 
@@ -44,6 +44,6 @@ export const checkAuth = async () => {
         updateUser(response.data, true)
     },
     error => {
-        console.log(error.response.data);
+        console.log(error.code);
     })
 };
