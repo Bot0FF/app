@@ -19,18 +19,17 @@ export const updateUser = (user, bool) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-export let rerenderTree = (mailState) => {
+export let rerenderTree = (mailStore) => {
     root.render(
         <Context.Provider value={{ stateUser }}>
             <BrowserRouter>
-                <App mailState={mailState.mailPage} dispatch={mailStore.dispatch.bind(mailStore)} />
+                <App mailStore={mailStore}/>
             </BrowserRouter>
         </Context.Provider>
     );
 };
 
-rerenderTree(mailStore.getState());
+rerenderTree(mailStore);
 mailStore.subscribe(() => {
-    let mailState = mailStore.getState();
-    rerenderTree(mailState);
+    rerenderTree(mailStore);
 })

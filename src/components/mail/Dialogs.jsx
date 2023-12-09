@@ -4,19 +4,16 @@ import DialogItem from './DialogItem';
 import Message from './Message';
 
 const Dialogs = (props) => {
-
     let mailState = props.mailState;
     let newMessageBody = props.mailState.newMessageBody;
 
     let updateNewMessageBody = (e) => {
         let body = e.target.value;
-        let action = {type: "UPDATE_NEW_MESSAGE_BODY", body: body};
-        props.dispatch(action);
+        props.updateNewMessageBody(body);
     };
 
     let sendMessage = () => {
-        let action = {type: "SEND_MESSAGE"};
-        props.dispatch(action);
+        props.sendMessage();
     };
 
     let dialogs = mailState.dialogs
