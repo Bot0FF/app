@@ -13,10 +13,10 @@ const Dialogs = (props) => {
         props.sendMessage();
     };
 
-    let dialogs = props.dialogs
+    let dialogs = props.mailPage.dialogs
         .map((dialog) => <DialogItem key={dialog.id} id={dialog.id} from={dialog.from}/>);
 
-    let messages = props.messages
+    let messages = props.mailPage.messages
         .map((message) => <Message key={message.id} message={message.message}/>)
 
     return (
@@ -29,7 +29,7 @@ const Dialogs = (props) => {
                 <br />
                 <div>
                     <textarea 
-                        value={props.newMessageBody}
+                        value={props.mailPage.newMessageBody}
                         onChange={updateNewMessageBody}
                         placeholder="Введите сообщение..."    
                     />

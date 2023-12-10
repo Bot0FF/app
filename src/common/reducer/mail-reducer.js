@@ -16,22 +16,21 @@ let initialMailState = {
 
 //принимает action и возвращает измененные данные имеющейся почты 
 const mailReducer = (mailState = initialMailState, action) => {
+
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY: {
-            let mailStateCopy = { ...mailState };
-            mailStateCopy.dialogs = [...mailState.dialogs];
-            mailStateCopy.newMessageBody = action.body;
-            return mailStateCopy;
+            return {
+                ...mailState,
+                newMessageBody: action.body
+            };
         }
         case SEND_MESSAGE: {
-            let newMessage = {
-                id: 3,
-                message: mailState.newMessageBody
+            let body = mailState.newMessageBody;
+            return {
+                ...mailState,
+                newMessageBody: "",
+                messages: [...mailState.messages, {id: Date.now(), message: body}]
             };
-            let mailStateCopy = { ...mailState };
-            mailStateCopy.messages = [...mailState.messages];
-            mailStateCopy.messages.push(newMessage);
-            return mailStateCopy;
         }
         default:
             return mailState;

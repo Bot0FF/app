@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 let mapMailStateToProps = (mailState) => {
     return{
-        dialogs: mailState.mailPage.dialogs,
-        messages: mailState.mailPage.messages,
-        updateNewMessageBody: mailState.mailPage.newMessageBody
+        mailPage: mailState.mailPage
     }
 }
 
