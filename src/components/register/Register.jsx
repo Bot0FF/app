@@ -1,13 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import './register.css'
-import { Context } from "../../index";
-import {observer} from "mobx-react-lite";
 
 const Register = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const {stateUser} = useContext(Context);
 
     return (
         <div className='register section__padding'>
@@ -43,7 +40,6 @@ const Register = () => {
                             className='register-writeButton'
                             onClick={(e) => {
                                 e.preventDefault();
-                                stateUser.register(username, email, password)
                                 }}
                             >Регистрация
                         </button>
@@ -54,4 +50,4 @@ const Register = () => {
     );
 };
 
-export default observer(Register);
+export default Register;

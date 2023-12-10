@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import {observer} from "mobx-react-lite";
 import {login} from "../../services/AuthService";
 
 const Login = () => {
@@ -50,4 +49,4 @@ const Login = () => {
     );
 };
 
-export default observer(Login);
+export default Login;

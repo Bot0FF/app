@@ -6,26 +6,17 @@ import Greeting from "./components/greeting/Greeting";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Main from "./components/main/Main";
-import {checkAuth} from "./services/AuthService"
-import { Context } from "./index";
-import { observer } from "mobx-react-lite";
 import MailContainer from "./components/mail/MailContainer";
 
-const App = (props) => {
-  const {stateUser} = useContext(Context);
-
-  useEffect(() => {
-    checkAuth();
-  });
-
+const App = () => {
   return (
-    stateUser.isAuth
+    true
       ?
       <div>  
         <Navbar/>
         <Routes>
           <Route path="/im" element={<Main/>}/> 
-          <Route path="/mail/*" element={<MailContainer mailStore={props.mailStore}/>}/> 
+          <Route path="/mail/*" element={<MailContainer/>}/> 
         </Routes>
       </div>  
       :
@@ -40,4 +31,4 @@ const App = (props) => {
   );
 };
 
-export default observer(App);
+export default App;

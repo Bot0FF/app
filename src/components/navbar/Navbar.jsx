@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { observer } from "mobx-react-lite";
-import { Context } from "../../index";
 import {logout} from "../../services/AuthService";
 
 const Navbar = () => {
-    const {stateUser} = useContext(Context);
     const navigate = useNavigate();
     
     let tryLogout = () => {
@@ -15,7 +12,7 @@ const Navbar = () => {
     };
 
     return (
-        stateUser.isAuth
+        true
             ?
             <div className="navbar">
                 <div className="navbar-logo">
@@ -57,4 +54,4 @@ const Navbar = () => {
     );
 };
 
-export default observer(Navbar);
+export default Navbar;

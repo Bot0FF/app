@@ -1,5 +1,4 @@
 import $api from "./UrlService";
-import { updateUser } from "../index";
 
 export const login = async (username, password) => {
     $api.post("/auth", {
@@ -7,7 +6,7 @@ export const login = async (username, password) => {
         password
     })
     .then(response => {
-        updateUser(response.data, true)
+
     },
     error => {
         console.log(error.code);
@@ -17,7 +16,7 @@ export const login = async (username, password) => {
 export const logout = async () => {
     $api.post("/logout")
     .then(response => {
-        updateUser(response.data, true)
+
     },
     error => {
         console.log(error.code);
@@ -31,7 +30,7 @@ export const register = async (username, email, password) => {
         password
     })
     .then(response => {
-        updateUser(response.data, true)
+
     },
     error => {
         console.log(error.code);
@@ -41,7 +40,7 @@ export const register = async (username, email, password) => {
 export const checkAuth = async () => {
     $api.get()
     .then(response => {
-        updateUser(response.data, true)
+
     },
     error => {
         console.log(error.code);

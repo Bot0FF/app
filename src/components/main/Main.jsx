@@ -1,12 +1,9 @@
-import React, { useContext } from "react";
-import { observer } from "mobx-react-lite";
+import React from "react";
 import "./main.css";
-import { Context } from "../../index";
 import MoveBtn from "../movebtn/MoveBtn";
 import Tooltip from "@mui/material/Tooltip";
 
 const Main = () => {
-    const { stateUser } = useContext(Context);
 
     return (
         <div>
@@ -16,16 +13,16 @@ const Main = () => {
                 </div>
                 <div className="hp-item">
                     <Tooltip title="HP" placement="left" arrow>
-                        <a>HP: {stateUser.user.hp}</a>
+                        <a>HP: </a>
                     </Tooltip>
                 </div>
                 <div className="mana-item">
                     <Tooltip title="MANA" placement="right" arrow>
-                        <a>MANA: {stateUser.user.mana}</a>
+                        <a>MANA:</a>
                     </Tooltip>
                 </div>
                 <div className="position-item">
-                    <a>POSITION: {`${stateUser.user.posX} / ${stateUser.user.posY} `}</a>
+                    <a>POSITION:</a>
                 </div>
             </div>
             <MoveBtn />
@@ -33,4 +30,4 @@ const Main = () => {
     );
 };
 
-export default observer(Main);
+export default Main;

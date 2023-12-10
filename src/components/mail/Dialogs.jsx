@@ -4,9 +4,6 @@ import DialogItem from './DialogItem';
 import Message from './Message';
 
 const Dialogs = (props) => {
-    let mailState = props.mailState;
-    let newMessageBody = props.mailState.newMessageBody;
-
     let updateNewMessageBody = (e) => {
         let body = e.target.value;
         props.updateNewMessageBody(body);
@@ -16,11 +13,11 @@ const Dialogs = (props) => {
         props.sendMessage();
     };
 
-    let dialogs = mailState.dialogs
-        .map((dialog) => <DialogItem from={dialog.from} id={dialog.id}/>);
+    let dialogs = props.dialogs
+        .map((dialog) => <DialogItem key={dialog.id} id={dialog.id} from={dialog.from}/>);
 
-    let messages = mailState.messages
-        .map((message) => <Message message={message.message}/>)
+    let messages = props.messages
+        .map((message) => <Message key={message.id} message={message.message}/>)
 
     return (
         <div className="mails">
@@ -32,7 +29,7 @@ const Dialogs = (props) => {
                 <br />
                 <div>
                     <textarea 
-                        value={newMessageBody}
+                        value={props.newMessageBody}
                         onChange={updateNewMessageBody}
                         placeholder="Введите сообщение..."    
                     />

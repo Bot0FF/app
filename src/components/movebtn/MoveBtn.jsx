@@ -2,7 +2,6 @@ import React from "react";
 import "./moveBtn.css";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
-import { observer } from "mobx-react-lite";
 import { moveUser } from "../../services/MainService";
 
 const MoveBtn = () => {
@@ -47,4 +46,4 @@ const MoveBtn = () => {
     );
 };
 
-export default observer(MoveBtn);
+export default MoveBtn;

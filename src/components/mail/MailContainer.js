@@ -1,22 +1,27 @@
-import React from 'react';
 import Dialogs from './Dialogs';
+import { connect } from 'react-redux';
 
-const MailContainer = (props) => {
-    let mailState = props.mailStore.getState();
-
-    let updateNewMessageBody = (body) => {
-        let action = {type: "UPDATE_NEW_MESSAGE_BODY", body: body};
-        props.mailStore.dispatch(action);
+let mapMailStateToProps = (mailState) => {
+    return{
+        dialogs: mailState.mailPage.dialogs,
+        messages: mailState.mailPage.messages,
+        updateNewMessageBody: mailState.mailPage.newMessageBody
     }
+}
 
-    let sendMessage = () => {
-        let action = {type: "SEND_MESSAGE"};
-        props.mailStore.dispatch(action);
+let mapDispatchToProps = (dispatch) => {
+    return {
+        updateNewMessageBody: (body) => {
+            let action = {type: "UPDATE_NEW_MESSAGE_BODY", body: body};
+            dispatch(action);
+        },
+        sendMessage: () => {
+            let action = {type: "SEND_MESSAGE"};
+            dispatch(action);
+        }
     }
-    
-    return (<Dialogs updateNewMessageBody={updateNewMessageBody}
-                        sendMessage={sendMessage}
-                        mailState={mailState.mailPage}/>);
-};
+}
+
+const MailContainer = connect(mapMailStateToProps, mapDispatchToProps)(Dialogs)
 
 export default MailContainer;
