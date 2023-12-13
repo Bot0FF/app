@@ -1,8 +1,8 @@
 const SEND_MESSAGE = "SEND_MESSAGE";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
 
-//начальные данные имеющейся почты
-let initialMailState = {
+//стейт
+let initialState = {
     dialogs: [
         { id: 1, from: "John" },
         { id: 2, from: "Mike" }
@@ -14,26 +14,35 @@ let initialMailState = {
     newMessageBody: ""
 }
 
-//принимает action и возвращает измененные данные имеющейся почты 
-const mailReducer = (mailState = initialMailState, action) => {
+//экшены, которые будет вызывать контейнер, при взаимодействии с UI
+export const updateNewMessageBody = (body) => {
+    return {type: "UPDATE_NEW_MESSAGE_BODY", body: body};
+};
+
+export const sendMessage = () => {
+    return {type: "SEND_MESSAGE"};
+}
+
+//через dispatch из контейнера в reducer передается action и обновляется state
+const mailReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY: {
             return {
-                ...mailState,
+                ...state,
                 newMessageBody: action.body
             };
         }
         case SEND_MESSAGE: {
-            let body = mailState.newMessageBody;
+            let body = state.newMessageBody;
             return {
-                ...mailState,
+                ...state,
                 newMessageBody: "",
-                messages: [...mailState.messages, {id: Date.now(), message: body}]
+                messages: [...state.messages, {id: Date.now(), message: body}]
             };
         }
         default:
-            return mailState;
+            return state;
     }
 };
 

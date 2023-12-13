@@ -7,6 +7,7 @@ import Login from "./components/login/Login";
 import Register from "./components/register/Register";
 import Main from "./components/main/Main";
 import MailContainer from "./components/mail/MailContainer";
+import LibraryContainer from "./components/library/LibraryContainer";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/im" element={<Main/>}/> 
           <Route path="/mail/*" element={<MailContainer/>}/> 
+          <Route path="/library" element={<LibraryContainer/>}/> 
         </Routes>
       </div>  
       :
