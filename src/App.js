@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
 import Navbar from "./components/navbar/Navbar";
-import Greeting from "./components/greeting/Greeting";
 import Login from "./components/login/Login";
 import Register from "./components/register/Register";
-import Main from "./components/main/Main";
+import MainContainer from "./components/main/MainContainer";
 import MailContainer from "./components/mail/MailContainer";
 import LibraryContainer from "./components/library/LibraryContainer";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
 
 const App = () => {
   return (
@@ -16,7 +15,7 @@ const App = () => {
       <div>  
         <Navbar/>
         <Routes>
-          <Route path="/im" element={<Main/>}/> 
+          <Route path="/im" element={<MainContainer/>}/> 
           <Route path="/mail/*" element={<MailContainer/>}/> 
           <Route path="/library" element={<LibraryContainer/>}/> 
         </Routes>
@@ -25,7 +24,6 @@ const App = () => {
       <div>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Greeting/>}/> 
           <Route path="/login" element={<Login/>}/> 
           <Route path="/register" element={<Register/>}/>
       </Routes>

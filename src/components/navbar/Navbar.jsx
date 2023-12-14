@@ -1,38 +1,14 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./navbar.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import {logout} from "../../services/AuthService";
 
 const Navbar = () => {
-    const navigate = useNavigate();
-    
-    let tryLogout = () => {
-        logout();
-        navigate("/")
-    };
 
     return (
-        true
-            ?
+        <div>
             <div className="navbar">
                 <div className="navbar-logo">
                     <h1>VezLand</h1>
-                </div>
-                <div className="navbar-sign">
-                    <NavLink to="/">
-                        <button
-                            type="button"
-                            className="primary-btn"
-                            onClick={tryLogout}
-                        >Выход
-                        </button>
-                    </NavLink>
-                </div>
-            </div>
-            :
-            <div className="navbar">
-                <div className="navbar-logo">
-                        <h1>VezLand</h1>
                 </div>
                 <div className="navbar-sign">
                     <NavLink to="/login">
@@ -51,6 +27,22 @@ const Navbar = () => {
                     </NavLink>
                 </div>
             </div>
+            <div>
+                <NavLink to="/im">
+                    <button>Главная</button>
+                </NavLink>
+            </div>
+            <div>
+                <NavLink to="/mail">
+                    <button>Почта</button>
+                </NavLink>
+            </div>
+            <div>
+                <NavLink to="/library">
+                    <button>Библиотека</button>
+                </NavLink>
+            </div>
+        </div>
     );
 };
 

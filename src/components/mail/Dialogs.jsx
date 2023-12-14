@@ -1,7 +1,7 @@
 import React from 'react';
-import "./mail.css";
 import DialogItem from './DialogItem';
 import Message from './Message';
+import "./dialogs.css";
 
 const Dialogs = (props) => {
     let updateNewMessageBody = (e) => {

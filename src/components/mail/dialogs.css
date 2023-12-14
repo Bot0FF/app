@@ -1,9 +1,11 @@
 .mails {
     display: grid;
     grid-template-columns: 2fr 10fr;
+    text-align: center;
 }
 
 .mailsItems {
+    text-align: right;
     padding: 10px;
 }
 

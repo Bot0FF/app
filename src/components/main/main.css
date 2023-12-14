@@ -1,32 +1,11 @@
 .user-state {
     display: grid;
     padding-top: 20px;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
 }
 
-.map-item {
-    margin:0 auto;
-}
-
-.hp-item {
-    margin:0 auto;
-}
-
-.hp-item a{
-    margin:0 auto;
-}
-
-.mana-item {
-    margin:0 auto;
-}
-
-.mana-item a{
-    margin:0 auto;
-}
-
-.position-item {
-    margin:0 auto;
-}
-
-.position-item h1{
-    margin:0 auto;
+.button-item {
+    padding: 20px;
 }

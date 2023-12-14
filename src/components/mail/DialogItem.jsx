@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import "./mail.css";
+import "./dialogs.css";
 
 const DialogItem = (props) => {
     let path = "/mail/" + props.id;
