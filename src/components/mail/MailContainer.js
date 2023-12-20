@@ -1,27 +1,34 @@
+import React from "react";
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { updateNewMessageBody, sendMessage } from '../../common/reducer/mail-reducer';
 
+class MailContainer extends React.Component {
+
+    render() {
+        console.log(this.props)
+        return <>
+            <Dialogs
+                dialogs={this.props.dialogs}
+                messages={this.props.messages}
+                updateNewMessageBody={this.props.updateNewMessageBody}
+                sendMessage={this.props.sendMessage}
+                newMessageBody={this.props.newMessageBody}
+                />
+        </>
+    };
+};
+
 //передает props в UI компонент
 let mapMailStateToProps = (state) => {
     return{
-        mailPage: state.mailPage
-    }
-}
-
-//передает callback в UI компонент
-let mapDispatchToProps = (dispatch) => {
-    return {
-        updateNewMessageBody: (body) => {
-            dispatch(updateNewMessageBody(body));
-        },
-        sendMessage: () => {
-            dispatch(sendMessage());
-        }
+        dialogs: state.mailPage.dialogs,
+        messages: state.mailPage.messages
     }
 }
 
 //коннектит props и dispatch к UI компоненту
-const MailContainer = connect(mapMailStateToProps, mapDispatchToProps)(Dialogs)
-
-export default MailContainer;
+export default connect(mapMailStateToProps, {
+    updateNewMessageBody,
+    sendMessage
+})(MailContainer);

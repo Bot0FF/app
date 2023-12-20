@@ -16,12 +16,12 @@ let initialState = {
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
-export const setStateAC = (state) => ({ type: SET_STATE, state });
-export const setMoveUpAC = (player) => ({ type: SET_MOVE_UP, player });
-export const setMoveLeftAC = (player) => ({ type: SET_MOVE_LEFT, player });
-export const setMoveRightAC = (player) => ({ type: SET_MOVE_RIGHT, player });
-export const setMoveDownAC = (player) => ({ type: SET_MOVE_DOWN, player });
-export const toogleIsFetchingAC = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
+export const setState = (state) => ({ type: SET_STATE, state });
+export const setMoveUp = (player) => ({ type: SET_MOVE_UP, player });
+export const setMoveLeft = (player) => ({ type: SET_MOVE_LEFT, player });
+export const setMoveRight = (player) => ({ type: SET_MOVE_RIGHT, player });
+export const setMoveDown = (player) => ({ type: SET_MOVE_DOWN, player });
+export const toogleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
 
 //через dispatch из контейнера в reducer передается action и обновляется state
 const mainReducer = (state = initialState, action) => {

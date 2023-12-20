@@ -1,6 +1,32 @@
+import React from "react";
 import Library from "./Library";
+import axios from "axios";
 import { connect } from "react-redux";
-import { setEntitiesAC, setCurrentPageAC, setTotalEntitiesCountAC, openAC, hideAC } from "../../common/reducer/library-reducer";
+import { setEntities, setStartEntities, setCurrentPage, setTotalEntitiesCount } from "../../common/reducer/library-reducer";
+import { API_URL } from './../../services/UrlService';
+
+class LibraryContainer extends React.Component {
+
+    componentDidMount() {
+        this.props.setStartEntities();
+    }
+
+    onDownloadEntities = (type) => {
+        axios.get(API_URL + type).then(response => {
+            this.props.setEntities(response.data.libraries);
+            this.props.setTotalEntitiesCount(response.data.content);
+        });
+    }
+
+    render() {
+        return <>
+            <Library
+                entities={this.props.entities}
+                totalEntitiesCount={this.props.totalEntitiesCount}
+                onDownloadEntities={this.onDownloadEntities}/>
+        </>
+    };
+};
 
 //передает props в UI компонент
 let mapStateToProps = (state) => {
@@ -12,28 +38,10 @@ let mapStateToProps = (state) => {
     };
 };
 
-//передает callback в UI компонент
-let mapDispatchToProps = (dispatch) => {
-    return {
-        setEntities: (entities) => {
-            dispatch(setEntitiesAC(entities));
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber));
-        },
-        setTotalEntitiesCount: (totalEntitiesCount) => {
-            dispatch(setTotalEntitiesCountAC(totalEntitiesCount));
-        },
-        open: (id) => {
-            dispatch(openAC(id));
-        },
-        hide: (id) => {
-            dispatch(hideAC(id));
-        }
-    };
-};
-
 //коннектит props и dispatch к UI компоненту
-const LibraryContainer = connect(mapStateToProps, mapDispatchToProps)(Library)
-
-export default LibraryContainer;
+export default connect(mapStateToProps, {
+    setEntities,
+    setStartEntities,
+    setCurrentPage,
+    setTotalEntitiesCount
+})(LibraryContainer);
