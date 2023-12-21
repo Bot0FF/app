@@ -5,27 +5,27 @@ const Main = (props) => {
     return (
         <div className="user-state">
             <div>
-                <a>LOCATION: {props.props.content}</a>
+                <a>LOCATION: {props.content}</a>
             </div>
             <div>
-                <a>HP: {props.props.player.hp}</a>
+                <a>HP: {props.player.hp}</a>
             </div>
             <div>
-                <a>MANA: {props.props.player.mana}</a>
+                <a>MANA: {props.player.mana}</a>
             </div>
             <div>
-                <a>POSITION: {props.props.player.x} / {props.props.player.y}</a>
+                <a>POSITION: {props.player.x} / {props.player.y}</a>
             </div>
             <div className="button-item">
                 <div>
-                    <button onClick={() => props.props.setMoveUp()}>Север</button>
+                    <button onClick={() => props.onMovePlayer("up")}>Север</button>
                 </div>
                 <div>
-                    <button onClick={() => props.props.setMoveLeft()}>Запад</button>
-                    <button onClick={() => props.props.setMoveRight()}>Восток</button>
+                    <button onClick={() => props.onMovePlayer("left")}>Запад</button>
+                    <button onClick={() => props.onMovePlayer("right")}>Восток</button>
                 </div>
                 <div>
-                    <button onClick={() => props.props.setMoveDown()}>Юг</button>
+                    <button onClick={() => props.onMovePlayer("down")}>Юг</button>
                 </div>
             </div>
         </div>

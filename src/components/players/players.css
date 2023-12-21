@@ -1,0 +1,7 @@
+.players-state {
+    display: grid;
+    padding-top: 20px;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}

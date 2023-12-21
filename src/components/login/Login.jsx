@@ -1,16 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {login} from "../../services/AuthService";
+import React from "react";
 import "./login.css";
 
-const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+const Login = (props) => {
 
-    let tryLogin = () => {
-        login(username, password);
-        navigate("/im");
+    let onTryLogin = (e) => {
+        e.preventDefault();
+        props.onTryLogin(props.username, props.password);
     }
 
     return (
@@ -21,8 +16,8 @@ const Login = () => {
                     <div className="login-formGroup">
                         <label>Логин</label>
                         <input 
-                            onChange={e => setUsername(e.target.value)}
-                            value={username}
+                            onChange={e => props.setUsername(e.target.value)}
+                            value={props.username}
                             type="text" 
                             placeholder="Логин" 
                         />
@@ -30,8 +25,8 @@ const Login = () => {
                     <div className="login-formGroup">
                         <label>Пароль</label>
                         <input 
-                            onChange={e => setPassword(e.target.value)}
-                            value={password}
+                            onChange={e => props.setPassword(e.target.value)}
+                            value={props.password}
                             type="text" 
                             placeholder="Пароль" 
                         />
@@ -39,7 +34,7 @@ const Login = () => {
                     <div className="login-button">
                         <button
                             className="login-writeButton"
-                            onClick={tryLogin}> 
+                            onClick={(e) => onTryLogin(e)}> 
                             <span>Войти</span>
                         </button>
                     </div>

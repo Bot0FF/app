@@ -22,8 +22,8 @@ const Library = (props) => {
                             </div>
                             <button onClick={() => props.onDownloadEntities(entity.type)}>Посмотреть</button>
                         </span>
-                    </div>)
-            }
+                    </div>
+                )}
         </div>
     );
 };

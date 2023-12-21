@@ -6,7 +6,6 @@ import { updateNewMessageBody, sendMessage } from '../../common/reducer/mail-red
 class MailContainer extends React.Component {
 
     render() {
-        console.log(this.props)
         return <>
             <Dialogs
                 dialogs={this.props.dialogs}
