@@ -8,12 +8,14 @@ import PlayersContainer from "./components/players/PlayersContainer";
 import LibraryContainer from "./components/library/LibraryContainer";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import GreetingContainer from "./components/greeting/GreetingContainer";
 
 const App = () => {
   return (
     <div>
       <NavbarContainer />
       <Routes>
+        <Route path="/" element={<GreetingContainer />} />
         <Route path="/login" element={<LoginContainer />} />
         <Route path="/register" element={<Register />} />
         <Route path="/im" element={<MainContainer />} />

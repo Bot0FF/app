@@ -1,3 +1,4 @@
+import greetingReducer from "./reducer/greeting-reducer";
 import authReducer from "./reducer/auth-reducer";
 import mainReducer from "./reducer/main-reducer";
 import mailReducer from "./reducer/mail-reducer";
@@ -7,6 +8,7 @@ import { combineReducers, legacy_createStore as createStore } from "redux";
 
 //добавляем reducers
 let reducers = combineReducers({
+    greetingPage: greetingReducer,
     auth: authReducer,
     mainPage: mainReducer,
     mailPage: mailReducer,

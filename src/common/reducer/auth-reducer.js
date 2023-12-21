@@ -1,14 +1,17 @@
+import { action } from "mobx";
+
 const SET_USER_DATA = "SET_USER_DATA";
 const SET_USERNAME = "SET_USERNAME";
 const SET_PASSWORD = "SET_PASSWORD";
 
 let initialState = {
+    player: null,
     username: "",
     password: "",
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
-export const setAuthUserData = (username) => ({ type: SET_USER_DATA, username });
+export const setAuthUserData = (player) => ({ type: SET_USER_DATA, player: player });
 export const setUsername = (username) => ({ type: SET_USERNAME, username });
 export const setPassword = (password) => ({ type: SET_PASSWORD, password });
 
@@ -16,8 +19,7 @@ export const setPassword = (password) => ({ type: SET_PASSWORD, password });
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER_DATA:
-            console.log(state)
-            return { ...state, username: action.username };
+            return { ...state, player: action.player };
         case SET_USERNAME:
             return { ...state, username: action.username };
         case SET_PASSWORD:
