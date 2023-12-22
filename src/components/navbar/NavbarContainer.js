@@ -4,12 +4,12 @@ import Navbar from "./Navbar";
 
 class NavbarContainer extends React.Component {
     render() {
-        return <Navbar {...this.props}/>
+        return <Navbar {...this.props.state}/>
     };
 };
 
 const mapStateToProps = (state) => ({
-    player: state.auth.player
+    state: state.mainState
 });
 
 export default connect(mapStateToProps, {}) (NavbarContainer);

@@ -4,7 +4,7 @@ import axios from "axios";
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
 import { setNews, setIsAuth } from "../../common/reducer/greeting-reducer";
-import { setAuthUserData } from "../../common/reducer/auth-reducer";
+import { setState } from "../../common/reducer/main-reducer";
 import { API_URL } from './../../services/UrlService';
 
 class GreetingContainer extends React.Component {
@@ -14,7 +14,7 @@ class GreetingContainer extends React.Component {
             .get(API_URL + "/api/main/im", { withCredentials: true })
             .then(response => {
                 if (response.status === 200) {
-                    this.props.setAuthUserData(response.data.player);
+                    this.props.setState(response.data);
                     this.props.setIsAuth(true);
                 }
             })
@@ -29,13 +29,16 @@ class GreetingContainer extends React.Component {
             {this.props.isAuth
                 ?
                 <MainContainer
-                    player={this.props.player}
+                    player={this.props.state}
                 />
                 :
-                <Greeting 
-                    link={this.props.news.link}
-                    description={this.props.news.description}
-                />
+                this.props.news.map(item => 
+                    <Greeting
+                        key={item.id}
+                        imgLink={item.imgLink}
+                        description={item.description}
+                    />
+                )
             }
         </>
     };
@@ -44,7 +47,7 @@ class GreetingContainer extends React.Component {
 //передает props в UI компонент
 let mapStateToProps = (state) => {
     return {
-        player: state.auth.player,
+        state: state.mainState,
         isAuth: state.greetingPage.isAuth,
         news: state.greetingPage.news
     };
@@ -54,5 +57,5 @@ let mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     setNews,
     setIsAuth,
-    setAuthUserData
+    setState
 })(GreetingContainer);

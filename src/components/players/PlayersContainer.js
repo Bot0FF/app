@@ -9,15 +9,19 @@ import Profile from "./Profile";
 class PlayersContainer extends React.Component {
 
     componentDidMount() {
-        axios.get(API_URL + "/api/main/players").then(response => {
-            this.props.setState(response.data);
-        });
+        axios
+            .get(API_URL + "/api/main/players", { withCredentials: true })
+            .then(response => {
+                this.props.setState(response.data);
+            });
     }
 
     onSetPlayerProfile = (name) => {
-        axios.get(API_URL + "/api/main/profile/" + name).then(response => {
-            this.props.setPlayerProfile(response.data.player);
-        });
+        axios
+            .get(API_URL + "/api/main/profile/" + name, { withCredentials: true })
+            .then(response => {
+                this.props.setPlayerProfile(response.data.player);
+            });
     }
 
     render() {

@@ -12,7 +12,9 @@ class LibraryContainer extends React.Component {
     }
 
     onDownloadEntities = (type) => {
-        axios.get(API_URL + type).then(response => {
+        axios
+        .get(API_URL + type, {withCredentials: true})
+        .then(response => {
             this.props.setEntities(response.data.libraries);
             this.props.setTotalEntitiesCount(response.data.content);
         });

@@ -4,31 +4,7 @@ import "./navbar.css";
 
 const Navbar = (props) => {
     return (
-        props.player
-            ?
-            < div >
-                <div>
-                    <NavLink to="/im">
-                        <button>Главная</button>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="/mail">
-                        <button>Почта</button>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="/library">
-                        <button>Библиотека</button>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="/players">
-                        <button>Игроки</button>
-                    </NavLink>
-                </div>
-            </div >
-            :
+        <div>
             <div className="navbar">
                 <div className="navbar-logo">
                     <h1>VezLand</h1>
@@ -50,6 +26,35 @@ const Navbar = (props) => {
                     </NavLink>
                 </div>
             </div>
+            {
+                props.httpStatus
+                    ?
+                    < div >
+                        <div>
+                            <NavLink to="/im">
+                                <button>Главная</button>
+                            </NavLink>
+                        </div>
+                        <div>
+                            <NavLink to="/mail">
+                                <button>Почта</button>
+                            </NavLink>
+                        </div>
+                        <div>
+                            <NavLink to="/library">
+                                <button>Библиотека</button>
+                            </NavLink>
+                        </div>
+                        <div>
+                            <NavLink to="/players">
+                                <button>Игроки</button>
+                            </NavLink>
+                        </div>
+                    </div >
+                    :
+                    <div />
+            }
+        </div>
     )
 };
 

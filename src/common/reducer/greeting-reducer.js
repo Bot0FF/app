@@ -3,13 +3,14 @@ const SET_IS_AUTH = "SET_IS_AUTH";
 
 let initialState = {
     news: [
-        {id: 1, imgLink: "Ссылка на изображение", description: "Описание новости"}
+        {id: 1, imgLink: "Ссылка на изображение 1", description: "Описание новости 1"},
+        {id: 2, imgLink: "Ссылка на изображение 2", description: "Описание новости 2"}
     ],
     isAuth: false
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
-export const setNews = (news) => ({ type: SET_NEWS });
+export const setNews = () => ({ type: SET_NEWS });
 export const setIsAuth = (isAuth) => ({ type: SET_IS_AUTH, isAuth: isAuth });
 
 //через dispatch из контейнера в reducer передается action и обновляется state

@@ -2,7 +2,6 @@ import React from "react";
 import "./login.css";
 
 const Login = (props) => {
-
     let onTryLogin = (e) => {
         e.preventDefault();
         props.onTryLogin(props.username, props.password);
