@@ -1,27 +1,25 @@
 import React from "react";
 import Greeting from './Greeting';
-import axios from "axios";
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
 import { setNews, setIsAuth } from "../../common/reducer/greeting-reducer";
 import { setState } from "../../common/reducer/main-reducer";
-import { API_URL } from './../../services/UrlService';
+import { API } from "../../api/api";
 
 class GreetingContainer extends React.Component {
 
     componentDidMount() {
-        axios
-            .get(API_URL + "/api/main/im", { withCredentials: true })
-            .then(response => {
-                if (response.status === 200) {
-                    this.props.setState(response.data);
+        API.getGreeting()
+            .then(data => {
+                if (data.status === "OK") {
+                    this.props.setState(data);
                     this.props.setIsAuth(true);
                 }
-            })
-            .catch(error => {
-                this.props.setNews();
-                this.props.setIsAuth(false);
-            })
+                else {
+                    this.props.setNews();
+                    this.props.setIsAuth(false);
+                };
+            });
     }
 
     render() {

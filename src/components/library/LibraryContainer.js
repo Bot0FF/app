@@ -1,9 +1,8 @@
 import React from "react";
 import Library from "./Library";
-import axios from "axios";
 import { connect } from "react-redux";
 import { setEntities, setStartEntities, setCurrentPage, setTotalEntitiesCount } from "../../common/reducer/library-reducer";
-import { API_URL } from './../../services/UrlService';
+import { API } from "../../api/api";
 
 class LibraryContainer extends React.Component {
 
@@ -12,11 +11,12 @@ class LibraryContainer extends React.Component {
     }
 
     onDownloadEntities = (type) => {
-        axios
-        .get(API_URL + type, {withCredentials: true})
-        .then(response => {
-            this.props.setEntities(response.data.libraries);
-            this.props.setTotalEntitiesCount(response.data.content);
+    API.getLibrary(type)
+        .then(data => {
+            if (data.status === "OK") {
+                this.props.setEntities(data.libraries);
+                this.props.setTotalEntitiesCount(data.content);
+            }
         });
     }
 

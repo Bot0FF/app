@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './register.css'
 
-const Register = () => {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const Register = (props) => {
+
+    let onTryRegister = (e) => {
+        e.preventDefault();
+        props.onTryRegister(props.username, props.email, props.password);
+    }
 
     return (
         <div className='register section__padding'>
@@ -14,33 +16,31 @@ const Register = () => {
                     <div className="register-formGroup">
                         <label>Имя в игре</label>
                         <input 
-                            onChange={e => setUsername(e.target.value)}
-                            value={username}
+                            onChange={e => props.setUsername(e.target.value)}
+                            value={props.username}
                             type="text" 
                             placeholder="Имя пользователя"/>
                     </div>
                     <div className="register-formGroup">
                         <label>Email</label>
                         <input 
-                            onChange={e => setEmail(e.target.value)}
-                            value={email}
+                            onChange={e => props.setEmail(e.target.value)}
+                            value={props.email}
                             type="email" 
                             placeholder="Почта"/>
                     </div>
                     <div className="register-formGroup">
                         <label>Пароль</label>
                         <input 
-                            onChange={e => setPassword(e.target.value)}
-                            value={password}
+                            onChange={e => props.setPassword(e.target.value)}
+                            value={props.password}
                             type="text" 
                             placeholder='Пароль'/>
                     </div>
                     <div className="register-button">
                         <button 
                             className='register-writeButton'
-                            onClick={(e) => {
-                                e.preventDefault();
-                                }}
+                            onClick={(e) => onTryRegister(e)}
                             >Регистрация
                         </button>
                     </div>

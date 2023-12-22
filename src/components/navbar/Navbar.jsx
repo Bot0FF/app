@@ -27,7 +27,7 @@ const Navbar = (props) => {
                 </div>
             </div>
             {
-                props.httpStatus
+                props.status
                     ?
                     < div >
                         <div>

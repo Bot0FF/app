@@ -1,21 +1,21 @@
 import React from "react";
-import Login from "./Login";
+import Register from './Register';
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setUsername, setPassword, setIsAuth } from "../../common/reducer/login-reducer";
+import { setUsername, setEmail, setPassword, setIsAuth } from "../../common/reducer/register-reducer";
 import { API } from "../../api/api";
 
 class LoginContainer extends React.Component {
 
-    onTryLogin = (username, password) => {
-        API.setAuth(username, password)
+    onTryRegister = (username, password) => {
+        API.setRegister(username, password)
             .then(data => {
                 if (data.status === "OK") {
                     this.props.setIsAuth(true);
                 }
                 else{
-                    this.props.setIsAuth(false)
+                    this.props.setIsAuth(false);
                 }
             });
     }
@@ -29,12 +29,14 @@ class LoginContainer extends React.Component {
                         <MainContainer />
                     </NavLink>
                     :
-                    <Login
+                    <Register
                         setUsername={this.props.setUsername}
+                        setEmail={this.props.setEmail}
                         setPassword={this.props.setPassword}
                         username={this.props.username}
+                        email={this.props.email}
                         password={this.props.password}
-                        onTryLogin={this.onTryLogin}
+                        onTryRegister={this.onTryRegister}
                     />
             }
         </>
@@ -43,13 +45,15 @@ class LoginContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
     player: state.auth,
-    isAuth: state.loginPage.isAuth,
-    username: state.loginPage.username,
-    password: state.loginPage.password
+    isAuth: state.registerPage.isAuth,
+    username: state.registerPage.username,
+    email: state.registerPage.email,
+    password: state.registerPage.password
 });
 
 export default connect(mapStateToProps, {
     setIsAuth,
+    setEmail,
     setUsername,
     setPassword
 })(LoginContainer);

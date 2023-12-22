@@ -18,14 +18,14 @@ const Main = (props) => {
             </div>
             <div className="button-item">
                 <div>
-                    <button onClick={() => props.onMovePlayer("up")}>Север</button>
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("up")}>Север</button>
                 </div>
                 <div>
-                    <button onClick={() => props.onMovePlayer("left")}>Запад</button>
-                    <button onClick={() => props.onMovePlayer("right")}>Восток</button>
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("left")}>Запад</button>
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("right")}>Восток</button>
                 </div>
                 <div>
-                    <button onClick={() => props.onMovePlayer("down")}>Юг</button>
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("down")}>Юг</button>
                 </div>
             </div>
         </div>

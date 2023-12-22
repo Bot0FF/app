@@ -1,26 +1,27 @@
 import React from "react";
-import axios from "axios";
 import Players from "./Players";
-import { API_URL } from '../../services/UrlService';
 import { connect } from "react-redux";
 import { setState, setPlayerProfile } from "../../common/reducer/players-reducer";
 import Profile from "./Profile";
+import { API } from "../../api/api";
 
 class PlayersContainer extends React.Component {
 
     componentDidMount() {
-        axios
-            .get(API_URL + "/api/main/players", { withCredentials: true })
-            .then(response => {
-                this.props.setState(response.data);
+        API.getPlayers()
+            .then(data => {
+                if (data.status === "OK") {
+                    this.props.setState(data);
+                }
             });
     }
 
     onSetPlayerProfile = (name) => {
-        axios
-            .get(API_URL + "/api/main/profile/" + name, { withCredentials: true })
-            .then(response => {
-                this.props.setPlayerProfile(response.data.player);
+        API.getProfile(name)
+            .then(data => {
+                if (data.status === "OK") {
+                    this.props.setPlayerProfile(data.player);
+                }
             });
     }
 
