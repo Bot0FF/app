@@ -5,7 +5,8 @@ import mailReducer from "./reducer/mail-reducer";
 import libraryReducer from "./reducer/library-reducer";
 import playersReducer from "./reducer/players-reducer";
 import loginReducer from "./reducer/login-reducer";
-import { combineReducers, legacy_createStore as createStore } from "redux";
+import { thunk as thunkMidleware } from "redux-thunk";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 
 //добавляем reducers
 let reducers = combineReducers({
@@ -19,4 +20,4 @@ let reducers = combineReducers({
 });
 
 //создаем store с данными 
-export const store = createStore(reducers);
+export const store = createStore(reducers, applyMiddleware(thunkMidleware));

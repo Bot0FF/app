@@ -1,3 +1,4 @@
+import { API } from './../../api/api';
 const SET_USER_DATA = "SET_USER_DATA";
 const SET_IS_HANDLING = "SET_IS_HANDLING";
 
@@ -20,9 +21,33 @@ const mainReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return { ...state, ...action.state };
         case SET_IS_HANDLING:
-              return { ...state, isHandling: action.isHandling };
+            return { ...state, isHandling: action.isHandling };
         default:
             return state;
+    };
+};
+
+export const getMain = () => {
+    return (dispatch) => {
+        API.getMain()
+            .then(data => {
+                if (data.status === "OK") {
+                    dispatch(setState(data));
+                }
+            })
+    };
+};
+
+export const movePlayer = (direction) => {
+    return (dispatch) => {
+        dispatch(setIsHandling(true));
+        API.getMove(direction)
+            .then(data => {
+                if (data.status === "OK") {
+                    dispatch(setState(data));
+                }
+                dispatch(setIsHandling(false));
+            });
     };
 };
 

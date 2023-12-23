@@ -1,8 +1,7 @@
 import React from "react";
 import Library from "./Library";
 import { connect } from "react-redux";
-import { setEntities, setStartEntities, setCurrentPage, setTotalEntitiesCount } from "../../common/reducer/library-reducer";
-import { API } from "../../api/api";
+import { setStartEntities, downloadEntities } from "../../common/reducer/library-reducer";
 
 class LibraryContainer extends React.Component {
 
@@ -11,13 +10,7 @@ class LibraryContainer extends React.Component {
     }
 
     onDownloadEntities = (type) => {
-    API.getLibrary(type)
-        .then(data => {
-            if (data.status === "OK") {
-                this.props.setEntities(data.libraries);
-                this.props.setTotalEntitiesCount(data.content);
-            }
-        });
+        this.props.downloadEntities(type);
     }
 
     render() {
@@ -42,8 +35,6 @@ let mapStateToProps = (state) => {
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
-    setEntities,
-    setStartEntities,
-    setCurrentPage,
-    setTotalEntitiesCount
+    downloadEntities,
+    setStartEntities
 })(LibraryContainer);

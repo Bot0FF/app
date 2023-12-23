@@ -9,7 +9,7 @@ const Players = (props) => {
                 {props.players.map(player =>
                     <div key={player.id}>
                         <span>
-                            <button onClick={() => props.onSetPlayerProfile(player.name)}>{player.name}</button>
+                            <button onClick={() => props.onGetPlayerProfile(player.name)}>{player.name}</button>
                         </span>
                     </div>
                 )}

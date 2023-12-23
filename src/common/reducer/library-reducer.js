@@ -1,6 +1,6 @@
+import { API } from "../../api/api";
 const SET_ENTITIES = "SET_ENTITIES";
 const SET_START_ENTITIES = "SET_START_ENTITIES";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_ENTITIES_COUNT = "SET_TOTAL_ENTITIES_COUNT";
 
 let startEntities = [
@@ -13,13 +13,11 @@ let initialState = {
     entities: startEntities,
     pageSize: 5,
     totalEntitiesCount: startEntities.length,
-    currentPage: 1
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
 export const setEntities = (entities) => ({ type: SET_ENTITIES, entities });
 export const setStartEntities = () => ({ type: SET_START_ENTITIES, startEntities });
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
 export const setTotalEntitiesCount = (totalEntitiesCount) => ({ type: SET_TOTAL_ENTITIES_COUNT, totalEntitiesCount: totalEntitiesCount })
 
 //через dispatch из контейнера в reducer передается action и обновляется state
@@ -32,12 +30,22 @@ const libraryReducer = (state = initialState, action) => {
             return { ...state, entities: action.entities };
         case SET_START_ENTITIES:
             return { ...state, entities: startEntities, totalEntitiesCount: startEntities.length };
-        case SET_CURRENT_PAGE:
-            return { ...state, currentPage: action.currentPage };
         case SET_TOTAL_ENTITIES_COUNT:
             return { ...state, totalEntitiesCount: action.totalEntitiesCount };
         default:
             return state;
+    };
+};
+
+export const downloadEntities = (type) => {
+    return (dispatch) => {
+        API.getLibrary(type)
+        .then(data => {
+            if (data.status === "OK") {
+                dispatch(setEntities(data.libraries));
+                dispatch(setTotalEntitiesCount(data.content));
+            }
+        });
     };
 };
 

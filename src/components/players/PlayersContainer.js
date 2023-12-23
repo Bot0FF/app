@@ -1,29 +1,18 @@
 import React from "react";
 import Players from "./Players";
 import { connect } from "react-redux";
-import { setState, setPlayerProfile } from "../../common/reducer/players-reducer";
+import { listPlayers, playerProfile } from "../../common/reducer/players-reducer";
 import Profile from "./Profile";
-import { API } from "../../api/api";
 
 class PlayersContainer extends React.Component {
 
     componentDidMount() {
-        API.getPlayers()
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setState(data);
-                }
-            });
-    }
+        this.props.listPlayers();
+    };
 
-    onSetPlayerProfile = (name) => {
-        API.getProfile(name)
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setPlayerProfile(data.player);
-                }
-            });
-    }
+    onGetPlayerProfile = (name) => {
+        this.props.playerProfile(name);
+    };
 
     render() {
         return <>
@@ -37,7 +26,7 @@ class PlayersContainer extends React.Component {
                     <Players
                         players={this.props.players}
                         totalPlayersCount={this.props.totalPlayersCount}
-                        onSetPlayerProfile={this.onSetPlayerProfile}
+                        onGetPlayerProfile={this.onGetPlayerProfile}
                     />
             }
 
@@ -56,6 +45,6 @@ let mapStateToProps = (state) => {
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
-    setState,
-    setPlayerProfile
+    listPlayers,
+    playerProfile
 })(PlayersContainer);

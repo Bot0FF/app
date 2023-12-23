@@ -1,3 +1,4 @@
+import { API } from "../../api/api";
 const SET_USERNAME = "SET_USERNAME";
 const SET_EMAIL = "SET_EMAIL";
 const SET_PASSWORD = "SET_PASSWORD";
@@ -30,5 +31,19 @@ const registerReducer = (state = initialState, action) => {
             return state;
     };
 };
+
+export const tryRegister = (username, email, password) => {
+    return (dispatch) => {
+        API.setRegister(username, email, password)
+        .then(data => {
+            if (data.status === "OK") {
+                dispatch(setIsAuth(true));
+            }
+            else{
+                dispatch(setIsAuth(false));
+            }
+        });
+    }
+}
 
 export default registerReducer;

@@ -3,21 +3,12 @@ import Register from './Register';
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setUsername, setEmail, setPassword, setIsAuth } from "../../common/reducer/register-reducer";
-import { API } from "../../api/api";
+import { setUsername, setEmail, setPassword, tryRegister } from "../../common/reducer/register-reducer";
 
 class LoginContainer extends React.Component {
 
-    onTryRegister = (username, password) => {
-        API.setRegister(username, password)
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setIsAuth(true);
-                }
-                else{
-                    this.props.setIsAuth(false);
-                }
-            });
+    onTryRegister = (username, email, password) => {
+        this.props.tryRegister(username, email, password);
     }
 
     render() {
@@ -52,7 +43,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    setIsAuth,
+    tryRegister,
     setEmail,
     setUsername,
     setPassword

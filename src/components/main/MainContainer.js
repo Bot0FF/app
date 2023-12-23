@@ -1,29 +1,16 @@
 import React from "react";
 import Main from "./Main";
 import { connect } from "react-redux";
-import { setState, setIsHandling } from "../../common/reducer/main-reducer";
-import { API } from "../../api/api";
+import { getMain, movePlayer } from "../../common/reducer/main-reducer";
 
 class MainContainer extends React.Component {
 
     componentDidMount() {
-        API.getMain()
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setState(data);
-                }
-            })
+        this.props.getMain();
     }
 
     onMovePlayer = (direction) => {
-        this.props.setIsHandling(true);
-        API.getMove(direction)
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setState(data);
-                }
-                this.props.setIsHandling(false);
-            });
+        this.props.movePlayer(direction);
     }
 
     render() {
@@ -51,6 +38,6 @@ let mapStateToProps = (state) => {
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
-    setState,
-    setIsHandling
+    getMain,
+    movePlayer
 })(MainContainer);

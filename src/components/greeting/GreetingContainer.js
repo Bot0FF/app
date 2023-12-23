@@ -2,24 +2,12 @@ import React from "react";
 import Greeting from './Greeting';
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
-import { setNews, setIsAuth } from "../../common/reducer/greeting-reducer";
-import { setState } from "../../common/reducer/main-reducer";
-import { API } from "../../api/api";
+import { getGreeting } from "../../common/reducer/greeting-reducer";
 
 class GreetingContainer extends React.Component {
 
     componentDidMount() {
-        API.getGreeting()
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setState(data);
-                    this.props.setIsAuth(true);
-                }
-                else {
-                    this.props.setNews();
-                    this.props.setIsAuth(false);
-                };
-            });
+        this.props.getGreeting();
     }
 
     render() {
@@ -53,7 +41,5 @@ let mapStateToProps = (state) => {
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
-    setNews,
-    setIsAuth,
-    setState
+    getGreeting
 })(GreetingContainer);

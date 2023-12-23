@@ -2,22 +2,12 @@ import React from "react";
 import Login from "./Login";
 import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { setUsername, setPassword, setIsAuth } from "../../common/reducer/login-reducer";
-import { API } from "../../api/api";
+import { setUsername, setPassword, setAuth } from "../../common/reducer/login-reducer";
 
 class LoginContainer extends React.Component {
 
     onTryLogin = (username, password) => {
-        API.setAuth(username, password)
-            .then(data => {
-                if (data.status === "OK") {
-                    this.props.setIsAuth(true);
-                }
-                else{
-                    this.props.setIsAuth(false)
-                }
-            });
+        this.props.setAuth(username, password);
     }
 
     render() {
@@ -25,9 +15,7 @@ class LoginContainer extends React.Component {
             {
                 this.props.isAuth
                     ?
-                    <NavLink to="/im">
-                        <MainContainer />
-                    </NavLink>
+                    <MainContainer />
                     :
                     <Login
                         setUsername={this.props.setUsername}
@@ -49,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    setIsAuth,
+    setAuth,
     setUsername,
     setPassword
 })(LoginContainer);

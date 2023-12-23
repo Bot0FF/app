@@ -1,3 +1,4 @@
+import { API } from "../../api/api";
 const SET_NEWS = "SET_NEWS";
 const SET_IS_AUTH = "SET_IS_AUTH";
 
@@ -5,8 +6,7 @@ let initialState = {
     news: [
         {id: 1, imgLink: "Ссылка на изображение 1", description: "Описание новости 1"},
         {id: 2, imgLink: "Ссылка на изображение 2", description: "Описание новости 2"}
-    ],
-    isAuth: false
+    ]
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
@@ -27,5 +27,20 @@ const greetingReducer = (state = initialState, action) => {
             return state;
     };
 };
+
+export const getGreeting = () => {
+    return (dispatch) => {
+        API.getGreeting()
+        .then(data => {
+            if (data.status === "OK") {
+                dispatch(setIsAuth(true));
+            }
+            else {
+                dispatch(setNews());
+                dispatch(setIsAuth(false));
+            };
+        });
+    }
+}
 
 export default greetingReducer;

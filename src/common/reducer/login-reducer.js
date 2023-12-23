@@ -1,3 +1,4 @@
+import { API } from "../../api/api";
 const SET_USERNAME = "SET_USERNAME";
 const SET_PASSWORD = "SET_PASSWORD";
 const SET_IS_AUTH = "SET_IS_AUTH";
@@ -23,6 +24,20 @@ const loginReducer = (state = initialState, action) => {
             return { ...state, isAuth: action.isAuth };
         default:
             return state;
+    };
+};
+
+export const setAuth = (username, password) => {
+    return (dispatch) => {
+        API.setAuth(username, password)
+        .then(data => {
+            if (data.status === "OK") {
+                dispatch(setIsAuth(true));
+            }
+            else {
+                dispatch(setIsAuth(false));
+            }
+        });
     };
 };
 
