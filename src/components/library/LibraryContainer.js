@@ -2,6 +2,7 @@ import React from "react";
 import Library from "./Library";
 import { connect } from "react-redux";
 import { setStartEntities, downloadEntities } from "../../common/reducer/library-reducer";
+import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 
 class LibraryContainer extends React.Component {
 
@@ -29,12 +30,15 @@ let mapStateToProps = (state) => {
         entities: state.libraryPage.entities,
         pageSize: state.libraryPage.pageSize,
         totalEntitiesCount: state.libraryPage.totalEntitiesCount,
-        currentPage: state.libraryPage.currentPage
+        currentPage: state.libraryPage.currentPage,
+        isAuth: state.auth.isAuth
     };
 };
+
+let WithDataLibraryContainer = withAuthRedirect(LibraryContainer);
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
     downloadEntities,
     setStartEntities
-})(LibraryContainer);
+})(WithDataLibraryContainer);

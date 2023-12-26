@@ -6,17 +6,19 @@ import libraryReducer from "./reducer/library-reducer";
 import playersReducer from "./reducer/players-reducer";
 import loginReducer from "./reducer/login-reducer";
 import { thunk as thunkMidleware } from "redux-thunk";
+import { reducer as formReducer } from "redux-form";
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 
 //добавляем reducers
 let reducers = combineReducers({
     greetingPage: greetingReducer,
-    loginPage: loginReducer,
+    auth: loginReducer,
     registerPage: registerReducer,
     mainState: mainReducer,
     mailPage: mailReducer,
     libraryPage: libraryReducer,
-    playersPage: playersReducer
+    playersPage: playersReducer,
+    form: formReducer
 });
 
 //создаем store с данными 

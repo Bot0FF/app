@@ -1,8 +1,8 @@
 import React from "react";
 import Greeting from './Greeting';
-import MainContainer from "../main/MainContainer";
 import { connect } from "react-redux";
 import { getGreeting } from "../../common/reducer/greeting-reducer";
+import { Navigate } from "react-router-dom";
 
 class GreetingContainer extends React.Component {
 
@@ -12,13 +12,12 @@ class GreetingContainer extends React.Component {
 
     render() {
         return <>
-            {this.props.isAuth
+            {
+                this.props.isAuth
                 ?
-                <MainContainer
-                    player={this.props.state}
-                />
+                <Navigate replace to="/im"/>
                 :
-                this.props.news.map(item => 
+                this.props.news.map(item =>
                     <Greeting
                         key={item.id}
                         imgLink={item.imgLink}
@@ -33,8 +32,7 @@ class GreetingContainer extends React.Component {
 //передает props в UI компонент
 let mapStateToProps = (state) => {
     return {
-        state: state.mainState,
-        isAuth: state.greetingPage.isAuth,
+        isAuth: state.auth.isAuth,
         news: state.greetingPage.news
     };
 };
