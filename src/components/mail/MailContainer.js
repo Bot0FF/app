@@ -1,7 +1,7 @@
 import React from "react";
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
-import { updateNewMessageBody, sendMessage } from '../../common/reducer/mail-reducer';
+import { sendMessage } from '../../common/reducer/mail-reducer';
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 
 class MailContainer extends React.Component {
@@ -11,15 +11,11 @@ class MailContainer extends React.Component {
             <Dialogs
                 dialogs={this.props.dialogs}
                 messages={this.props.messages}
-                updateNewMessageBody={this.props.updateNewMessageBody}
                 sendMessage={this.props.sendMessage}
-                newMessageBody={this.props.newMessageBody}
                 />
         </>
     };
 };
-
-
 
 //передает props в UI компонент
 let mapMailStateToProps = (state) => {
@@ -34,6 +30,5 @@ let WithDataMailContainer = withAuthRedirect(MailContainer);
 
 //коннектит props и dispatch к UI компоненту
 export default connect(mapMailStateToProps, {
-    updateNewMessageBody,
     sendMessage
 })(WithDataMailContainer);
