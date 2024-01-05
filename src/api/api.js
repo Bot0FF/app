@@ -9,7 +9,7 @@ export const API = {
     // страница приветствия
     getGreeting() {
         return instanse
-            .get("/api/main/im")
+            .get("/news")
             .then(response => {
                 return response.data;
             })
@@ -37,6 +37,18 @@ export const API = {
                 username,
                 password
             })
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //авторизация
+    setLogout() {
+        return instanse
+            .get("/login")
             .then(response => {
                 return response.data;
             })

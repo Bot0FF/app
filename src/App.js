@@ -8,23 +8,41 @@ import MailContainer from "./components/mail/MailContainer";
 import PlayersContainer from "./components/players/PlayersContainer";
 import LibraryContainer from "./components/library/LibraryContainer";
 import { Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { initializeApp } from "./common/reducer/app-reducer";
 import "./App.css";
+import { Preloader } from './common/preloader/Preloader';
 
-const App = () => {
-  return (
-    <div>
-      <NavbarContainer />
-      <Routes>
-        <Route path="/" element={<GreetingContainer />} />
-        <Route path="/login" element={<LoginContainer />} />
-        <Route path="/register" element={<RegisterContainer />} />
-        <Route path="/im" element={<MainContainer />} />
-        <Route path="/mail/*" element={<MailContainer />} />
-        <Route path="/library" element={<LibraryContainer />} />
-        <Route path="/players" element={<PlayersContainer />} />
-      </Routes>
-    </div>
-  );
+class App extends React.Component {
+
+  componentDidMount() {
+    this.props.initializeApp();
+  }
+
+  render() {
+    if(!this.props.initialize) {
+      return <Preloader/>
+    }
+
+    return (
+      <div>
+        <NavbarContainer />
+        <Routes>
+          <Route path="/" element={<GreetingContainer />} />
+          <Route path="/login" element={<LoginContainer />} />
+          <Route path="/register" element={<RegisterContainer />} />
+          <Route path="/im" element={<MainContainer />} />
+          <Route path="/mail/*" element={<MailContainer />} />
+          <Route path="/library" element={<LibraryContainer />} />
+          <Route path="/players" element={<PlayersContainer />} />
+        </Routes>
+      </div>
+    );
+  };
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  initialize: state.app.initialize
+});
+
+export default connect(mapStateToProps, {initializeApp})(App);

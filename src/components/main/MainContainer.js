@@ -36,7 +36,7 @@ let mapStateToProps = (state) => {
         players: state.mainState.players,
         content: state.mainState.content,
         isHandling: state.mainState.isHandling,
-        isAuth: state.auth.isAuth
+        isAuth: state.mainState.isAuth
     };
 };
 

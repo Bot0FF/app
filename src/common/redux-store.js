@@ -8,11 +8,13 @@ import loginReducer from "./reducer/login-reducer";
 import { thunk as thunkMidleware } from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
+import appReducer from "./reducer/app-reducer";
 
 //добавляем reducers
 let reducers = combineReducers({
+    app: appReducer,
     greetingPage: greetingReducer,
-    auth: loginReducer,
+    loginPage: loginReducer,
     registerPage: registerReducer,
     mainState: mainReducer,
     mailPage: mailReducer,

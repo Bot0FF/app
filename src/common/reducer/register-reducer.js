@@ -17,9 +17,9 @@ const registerReducer = (state = initialState, action) => {
     };
 };
 
-export const tryRegister = (username, email, password) => {
+export const tryRegister = (formData) => {
     return (dispatch) => {
-        API.setRegister(username, email, password)
+        API.setRegister(formData.username, formData.email, formData.password)
         .then(data => {
             if (data.status === "OK") {
                 dispatch(setIsAuth(true));

@@ -6,10 +6,6 @@ import { Navigate } from "react-router-dom";
 
 class GreetingContainer extends React.Component {
 
-    componentDidMount() {
-        this.props.getGreeting();
-    }
-
     render() {
         return <>
             {
@@ -32,7 +28,7 @@ class GreetingContainer extends React.Component {
 //передает props в UI компонент
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth,
+        isAuth: state.mainState.isAuth,
         news: state.greetingPage.news
     };
 };

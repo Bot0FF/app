@@ -8,7 +8,7 @@ import { tryRegister } from "../../common/reducer/register-reducer";
 class LoginContainer extends React.Component {
 
     onTryRegister = (formData) => {
-        this.props.tryRegister(formData.username, formData.email, formData.password);
+        this.props.tryRegister(formData);
     }
 
     render() {
