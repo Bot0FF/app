@@ -7,7 +7,7 @@ const instanse = axios.create({
 
 export const API = {
     // страница приветствия
-    getGreeting() {
+    getNews() {
         return instanse
             .get("/news")
             .then(response => {
@@ -48,7 +48,7 @@ export const API = {
     //авторизация
     setLogout() {
         return instanse
-            .get("/login")
+            .get("/logout")
             .then(response => {
                 return response.data;
             })

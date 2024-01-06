@@ -2,14 +2,11 @@ import { API } from "../../api/api";
 const SET_NEWS = "SET_NEWS";
 
 let initialState = {
-    news: [
-        { id: 1, imgLink: "Ссылка на изображение 1", description: "Описание новости 1" },
-        { id: 2, imgLink: "Ссылка на изображение 2", description: "Описание новости 2" }
-    ]
+    news: []
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
-export const setNews = () => ({ type: SET_NEWS });
+export const setNews = (news) => ({ type: SET_NEWS, news: news });
 
 //через dispatch из контейнера в reducer передается action и обновляется state
 const greetingReducer = (state = initialState, action) => {
@@ -24,14 +21,11 @@ const greetingReducer = (state = initialState, action) => {
     };
 };
 
-//TODO добавить загрузку новостей
-export const getGreeting = () => {
-    return (dispatch) => {
-        API.getGreeting()
-            .then(data => {
-                dispatch(setNews());
+export const getGreeting = () => (dispatch) => {
+    return API.getNews()
+            .then(news => {
+                dispatch(setNews(news));
             });
-    }
 }
 
 export default greetingReducer;

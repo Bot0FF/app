@@ -22,7 +22,7 @@ let mapMailStateToProps = (state) => {
     return{
         dialogs: state.mailPage.dialogs,
         messages: state.mailPage.messages,
-        isAuth: state.auth.isAuth
+        isAuth: state.mainState.isAuth
     };
 };
 

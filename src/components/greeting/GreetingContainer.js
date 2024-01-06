@@ -6,34 +6,36 @@ import { Navigate } from "react-router-dom";
 
 class GreetingContainer extends React.Component {
 
+    componentDidMount() {
+        this.props.getGreeting();
+    }
+
     render() {
         return <>
             {
-                this.props.isAuth
-                ?
-                <Navigate replace to="/im"/>
-                :
-                this.props.news.map(item =>
-                    <Greeting
-                        key={item.id}
-                        imgLink={item.imgLink}
-                        description={item.description}
-                    />
-                )
+            this.props.isAuth
+            ?
+            <Navigate replace to="/im"/>
+            :
+            this.props.news.map(item =>
+                <Greeting
+                    key={item.id}
+                    imgLink={item.imgLink}
+                    description={item.description}
+                />
+            )
             }
         </>
     };
 };
 
-//передает props в UI компонент
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.mainState.isAuth,
-        news: state.greetingPage.news
+        news: state.greetingPage.news,
+        isAuth: state.mainState.isAuth
     };
 };
 
-//коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
     getGreeting
 })(GreetingContainer);

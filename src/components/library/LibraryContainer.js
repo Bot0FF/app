@@ -31,7 +31,7 @@ let mapStateToProps = (state) => {
         pageSize: state.libraryPage.pageSize,
         totalEntitiesCount: state.libraryPage.totalEntitiesCount,
         currentPage: state.libraryPage.currentPage,
-        isAuth: state.auth.isAuth
+        isAuth: state.mainState.isAuth
     };
 };
 

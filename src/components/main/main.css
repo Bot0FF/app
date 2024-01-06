@@ -9,3 +9,9 @@
 .button-item {
     padding: 20px;
 }
+
+.main-button {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
