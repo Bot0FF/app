@@ -1,8 +1,10 @@
-import { API } from "../../api/api";
 const SET_NEWS = "SET_NEWS";
 
 let initialState = {
-    news: []
+    news: [
+        {id: 1, imgLink: "Новость 1", description: "Ссылка на новость 1"},
+        {id: 2, imgLink: "Новость 2", description: "Ссылка на новость 2"},
+    ]
 }
 
 //экшены, которые будет вызывать контейнер, при взаимодействии с UI
@@ -22,10 +24,7 @@ const greetingReducer = (state = initialState, action) => {
 };
 
 export const getGreeting = () => (dispatch) => {
-    return API.getNews()
-            .then(news => {
-                dispatch(setNews(news));
-            });
+    return dispatch(setNews());
 }
 
 export default greetingReducer;

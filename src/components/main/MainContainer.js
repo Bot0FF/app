@@ -6,6 +6,18 @@ import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 
 class MainContainer extends React.Component {
 
+    getEnemies = (units) => {
+        let enemies = [];
+        units.forEach(unit => unit.name.startsWith('*') ? enemies.push(unit) : null);
+        return enemies;
+    }
+
+    getPlayers = (units) => {
+        let players = [];
+        units.forEach(unit => !unit.name.startsWith('*') ? players.push(unit) : null);
+        return players;
+    }
+
     onMovePlayer = (direction) => {
         this.props.movePlayer(direction);
     }
@@ -13,9 +25,12 @@ class MainContainer extends React.Component {
     render() {
         return <>
             <Main
-                content={this.props.content}
+                locationName={this.props.location.name}
+                x={this.props.location.x}
+                y={this.props.location.y}
                 player={this.props.player}
-                status={this.props}
+                enemies={this.getEnemies(this.props.location.units)}
+                players={this.getPlayers(this.props.location.units)}
                 onMovePlayer={this.onMovePlayer}
             />
         </>
@@ -27,9 +42,8 @@ class MainContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         player: state.mainState.player,
-        enemies: state.mainState.enemies,
-        players: state.mainState.players,
-        content: state.mainState.content,
+        location: state.mainState.location,
+        info: state.mainState.info,
         isAuth: state.mainState.isAuth
     };
 };

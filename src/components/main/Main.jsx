@@ -1,53 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./main.css";
+import Modal from "../../common/util/modal/Modal";
 
 const Main = (props) => {
+    const [isOpen, setOpen] = useState(false);
+    const [modalActive, setModalActive] = useState(true);
+
     return (
-        <div>
-            <div className="main-button">
-                <div>
-                    <NavLink to="/mail">
-                        <button>Почта</button>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="/library">
-                        <button>Библиотека</button>
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to="/players">
-                        <button>Игроки</button>
-                    </NavLink>
-                </div>
-            </div>
-            <div className="user-state">
-                <div>
-                    <a>LOCATION: {props.content}</a>
-                </div>
-                <div>
-                    <a>HP: {props.player.hp}</a>
-                </div>
-                <div>
-                    <a>MANA: {props.player.mana}</a>
-                </div>
-                <div>
-                    <a>POSITION: {props.player.x} / {props.player.y}</a>
-                </div>
-                <div className="button-item">
+        <div className="header">
+            <div className="parent__content">
+                <div className="player__info">
                     <div>
-                        <button disabled={props.isHandling} onClick={() => props.onMovePlayer("up")}>Север</button>
+                        <text>Локация: {props.locationName}</text>
                     </div>
                     <div>
+                        <text>Здоровье: {props.player.hp}</text>
+                    </div>
+                    <div>
+                        <text>Мана: {props.player.mana}</text>
+                    </div>
+                    <div>
+                        <text>Координаты: {props.x} / {props.y}</text>
+                    </div>
+                </div>
+                <div className="button__move">
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("up")}>Север</button>
+                    <div className="button__row">
                         <button disabled={props.isHandling} onClick={() => props.onMovePlayer("left")}>Запад</button>
                         <button disabled={props.isHandling} onClick={() => props.onMovePlayer("right")}>Восток</button>
                     </div>
-                    <div>
-                        <button disabled={props.isHandling} onClick={() => props.onMovePlayer("down")}>Юг</button>
-                    </div>
+                    <button disabled={props.isHandling} onClick={() => props.onMovePlayer("down")}>Юг</button>
                 </div>
+                <div>
+                    <button className="collapsible" onClick={() => setOpen(!isOpen)}>
+                        Существа {props.enemies.length}
+                    </button>
+                    <div className={isOpen ? "items__hidden" : "items__active"}>
+                        <ul className="menu__list">
+                            {props.enemies.map(enemy =>
+                                <a className="menu__item"
+                                    key={enemy.id}
+                                    onClick={() => setModalActive(true)}
+                                >
+                                    <text>{enemy.name}</text>
+                                </a>
+                            )}
+                        </ul>
+                    </div>
+                    <br />
+                    <button>Герои {props.players.length}</button>
+                    <br />
+                    <button>Вещи под ногами {0}</button>
+                </div>
+
             </div>
+            <Modal active={modalActive} setActive={setModalActive}>
+                <div>
+                    
+                </div>
+            </Modal>
         </div>
     );
 };

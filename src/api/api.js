@@ -6,29 +6,6 @@ const instanse = axios.create({
 });
 
 export const API = {
-    // страница приветствия
-    getNews() {
-        return instanse
-            .get("/news")
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => {
-                return error;
-            });
-    },
-
-    //библиотека
-    getLibrary(type) {
-        return instanse
-            .get(type)
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => {
-                return error;
-            });
-    },
 
     //авторизация
     setAuth(username, password) {
@@ -45,7 +22,7 @@ export const API = {
             });
     },
 
-    //авторизация
+    //logout
     setLogout() {
         return instanse
             .get("/logout")
@@ -88,7 +65,7 @@ export const API = {
     //перемещение
     getMove(direction) {
         return instanse
-            .get("/api/main/move/" + direction)
+            .get("/api/main/move?direction=" + direction)
             .then(response => {
                 return response.data;
             })
@@ -97,10 +74,10 @@ export const API = {
             });
     },
 
-    //список игроков
-    getPlayers() {
+    //атака выбранного противника
+    getAttack(targetId) {
         return instanse
-            .get("/api/main/players")
+            .get("/api/fight/attack?targetId=" + targetId)
             .then(response => {
                 return response.data;
             })
@@ -109,15 +86,27 @@ export const API = {
             });
     },
 
-    //профиль игрока
-    getProfile(name) {
+    //обновление страницы сражения
+    getFightRefresh() {
         return instanse
-            .get("/api/main/profile/" + name)
+            .get("/api/fight/refresh")
             .then(response => {
                 return response.data;
             })
             .catch(error => {
                 return error;
             });
-    }
+    },
+
+    //выбор умения и цели при атаке
+    setHit(abilityId, targetId) {
+        return instanse
+            .get("/api/fight/abilityId=" + abilityId + "&targetId=" + targetId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
 }

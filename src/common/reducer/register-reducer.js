@@ -21,7 +21,7 @@ export const tryRegister = (formData) => {
     return (dispatch) => {
         API.setRegister(formData.username, formData.email, formData.password)
         .then(data => {
-            if (data.status === "OK") {
+            if (data.status === 1) {
                 dispatch(setIsAuth(true));
             }
             else{

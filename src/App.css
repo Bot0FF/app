@@ -1,9 +1,9 @@
-body{
+body {
     background: var(--color-bg);
     scroll-behavior: smooth;
 }
 
-.section__padding{
-    padding: 4rem 6rem;
+a {
+    text-decoration: none;
+    color: inherit;
 }
-
