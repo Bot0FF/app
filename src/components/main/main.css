@@ -40,20 +40,8 @@
     width: 60%;
 }
 
-.items__hidden {
-    padding: 0 10px;
-    max-height: 0;
-    overflow: hidden;
-}
-
-.items__active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    margin-top: 7px;
-    transition-duration: 1s;
-    visibility: visible;
+.button__items {
+    display: grid;
 }
 
 .menu__list {
@@ -70,4 +58,22 @@
     font-family: var(--font-family);
     color: black;
     text-decoration: none;
+}
+
+.my-node-enter {
+    opacity: 0;
+}
+
+.my-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
+.my-node-exit {
+    opacity: 1;
+}
+
+.my-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
 }

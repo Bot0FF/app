@@ -31,5 +31,9 @@
 }
 
 .modal__item {
-    
+    display: grid;
+    text-align:center; 
+    font-size: 17px;
+    font-family: var(--font-family);
+    font-weight: bold;
 }

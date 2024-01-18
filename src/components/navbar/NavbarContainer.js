@@ -11,7 +11,7 @@ class NavbarContainer extends React.Component {
         return <>
             <div className="navbar">
                 <NavLink to="/im">
-                    <a>VezLand</a>
+                    <span>VezLand</span>
                 </NavLink>
                 {
                     this.props.mainState.isAuth
