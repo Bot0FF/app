@@ -126,6 +126,7 @@ const Main = (props) => {
                     <Button
                         variant="outlined"
                         style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                        onClick={() => props.setFightState(enemy.id)}
                     >
                         Напасть
                     </Button>

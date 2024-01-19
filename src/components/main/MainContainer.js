@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "./Main";
 import { connect } from "react-redux";
-import { getMain, movePlayer } from "../../common/reducer/main-reducer";
+import { getMain, movePlayer, setFightState } from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 
 class MainContainer extends React.Component {
@@ -22,6 +22,10 @@ class MainContainer extends React.Component {
         this.props.movePlayer(direction);
     }
 
+    setFightState = (targetId) => {
+        this.props.setFightState(targetId);
+    } 
+
     render() {
         return <>
             <Main
@@ -32,6 +36,7 @@ class MainContainer extends React.Component {
                 enemies={this.getEnemies(this.props.location.units)}
                 players={this.getPlayers(this.props.location.units)}
                 onMovePlayer={this.onMovePlayer}
+                setFightState={this.setFightState}
             />
         </>
     };
@@ -53,5 +58,6 @@ let WithDataMainContainer = withAuthRedirect(MainContainer);
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
     getMain,
-    movePlayer
+    movePlayer, 
+    setFightState
 })(WithDataMainContainer);

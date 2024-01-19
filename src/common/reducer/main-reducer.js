@@ -69,4 +69,22 @@ export const movePlayer = (direction) => (dispatch) => {
         });
 };
 
+export const setFightState = (targetId) => (dispatch) => {
+    return API.getAttack(targetId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setState(data));
+            }
+        });
+};
+
+export const setRefreshFightState = () => (dispatch) => {
+    return API.getFightRefresh()
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setState(data));
+            }
+        });
+};
+
 export default mainReducer;
