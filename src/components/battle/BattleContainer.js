@@ -1,27 +1,50 @@
 import React, { useEffect } from "react";
 import Battle from "./Battle";
+import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setRefreshFightState } from "../../common/reducer/main-reducer";
+import { setRefreshFightState, setCurrentHit } from "../../common/reducer/battle-reducer";
+import { Preloader } from './../../common/preloader/Preloader';
 
 const BattleContainer = () => {
-    const state = useSelector((state) => state.mainState);
+    const state = useSelector((state) => state.battleState);
     const dispatch = useDispatch();
 
+    console.log(state)
+
     useEffect(() => {
-        if(state.fight == null) {
-            dispatch(setRefreshFightState())
-        }
-    }, [state]);
+        dispatch(setRefreshFightState());
+    }, []);
+
+    let setHit = (abilityId, targetId) => {
+        dispatch(setCurrentHit(abilityId, targetId));
+    }
+
+    let refreshFightState = () => {
+        dispatch(setRefreshFightState());
+    }
+
+    if (state.status == 0) {
+        return <Navigate replace to="/im" />
+    }
 
     return (
-        <div>
-            <Battle
-                player={state.player}
-                fight={state.fight}
-                info={state.info}
-
-            />
-        </div>
+        state.status == -1
+            ?
+            <Preloader />
+            :
+            <div>
+                <Battle
+                    player={state.player}
+                    teamOne={state.teamOne}
+                    teamTwo={state.teamTwo}
+                    countRound={state.fight.countRound}
+                    resultRound={state.fight.resultRound}
+                    timeToEndRound={state.fight.timeToEndRound}
+                    refreshFightState={refreshFightState}
+                    setHit={setHit}
+                    info={state.info}
+                />
+            </div>
     );
 };
 

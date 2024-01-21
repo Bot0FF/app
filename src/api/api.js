@@ -101,7 +101,7 @@ export const API = {
     //выбор умения и цели при атаке
     setHit(abilityId, targetId) {
         return instanse
-            .get("/api/fight/abilityId=" + abilityId + "&targetId=" + targetId)
+            .get("/api/fight/hit?abilityId=" + abilityId + "&targetId=" + targetId)
             .then(response => {
                 return response.data;
             })

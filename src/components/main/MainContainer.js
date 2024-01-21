@@ -3,6 +3,7 @@ import Main from "./Main";
 import { connect } from "react-redux";
 import { getMain, movePlayer, setFightState } from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
+import { Preloader } from "../../common/preloader/Preloader";
 
 class MainContainer extends React.Component {
 
@@ -24,20 +25,25 @@ class MainContainer extends React.Component {
 
     setFightState = (targetId) => {
         this.props.setFightState(targetId);
-    } 
+    }
 
     render() {
         return <>
-            <Main
-                locationName={this.props.location.name}
-                x={this.props.location.x}
-                y={this.props.location.y}
-                player={this.props.player}
-                enemies={this.getEnemies(this.props.location.units)}
-                players={this.getPlayers(this.props.location.units)}
-                onMovePlayer={this.onMovePlayer}
-                setFightState={this.setFightState}
-            />
+            {this.props.location
+                ?
+                <Main
+                    locationName={this.props.location.name}
+                    x={this.props.location.x}
+                    y={this.props.location.y}
+                    player={this.props.player}
+                    enemies={this.getEnemies(this.props.location.units)}
+                    players={this.getPlayers(this.props.location.units)}
+                    onMovePlayer={this.onMovePlayer}
+                    setFightState={this.setFightState}
+                />
+                :
+                <Preloader />
+            }
         </>
     };
 };
@@ -58,6 +64,6 @@ let WithDataMainContainer = withAuthRedirect(MainContainer);
 //коннектит props и dispatch к UI компоненту
 export default connect(mapStateToProps, {
     getMain,
-    movePlayer, 
+    movePlayer,
     setFightState
 })(WithDataMainContainer);

@@ -1,8 +1,7 @@
 import React from "react";
-import preloader from "../../assets/images/bouncing-circles.svg";
 
-export const Preloader = (props) => {
+export const Preloader = () => {
     return <div>
-        <img src={preloader} />
+
     </div>
 }

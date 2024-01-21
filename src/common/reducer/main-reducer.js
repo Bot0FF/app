@@ -1,11 +1,12 @@
 import { API } from '../../api/api';
+import { setBattleState } from './battle-reducer';
 const SET_STATE = "SET_STATE";
 const SET_LOGOUT = "SET_LOGOUT";
+
 
 let initialState = {
     player: {},
     location: {},
-    fight: {},
     info: "",
     status: 0,
     isAuth: false
@@ -23,7 +24,6 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 player: action.data.player,
                 location: action.data.location,
-                fight: action.data.fight,
                 info: action.data.info,
                 status: action.data.status,
                 isAuth: true
@@ -71,15 +71,6 @@ export const movePlayer = (direction) => (dispatch) => {
 
 export const setFightState = (targetId) => (dispatch) => {
     return API.getAttack(targetId)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setState(data));
-            }
-        });
-};
-
-export const setRefreshFightState = () => (dispatch) => {
-    return API.getFightRefresh()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setState(data));
