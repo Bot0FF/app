@@ -3,7 +3,7 @@ import NavbarTrue from "./NavbarTrue";
 import NavbarFalse from "./NavbarFalse";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../../common/reducer/main-reducer";
+import { logout } from "../../common/reducer/auth-reducer";
 import "./navbar.css";
 
 class NavbarContainer extends React.Component {
@@ -14,15 +14,15 @@ class NavbarContainer extends React.Component {
                     <span>VezLand</span>
                 </NavLink>
                 {
-                    this.props.mainState.isAuth
+                    this.props.isAuth
                         ?
                         <NavbarTrue
-                            {...this.props.mainState}
+                            {...this.props.authState}
                             logout={this.props.logout}
                         />
                         :
                         <NavbarFalse
-                            {...this.props.mainState}
+                            {...this.props.authState}
                         />
                 }
             </div>
@@ -31,7 +31,9 @@ class NavbarContainer extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    mainState: state.mainState
+    isAuth: state.authState.isAuth
 });
 
-export default connect(mapStateToProps, { logout })(NavbarContainer);
+export default connect(mapStateToProps, {
+    logout
+})(NavbarContainer);

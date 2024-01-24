@@ -1,61 +1,51 @@
 import { API } from '../../api/api';
-import { setBattleState } from './battle-reducer';
-const SET_STATE = "SET_STATE";
-const SET_LOGOUT = "SET_LOGOUT";
-
+const SET_MAIN_STATE = "SET_MAIN_STATE";
+const SET_ERROR = "SET_ERROR";
 
 let initialState = {
     player: {},
     location: {},
+    enemies: [],
+    players: [],
     info: "",
     status: 0,
-    isAuth: false
+    initialise: false
 }
 
-//экшены, которые будет вызывать контейнер, при взаимодействии с UI
-export const setState = (data) => ({ type: SET_STATE, data: data });
-export const setLogout = () => ({ type: SET_LOGOUT });
+export const setMainState = (data) => ({ type: SET_MAIN_STATE, data: data });
+export const setError = (data) => ({ type: SET_ERROR, data: data });
 
-//через dispatch из контейнера в reducer передается action и обновляется state
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_STATE:
+        case SET_MAIN_STATE:
             return {
                 ...state,
                 player: action.data.player,
                 location: action.data.location,
+                enemies: action.data.enemies,
+                players: action.data.players,
                 info: action.data.info,
-                status: action.data.status,
-                isAuth: true
+                status: action.data.status
             };
-        case SET_LOGOUT:
-            return { ...state, ...initialState };
+        case SET_ERROR:
+            return {
+                ...state,
+                info: action.data.info,
+                status: action.data.status
+            };
         default:
             return state;
     };
-};
-
-export const setAuthData = (formData) => (dispatch) => {
-    return API.setAuth(formData.username, formData.password)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setState(data));
-            }
-        });
-};
-
-export const logout = () => (dispatch) => {
-    return API.setLogout()
-        .then(() => {
-            dispatch(setLogout());
-        });
 };
 
 export const getMain = () => (dispatch) => {
     return API.getMain()
         .then(data => {
             if (data.status === 1) {
-                dispatch(setState(data));
+                dispatch(setMainState(data));
+            }
+            else if (data.status === 2) {
+                dispatch(setError(data));
             }
         });
 };
@@ -64,16 +54,10 @@ export const movePlayer = (direction) => (dispatch) => {
     return API.getMove(direction)
         .then(data => {
             if (data.status === 1) {
-                dispatch(setState(data));
+                dispatch(setMainState(data));
             }
-        });
-};
-
-export const setFightState = (targetId) => (dispatch) => {
-    return API.getAttack(targetId)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setState(data));
+            else if (data.status === 2) {
+                dispatch(setError(data));
             }
         });
 };

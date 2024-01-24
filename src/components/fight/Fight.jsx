@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
-import "./battle.css";
+import "./fight.css";
 
-const Battle = ({ player, teamOne, teamTwo, countRound, resultRound, timeToEndRound, refreshFightState, setHit, info }) => {
-    const [counter, setCounter] = useState(10);
+const Battle = ({ player, fight, teamOne, teamTwo, refreshFight, setHit, info }) => {
+    const [counter, setCounter] = useState(60);
     const [modalActive, setModalActive] = useState(false);
     const [enemy, setEnemy] = useState({});
 
@@ -19,10 +19,13 @@ const Battle = ({ player, teamOne, teamTwo, countRound, resultRound, timeToEndRo
     }
 
     useEffect(() => {
-        setTimeout(() => setCounter(counter - 1), 1000);
+        let timeToEndRound = ((Math.round(fight.endRoundTimer/1000 - Date.now()/1000)) + 1);
+        if(counter >= 0) {
+        setTimeout(() => setCounter(timeToEndRound - 1), 1000);
+        }
         if (counter <= 0) {
-            refreshFightState();
-            setCounter(timeToEndRound)
+            refreshFight();
+            setCounter(timeToEndRound);
         }
     }, [counter]);
 
@@ -30,8 +33,8 @@ const Battle = ({ player, teamOne, teamTwo, countRound, resultRound, timeToEndRo
         <div className="header">
             <div className="header__info">
                 <span>{info}</span>
-                <span>{resultRound}</span>
-                <span>Раунд:{countRound} </span>
+                <span>{fight.resultRound}</span>
+                <span>Раунд:{fight.countRound} </span>
                 <span>До конца раунда {counter} сек</span>
             </div>
             <div className="parent__content">

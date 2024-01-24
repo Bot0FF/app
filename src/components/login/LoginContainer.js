@@ -1,13 +1,13 @@
 import React from "react";
 import Login from "./Login";
 import { connect } from "react-redux";
-import { setAuthData } from "../../common/reducer/main-reducer";
+import { setAuth } from "../../common/reducer/auth-reducer";
 import { Navigate } from "react-router-dom";
 
 class LoginContainer extends React.Component {
 
     handleSubmit = (formData) => {
-        this.props.setAuthData(formData);
+        this.props.setAuth(formData);
     };
 
     render() {
@@ -27,9 +27,9 @@ class LoginContainer extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    isAuth: state.mainState.isAuth
+    isAuth: state.authState.isAuth
 });
 
 export default connect(mapStateToProps, {
-    setAuthData
+    setAuth
 })(LoginContainer);

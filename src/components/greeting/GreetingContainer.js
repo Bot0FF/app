@@ -32,7 +32,7 @@ class GreetingContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         news: state.greetingPage.news,
-        isAuth: state.mainState.isAuth
+        isAuth: state.authState.isAuth
     };
 };
 

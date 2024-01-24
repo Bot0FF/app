@@ -22,6 +22,18 @@ export const API = {
             });
     },
 
+    //проверка авторизация
+    checkAuth() {
+        return instanse
+            .get("/api/check")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
     //logout
     setLogout() {
         return instanse

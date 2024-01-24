@@ -1,4 +1,4 @@
-import { getMain } from "./main-reducer";
+import { checkAuth } from "./auth-reducer";
 const SET_INITIALIZE = "SET_INITIALIZE";
 
 let initialState = {
@@ -17,14 +17,12 @@ const appReducer = (state = initialState, action) => {
     };
 };
 
-export const initializeApp = () => {
-    return (dispatch) => {
-        let dispatchResult = dispatch(getMain());
-        Promise.all([dispatchResult])
-            .then(() => {
-                dispatch(setInitialized());
-            });
-    };
+export const initializeApp = () => (dispatch) => {
+    let dispatchResult = dispatch(checkAuth());
+    Promise.all([dispatchResult])
+        .then(() => {
+            dispatch(setInitialized());
+        });
 };
 
 export default appReducer;

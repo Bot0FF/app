@@ -39,18 +39,13 @@ const Main = (props) => {
         <div className="header">
             <div className="parent__content">
                 <div className="player__info">
-                    <div>
-                        <span>Локация: {props.locationName}</span>
-                    </div>
-                    <div>
-                        <span>Здоровье: {props.player.hp}</span>
-                    </div>
-                    <div>
-                        <span>Мана: {props.player.mana}</span>
-                    </div>
-                    <div>
-                        <span>Координаты: {props.x} / {props.y}</span>
-                    </div>
+                    <u>{props.info}</u>
+                    <br />
+                    <span>Локация: {props.locationName}</span>
+                    <br />
+                    <span>Здоровье: {props.player.hp}</span>
+                    <br />
+                    <span>Координаты: {props.x} / {props.y}</span>
                 </div>
                 <div className="button__move">
                     <Button
@@ -122,11 +117,11 @@ const Main = (props) => {
                 <span>
                     {enemy.name} / Здоровье: {enemy.hp}
                 </span>
-                <NavLink to="/battle">
+                <NavLink to="/fight" >
                     <Button
                         variant="outlined"
                         style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                        onClick={() => props.setFightState(enemy.id)}
+                        onClick={() => props.setFight(enemy.id)}
                     >
                         Напасть
                     </Button>

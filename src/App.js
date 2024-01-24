@@ -4,12 +4,12 @@ import LoginContainer from "./components/login/LoginContainer";
 import GreetingContainer from "./components/greeting/GreetingContainer";
 import RegisterContainer from "./components/register/RegisterContainer";
 import MainContainer from "./components/main/MainContainer";
+import FightContainer from "./components/fight/FightContainer";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { initializeApp } from "./common/reducer/app-reducer";
 import { Preloader } from './common/preloader/Preloader';
 import "./App.css";
-import BattleContainer from "./components/battle/BattleContainer";
 
 class App extends React.Component {
 
@@ -27,10 +27,11 @@ class App extends React.Component {
         <NavbarContainer />
         <Routes>
           <Route path="/" element={<GreetingContainer />} />
+          <Route path="/fight" element={<FightContainer />} />
           <Route path="/login" element={<LoginContainer />} />
           <Route path="/register" element={<RegisterContainer />} />
           <Route path="/im" element={<MainContainer />} />
-          <Route path="/battle" element={<BattleContainer />} />
+          <Route path="/fight" element={<FightContainer />} />  
         </Routes>
       </div>
     );
