@@ -5,6 +5,7 @@ import { getMain, movePlayer } from "../../common/reducer/main-reducer";
 import { setFight } from "../../common/reducer/fight-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 import { Preloader } from "../../common/preloader/Preloader";
+import { Navigate } from "react-router-dom";
 
 class MainContainer extends React.Component {
 
@@ -21,22 +22,25 @@ class MainContainer extends React.Component {
     }
 
     render() {
-        if(this.props.status === 0) {
+        if (this.props.status == 0) {
             return <Preloader />
         }
-        return <>
-            <Main
-                locationName={this.props.location.name}
-                x={this.props.location.x}
-                y={this.props.location.y}
-                player={this.props.player}
-                enemies={this.props.enemies}
-                players={this.props.players}
-                info={this.props.info}
-                onMovePlayer={this.onMovePlayer}
-                setFight={this.setFight}
-            />
-        </>
+        if (this.props.player.status == "FIGHT") {
+            return <Navigate replace to="/fight" />
+        }
+            return <>
+                <Main
+                    locationName={this.props.location.name}
+                    x={this.props.location.x}
+                    y={this.props.location.y}
+                    player={this.props.player}
+                    enemies={this.props.enemies}
+                    players={this.props.players}
+                    info={this.props.info}
+                    onMovePlayer={this.onMovePlayer}
+                    setFight={this.setFight}
+                />
+            </>
     };
 };
 

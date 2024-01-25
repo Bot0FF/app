@@ -121,4 +121,16 @@ export const API = {
                 return error;
             });
     },
+
+    //выбор умения и цели при атаке
+    getAbility() {
+        return instanse
+            .get("/api/fight/ability")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
 }
