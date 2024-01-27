@@ -2,32 +2,22 @@ import React from "react";
 import Fight from "./Fight";
 import { connect } from "react-redux";
 import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
-import { refreshFightState, setCurrentHit, getAbility } from "../../common/reducer/fight-reducer";
+import { loadRound, setCurrentHit } from "../../common/reducer/fight-reducer";
 import { Preloader } from './../../common/preloader/Preloader';
 import _ from "underscore";
 
 class FightContainer extends React.Component {
 
     componentDidMount() {
-        if(_.isEmpty(this.props.player)) {
-            this.props.refreshFightState();
-        }
+        this.props.loadRound();
     }
-
+    
     setHit = (abilityId, targetId) => {
         this.props.setCurrentHit(abilityId, targetId);
     }
 
-    refreshFight = () => {
-        this.props.refreshFightState();
-    }
-
-    getAbility = () => {
-        this.props.getAbility();
-    }
-
     render() {
-        if(this.props.status === 0) {
+        if (!this.props.initialize) {
             return <Preloader />
         }
         return <>
@@ -39,10 +29,9 @@ class FightContainer extends React.Component {
                     teamTwo={this.props.teamTwo}
                     resultRound={this.props.resultRound}
                     info={this.props.info}
-                    refreshFight={this.refreshFight}
+                    loadRound={() => this.props.loadRound()}
                     setHit={this.setHit}
                     ability={this.props.ability}
-                    getAbility={this.getAbility}
                 />
             </div>
         </>
@@ -59,6 +48,7 @@ let mapStateToProps = (state) => {
         ability: state.fightState.ability,
         info: state.fightState.info,
         status: state.fightState.status,
+        initialize: state.fightState.initialize,
         isAuth: state.authState.isAuth
     };
 };
@@ -66,8 +56,7 @@ let mapStateToProps = (state) => {
 let WithDataFightContainer = withAuthRedirect(FightContainer);
 
 export default connect(mapStateToProps, {
-    refreshFightState,
-    setCurrentHit,
-    getAbility
+    loadRound,
+    setCurrentHit
 })(WithDataFightContainer);
 
