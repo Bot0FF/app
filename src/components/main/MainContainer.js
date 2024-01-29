@@ -1,8 +1,7 @@
 import React from "react";
 import Main from "./Main";
 import { connect } from "react-redux";
-import { getMain, movePlayer } from "../../common/reducer/main-reducer";
-import { setFight } from "../../common/reducer/fight-reducer";
+import { setFight, getMain, movePlayer } from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 import { Preloader } from "../../common/preloader/Preloader";
 import { Navigate } from "react-router-dom";

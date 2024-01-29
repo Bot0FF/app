@@ -36,44 +36,10 @@
     margin-top: 3px;
     margin-bottom: 3px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 60%;
 }
 
 .button__items {
     display: grid;
-}
-
-.menu__list {
-    display: grid;
-    margin: auto;
-    width: 100%;
-    padding: 1px;
-    list-style-type: none;
-}
-
-.menu__item {
-    text-align: center;
-    font-size: 17px;
-    font-family: var(--font-family);
-    color: black;
-    text-decoration: none;
-}
-
-.my-node-enter {
-    opacity: 0;
-}
-
-.my-node-enter-active {
-    opacity: 1;
-    transition: opacity 200ms;
-}
-
-.my-node-exit {
-    opacity: 1;
-}
-
-.my-node-exit-active {
-    opacity: 0;
-    transition: opacity 200ms;
 }

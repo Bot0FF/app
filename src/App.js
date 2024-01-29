@@ -5,9 +5,9 @@ import GreetingContainer from "./components/greeting/GreetingContainer";
 import RegisterContainer from "./components/register/RegisterContainer";
 import MainContainer from "./components/main/MainContainer";
 import FightContainer from "./components/fight/FightContainer";
+import { initializeApp } from "./common/reducer/auth-reducer";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { initializeApp } from "./common/reducer/app-reducer";
 import { Preloader } from './common/preloader/Preloader';
 import "./App.css";
 
@@ -39,7 +39,7 @@ class App extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  initialize: state.app.initialize
+  initialize: state.authState.initialize
 });
 
 export default connect(mapStateToProps, { initializeApp })(App);

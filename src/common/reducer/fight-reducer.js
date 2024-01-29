@@ -1,25 +1,26 @@
 import { API } from '../../api/api';
 const SET_FIGHT_STATE = "SET_FIGHT_STATE";
-const SET_ERROR = "SET_ERROR";
-const SET_ABILITY = "SET_ABILITY";
-const SET_INITIALIZE = "SET_INITIALIZE";
+const SET_FIGHT_MISTAKE = "SET_FIGHT_MISTAKE";
+const SET_FIGHT_ABILITY = "SET_FIGHT_ABILITY";
+const SET_FIGHT_INITIALIZE = "SET_FIGHT_INITIALIZE";
 
 let initialState = {
     player: {},
-    fight: {},
     teamOne: [],
     teamTwo: [],
     ability: [],
     resultRound: "",
+    countRound: 0,
+    endRoundTimer: 0,
     info: "",
     status: 0,
     initialize: false
 }
 
 export const setFightState = (data) => ({ type: SET_FIGHT_STATE, data: data });
-export const setAbility = (data) => ({ type: SET_ABILITY, data: data });
-export const setInitialize = () => ({ type: SET_INITIALIZE });
-export const setError = (data) => ({ type: SET_ERROR, data: data });
+export const setFightAbility = (data) => ({ type: SET_FIGHT_ABILITY, data: data });
+export const setFightInitialize = () => ({ type: SET_FIGHT_INITIALIZE });
+export const setFightMistake = (data) => ({ type: SET_FIGHT_MISTAKE, data: data });
 
 const fightReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -27,28 +28,29 @@ const fightReducer = (state = initialState, action) => {
             return {
                 ...state,
                 player: action.data.player,
-                fight: action.data.fight,
                 teamOne: action.data.teamOne,
                 teamTwo: action.data.teamTwo,
                 resultRound: action.data.resultRound,
+                countRound: action.data.countRound,
+                endRoundTimer: action.data.endRoundTimer,
                 info: action.data.info,
                 status: action.data.status
             };
-        case SET_ERROR:
-            return {
-                ...state,
-                info: action.data.info,
-                status: action.data.status
-            };
-        case SET_ABILITY:
+        case SET_FIGHT_ABILITY:
             return {
                 ...state,
                 ability: action.data
             };
-        case SET_INITIALIZE:
+        case SET_FIGHT_INITIALIZE:
             return {
                 ...state,
                 initialize: true
+            };
+        case SET_FIGHT_MISTAKE:
+            return {
+                ...state,
+                info: action.data.info,
+                status: action.data.status
             };
         default:
             return state;
@@ -56,35 +58,30 @@ const fightReducer = (state = initialState, action) => {
 };
 
 export const loadRound = () => (dispatch) => {
-    let dispatchFigth = dispatch(refreshFightState());
+    let dispatchFigth = dispatch(getFightState());
     let dispatchAbility = dispatch(getAbility());
     Promise.all([dispatchFigth, dispatchAbility])
         .then(() => {
-            dispatch(setInitialize());
+            dispatch(setFightInitialize());
         });
 };
 
-export const setFight = (targetId) => (dispatch) => {
-    return API.getAttack(targetId)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setFightState(data));
-            }
-            else if (data.status === 2) {
-                dispatch(setError(data));
-            }
-        });
-};
-
-export const refreshFightState = () => (dispatch) => {
+export const getFightState = () => (dispatch) => {
     return API.getFightRefresh()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setFightState(data));
             }
-            else if (data.status === 2) {
-                dispatch(setError(data));
+            else {
+                dispatch(setFightMistake(data));
             }
+        });
+};
+
+export const getAbility = () => (dispatch) => {
+    return API.getAbility()
+        .then(data => {
+            dispatch(setFightAbility(data));
         });
 };
 
@@ -94,18 +91,10 @@ export const setCurrentHit = (abilityId, targetId) => (dispatch) => {
             if (data.status === 1) {
                 dispatch(setFightState(data));
             }
-            else if (data.status === 2) {
-                dispatch(setError(data));
+            else {
+                dispatch(setFightMistake(data));
             }
         });
 };
-
-export const getAbility = () => (dispatch) => {
-    return API.getAbility()
-        .then(data => {
-            dispatch(setAbility(data));
-        });
-};
-
 
 export default fightReducer;

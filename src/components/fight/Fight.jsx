@@ -3,45 +3,44 @@ import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
 import "./fight.css";
 
-const Fight = ({ player, fight, teamOne, teamTwo, loadRound, setHit, ability, resultRound, info }) => {
+const Fight = (props) => {
     const [modalActive, setModalActive] = useState(false);
     const [enemy, setEnemy] = useState({});
-    const [hitName, setHitName] = useState("");
 
     const setModal = (isActive, enemy) => {
         setModalActive(isActive);
         setEnemy(enemy);
     }
 
-    const setCurrentHit = (isActive, abilityId, abilityName, targetId) => {
+    const setCurrentHit = (isActive, abilityId, targetId) => {
         setModalActive(isActive);
-        setHit(abilityId, targetId);
-        setHitName(abilityName);
+        props.setHit(abilityId, targetId);
     }
 
     const getResultRound = () => {
-        return resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
+        return props.resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
     }
 
     return (
         <div className="header">
             <div className="header__info">
-                <span>{hitName ? hitName : info}</span>
-                {getResultRound().map(item => <span>{item}</span>)}
-                 <span>Раунд:{fight.countRound} </span>
-                <Timer endRoundTimer={fight.endRoundTimer} loadRound={loadRound} setCurrentHit={setCurrentHit} />
+                <span>{props.info}</span>
+                {getResultRound().map(item => <span key={item}>{item}</span>)}
+                 <span>Раунд:{props.countRound} </span>
+                <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
             </div>
             <div className="parent__content">
                 <div className="unit__list">
-                    {teamOne.map(unit =>
+                    {props.teamOne.map(unit =>
                         <div
                             className="unit__item"
-                            key={unit.id}>
+                            key={unit.id}
+                            onClick={() => setModal(true, unit)}>   
                             <span>{unit.name} здоровье: {unit.hp} мана: {unit.mana}</span>
                         </div>
                     )}
                     <br />
-                    {teamTwo.map(unit =>
+                    {props.teamTwo.map(unit =>
                         <div
                             className="unit__item"
                             key={unit.id}
@@ -56,13 +55,13 @@ const Fight = ({ player, fight, teamOne, teamTwo, loadRound, setHit, ability, re
                     Выбран: {enemy.name} / Здоровье: {enemy.hp}
                 </span>
                 <span style={{ padding: 10 }}>Доступные умения:</span>
-                {ability.map(a =>
+                {props.ability.map(a =>
                     <Button
                         key={a.id}
                         variant="outlined"
                         size="small"
                         style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                        onClick={() => setCurrentHit(false, a.id, a.name, enemy.id)}>
+                        onClick={() => setCurrentHit(false, a.id, enemy.id)}>
                         <Ability ability={a} />
                     </Button>
                 )}
@@ -71,18 +70,16 @@ const Fight = ({ player, fight, teamOne, teamTwo, loadRound, setHit, ability, re
     );
 };
 
-const Timer = ({ endRoundTimer, loadRound, setCurrentHit }) => {
+const Timer = ({ endRoundTimer, loadRound }) => {
     const [counter, setCounter] = useState(60);
 
     useEffect(() => {
         if (counter >= 0) {
-            console.log(counter)
             let timeToEndRound = ((Math.round(endRoundTimer / 1000 - Date.now() / 1000)));
             setTimeout(() => setCounter(timeToEndRound - 1), 1000);
         }
         else {
             loadRound();
-            setCurrentHit("");
             setCounter(60);
         }
     }, [counter]);

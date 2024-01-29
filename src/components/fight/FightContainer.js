@@ -24,14 +24,15 @@ class FightContainer extends React.Component {
             <div>
                 <Fight
                     player={this.props.player}
-                    fight={this.props.fight}
                     teamOne={this.props.teamOne}
                     teamTwo={this.props.teamTwo}
                     resultRound={this.props.resultRound}
-                    info={this.props.info}
-                    loadRound={() => this.props.loadRound()}
-                    setHit={this.setHit}
                     ability={this.props.ability}
+                    countRound={this.props.countRound}
+                    endRoundTimer={this.props.endRoundTimer}
+                    info={this.props.info}
+                    loadRound={this.props.loadRound}
+                    setHit={this.setHit}
                 />
             </div>
         </>
@@ -41,11 +42,12 @@ class FightContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         player: state.fightState.player,
-        fight: state.fightState.fight,
         teamOne: state.fightState.teamOne,
         teamTwo: state.fightState.teamTwo,
         resultRound: state.fightState.resultRound,
         ability: state.fightState.ability,
+        countRound: state.fightState.countRound,
+        endRoundTimer: state.fightState.endRoundTimer,
         info: state.fightState.info,
         status: state.fightState.status,
         initialize: state.fightState.initialize,

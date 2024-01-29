@@ -1,38 +1,21 @@
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
-import { NavLink } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
+import CollapsibleList from "../../common/util/transition/CollapsibleList";
+import MoveButton from "../../common/util/Button/MoveButton";
 import "./main.css";
-
-
-const GetEntityList = (props) => {
-    return (
-        <>
-            <CSSTransition classNames="my-node" in={props.isOpenEnemy} timeout={200} unmountOnExit>
-                <ul className="menu__list">
-                    {props.entities.map(entity =>
-                        <div className="menu__item"
-                            key={entity.id}
-                            onClick={() => props.setModal(true, entity)}
-                        >
-                            <span>{entity.name}</span>
-                        </div>
-                    )}
-                </ul>
-            </CSSTransition>
-        </>
-    );
-}
+import OpenListButton from "../../common/util/Button/OpenListButton";
 
 const Main = (props) => {
     const [isOpenEnemy, setOpenEnemy] = useState(false);
+    const [isOpenPlayer, setOpenPlayer] = useState(false);
+    const [isOpenThing, setOpenThing] = useState(false);
     const [modalActive, setModalActive] = useState(false);
-    const [enemy, setEnemy] = useState({});
+    const [entity, setEntity] = useState({});
 
-    const setModal = (isActive, enemy) => {
+    const setModal = (isActive, entity) => {
         setModalActive(isActive);
-        setEnemy(enemy);
+        setEntity(entity);
     }
 
     return (
@@ -48,84 +31,68 @@ const Main = (props) => {
                     <span>Координаты: {props.x} / {props.y}</span>
                 </div>
                 <div className="button__move">
-                    <Button
-                        variant="outlined"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a" }}
-                        disabled={props.isHandling}
-                        onClick={() => props.onMovePlayer("up")}
-                    >
-                        Север
-                    </Button>
+                    <MoveButton
+                        move={() => props.onMovePlayer("up")}
+                        name={"Север"}
+                    />
                     <div className="button__row">
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#8b6e6e", border: "2px solid #493a3a" }}
-                            disabled={props.isHandling}
-                            onClick={() => props.onMovePlayer("left")}
-                        >
-                            Запад
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#8b6e6e", border: "2px solid #493a3a" }}
-                            disabled={props.isHandling}
-                            onClick={() => props.onMovePlayer("right")}
-                        >
-                            Восток
-                        </Button>
+                        <MoveButton
+                            move={() => props.onMovePlayer("left")}
+                            name={"Запад"}
+                        />
+                        <MoveButton
+                            move={() => props.onMovePlayer("right")}
+                            name={"Восток"}
+                        />
                     </div>
-                    <Button
-                        variant="outlined"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a" }}
-                        disabled={props.isHandling}
-                        onClick={() => props.onMovePlayer("down")}
-                    >
-                        Юг
-                    </Button>
+                    <MoveButton
+                        move={() => props.onMovePlayer("down")}
+                        name={"Юг"}
+                    />
                 </div>
                 <div>
                     <div className="button__items">
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#8b6e6e", border: "2px solid #493a3a" }}
-                            onClick={() => setOpenEnemy(!isOpenEnemy)}
-                        >
-                            Существа {props.enemies.length}
-                        </Button>
-                        <GetEntityList
-                            isOpenEnemy={isOpenEnemy}
+                        <OpenListButton
+                            name={`Существа ${props.enemies.length}`}
+                            setOpen={() => setOpenEnemy(!isOpenEnemy)}
+                        />
+                        <CollapsibleList
+                            isOpen={isOpenEnemy}
                             entities={props.enemies}
-                            setModal={setModal} />
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                            onClick={() => setOpenEnemy(!isOpenEnemy)}
-                        >
-                            Герои {props.players.length}
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                            onClick={() => setOpenEnemy(!isOpenEnemy)}
-                        >
-                            Вещи под ногами {0}
-                        </Button>
+                            setModal={setModal}
+                        />
+                        <OpenListButton
+                            name={`Герои ${props.players.length}`}
+                            setOpen={() => setOpenPlayer(!isOpenPlayer)}
+                        />
+                        <CollapsibleList
+                            isOpen={isOpenPlayer}
+                            entities={props.players}
+                            setModal={setModal}
+                        />
+                        <OpenListButton
+                            name={`Вещи под ногами ${0}`}
+                            setOpen={() => setOpenThing(!isOpenThing)}
+                        />
+                        <CollapsibleList
+                            isOpen={isOpenThing}
+                            entities={[]}
+                            setModal={setModal}
+                        />
                     </div>
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
                 <span>
-                    {enemy.name} / Здоровье: {enemy.hp}
+                    {entity.name} / Здоровье: {entity.hp}
                 </span>
-                <NavLink to="/fight" >
-                    <Button
-                        variant="outlined"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                        onClick={() => props.setFight(enemy.id)}
-                    >
-                        Напасть
-                    </Button>
-                </NavLink>
+                <Button
+                    variant="outlined"
+                    style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                    onClick={() => props.setFight(entity.id)}
+                >
+                    Напасть
+                </Button>
             </Modal>
         </div>
     );

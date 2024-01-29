@@ -1,19 +1,20 @@
 import { API } from '../../api/api';
 const SET_MAIN_STATE = "SET_MAIN_STATE";
-const SET_ERROR = "SET_ERROR";
+const SET_MAIN_MISTAKE = "SET_MAIN_MISTAKE";
+const SET_MAIN_FIGHT = "SET_MAIN_FIGHT";
 
 let initialState = {
-    player: {},
+    playerId: {},
     location: {},
     enemies: [],
     players: [],
     info: "",
-    status: 0,
-    initialise: false
+    status: 0
 }
 
 export const setMainState = (data) => ({ type: SET_MAIN_STATE, data: data });
-export const setError = (data) => ({ type: SET_ERROR, data: data });
+export const setMainMistake = (data) => ({ type: SET_MAIN_MISTAKE, data: data });
+export const setMainFight = (data) => ({ type: SET_MAIN_FIGHT, data: data });
 
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -27,9 +28,16 @@ const mainReducer = (state = initialState, action) => {
                 info: action.data.info,
                 status: action.data.status
             };
-        case SET_ERROR:
+        case SET_MAIN_MISTAKE:
             return {
                 ...state,
+                info: action.data.info,
+                status: action.data.status
+            };
+        case SET_MAIN_FIGHT:
+            return {
+                ...state,
+                player: action.data.player,
                 info: action.data.info,
                 status: action.data.status
             };
@@ -44,8 +52,8 @@ export const getMain = () => (dispatch) => {
             if (data.status === 1) {
                 dispatch(setMainState(data));
             }
-            else if (data.status === 2) {
-                dispatch(setError(data));
+            else {
+                dispatch(setMainMistake(data));
             }
         });
 };
@@ -56,8 +64,21 @@ export const movePlayer = (direction) => (dispatch) => {
             if (data.status === 1) {
                 dispatch(setMainState(data));
             }
-            else if (data.status === 2) {
-                dispatch(setError(data));
+            else {
+                dispatch(setMainMistake(data));
+            }
+        });
+};
+
+
+export const setFight = (targetId) => (dispatch) => {
+    return API.getAttack(targetId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setMainFight(data));
+            }
+            else {
+                dispatch(setMainMistake(data));
             }
         });
 };

@@ -88,6 +88,9 @@ export const API = {
 
     //атака выбранного противника
     getAttack(targetId) {
+        if(targetId == undefined) {
+            targetId = 0;
+        }
         return instanse
             .get("/api/fight/attack?targetId=" + targetId)
             .then(response => {

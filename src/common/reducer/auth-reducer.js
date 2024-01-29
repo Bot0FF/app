@@ -1,18 +1,22 @@
 import { API } from '../../api/api';
-const SET_AUTH = "SET_AUTH";
+const SET_AUTH_DATA = "SET_AUTH_DATA";
 const SET_LOGOUT = "SET_LOGOUT";
+const SET_APP_INITIALIZE = "SET_APP_INITIALIZE";
 
 let initialState = {
     status: 0,
-    isAuth: false
+    isAuth: false,
+    initialize: false
 }
 
-export const setAuthData = (data) => ({ type: SET_AUTH, data: data });
+
+export const setAuthData = (data) => ({ type: SET_AUTH_DATA, data: data });
+export const setInitialize = (data) => ({ type: SET_APP_INITIALIZE, data: data });
 export const setLogout = () => ({ type: SET_LOGOUT });
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_AUTH:
+        case SET_AUTH_DATA:
             return {
                 ...state,
                 status: action.data.status,
@@ -22,19 +26,23 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: 0,
-                isAuth: false
+                isAuth: false,
+            };
+        case SET_APP_INITIALIZE:
+            return {
+                ...state,
+                initialize: true
             };
         default:
             return state;
     };
 };
 
-export const setAuth = (formData) => (dispatch) => {
-    return API.setAuth(formData.username, formData.password)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setAuthData(data));
-            }
+export const initializeApp = () => (dispatch) => {
+    let dispatchResult = dispatch(checkAuth());
+    Promise.all([dispatchResult])
+        .then(() => {
+            dispatch(setInitialize());
         });
 };
 
@@ -43,6 +51,21 @@ export const checkAuth = () => (dispatch) => {
         .then(data => {
             if (data.status === 1) {
                 dispatch(setAuthData(data));
+            }
+            else {
+                //dispatch(logout());
+            }
+        });
+};
+
+export const setAuth = (formData) => (dispatch) => {
+    return API.setAuth(formData.username, formData.password)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setAuthData(data));
+            }
+            else {
+                //dispatch(logout());
             }
         });
 };
