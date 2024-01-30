@@ -6,11 +6,11 @@
     margin: auto;
 }
 
-.parent__content {
+.parent-content--main {
     margin: 20px;
     display: grid;
     padding: 20px 5px;
-    width: 270px;
+    width: 300px;
     border: 2px solid #493a3a;
     border-radius: 10px;
     text-align: center;

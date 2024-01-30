@@ -2,12 +2,63 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  justify-content: center;
   padding: 2rem 6rem;
   border-bottom: 2px solid #493a3a;
+  cursor: default;
 }
 
-.navbar a{
+.navbar-item--left{
+  flex: 1;
   display: flex;
+  justify-content: flex-start;
+  width: 35%;
+}
+
+.navbar-menu{
+  position: absolute;
+  top: 80px;
+  left: 58px;
+  width: 138px;
+  padding: 25px;
+  border: 2px solid #493a3a;;
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.navbar-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar-menu--list{
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  list-style-type: none;
+}
+
+.menu-list--item{
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: default;
+}
+
+.menu-list--item:nth-child(n + 2) {
+  margin-top: 15px;
+}
+
+.navbar-logo{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   font-family: var(--font-family);
   color: #8b6e6e;
@@ -16,31 +67,9 @@
   font-weight: bold;
 }
 
-.navbar-sign{
+.navbar-item--right{
+  flex: 1;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-}
-
-.navbar-sign .primary-btn
-{
-  background: var(--primary-btn);
-}
-
-.navbar-sign .secondary-btn
-{
-  background: transparent;
-  border: 1px solid var(--primary-color);
-  margin: 0 1rem;
-  color: var(--primary-color);
-}
-
-.navbar-sign button{
-  color: #fff;
-  padding: 0.5rem 1rem;
-  font-family: var(--font-family);
-  font-weight: 500;
-  border: none;
-  font-size: 16px;
-  border-radius: 10px;
+  width: 35%;
 }

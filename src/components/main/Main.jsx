@@ -20,13 +20,15 @@ const Main = (props) => {
 
     return (
         <div className="header">
-            <div className="parent__content">
+            <div className="parent-content--main">
                 <div className="player__info">
                     <u>{props.info}</u>
                     <br />
                     <span>Локация: {props.locationName}</span>
                     <br />
-                    <span>Здоровье: {props.player.hp}</span>
+                    <span>Здоровье: {props.player.hp} ({props.player.maxHp})</span>
+                    <br />
+                    <span>Мана: {props.player.mana} ({props.player.maxMana})</span>
                     <br />
                     <span>Координаты: {props.x} / {props.y}</span>
                 </div>
@@ -84,7 +86,11 @@ const Main = (props) => {
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
                 <span>
-                    {entity.name} / Здоровье: {entity.hp}
+                    <u>{entity.name}</u>
+                    <br />
+                    <span>Здоровье: {entity.hp} ({entity.maxHp})</span>
+                    <br />
+                    <span>Мана: {props.player.mana} ({props.player.maxMana})</span>
                 </span>
                 <Button
                     variant="outlined"

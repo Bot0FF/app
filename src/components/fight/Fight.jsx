@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
 import "./fight.css";
+import AbilityButton from './../../common/util/Button/AbilityButton';
 
 const Fight = (props) => {
-    const [modalActive, setModalActive] = useState(false);
-    const [enemy, setEnemy] = useState({});
 
-    const setModal = (isActive, enemy) => {
+    const [modalActive, setModalActive] = useState(false);
+    const [unit, setUnit] = useState({});
+
+    const setModal = (isActive, unit) => {
         setModalActive(isActive);
-        setEnemy(enemy);
+        setUnit(unit);
     }
 
     const setCurrentHit = (isActive, abilityId, targetId) => {
@@ -17,65 +18,96 @@ const Fight = (props) => {
         props.setHit(abilityId, targetId);
     }
 
+    const isMyTeam = () => {
+        return props.player.teamNumber == unit.teamNumber ? true : false;
+    }
+
     const getResultRound = () => {
         return props.resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
     }
 
     return (
-        <div className="header">
-            <div className="header__info">
+        <div className="header-fight">
+            <div className="header-fight--info">
                 <span>{props.info}</span>
                 {getResultRound().map(item => <span key={item}>{item}</span>)}
-                 <span>Раунд:{props.countRound} </span>
+                <span className="border-fight--info" />
+                <span>Раунд:{props.countRound} </span>
                 <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
             </div>
-            <div className="parent__content">
+            <div className="parent-fight--content">
                 <div className="unit__list">
-                    {props.teamOne.map(unit =>
-                        <div
-                            className="unit__item"
-                            key={unit.id}
-                            onClick={() => setModal(true, unit)}>   
-                            <span>{unit.name} здоровье: {unit.hp} мана: {unit.mana}</span>
-                        </div>
-                    )}
-                    <br />
-                    {props.teamTwo.map(unit =>
-                        <div
-                            className="unit__item"
-                            key={unit.id}
-                            onClick={() => setModal(true, unit)}>
-                            <span>{unit.name} здоровье: {unit.hp} мана: {unit.mana}</span>
-                        </div>
-                    )}
+                    <Team
+                        player={props.player}
+                        teamList={props.teamOne}
+                        setModal={setModal}
+                    />
+                </div>
+                <div className="unit__list">
+                    <Team
+                        player={props.player}
+                        teamList={props.teamTwo}
+                        setModal={setModal}
+                    />
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
                 <span style={{ padding: 10 }}>
-                    Выбран: {enemy.name} / Здоровье: {enemy.hp}
+                    <u>Выбран: {unit.name} </u>
+                    <br />
+                    <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
                 </span>
-                <span style={{ padding: 10 }}>Доступные умения:</span>
-                {props.ability.map(a =>
-                    <Button
-                        key={a.id}
-                        variant="outlined"
-                        size="small"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                        onClick={() => setCurrentHit(false, a.id, enemy.id)}>
-                        <Ability ability={a} />
-                    </Button>
+                <u style={{ marginBottom: 5 }}>Доступные умения:</u>
+                {props.ability.map(a => {
+                    if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
+                        return (
+                            <AbilityButton
+                                key={a.id}
+                                ability={a}
+                                enemy={unit}
+                                setCurrentHit={setCurrentHit}
+                            />);
+                    }
+                    else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.hitType)) {
+                        return (
+                            <AbilityButton
+                                key={a.id}
+                                ability={a}
+                                enemy={unit}
+                                setCurrentHit={setCurrentHit}
+                            />);
+                    }
+                }
                 )}
             </Modal>
         </div>
     );
 };
 
+const Team = (props) => {
+    return (
+        props.teamList.map(unit =>
+            <div
+                className={props.player.id == unit.id ? "unit-item player" : "unit-item"}
+                key={unit.id}
+                onClick={() => props.setModal(true, unit)}
+            >
+                <span>
+                    <u>{unit.name} </u>
+                    <br />
+                    <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
+                </span>
+            </div>
+        )
+    )
+}
+
 const Timer = ({ endRoundTimer, loadRound }) => {
     const [counter, setCounter] = useState(60);
+    let timeToEndRound = ((Math.round(endRoundTimer / 1000 - Date.now() / 1000)));
 
     useEffect(() => {
         if (counter >= 0) {
-            let timeToEndRound = ((Math.round(endRoundTimer / 1000 - Date.now() / 1000)));
             setTimeout(() => setCounter(timeToEndRound - 1), 1000);
         }
         else {
@@ -85,36 +117,10 @@ const Timer = ({ endRoundTimer, loadRound }) => {
     }, [counter]);
     return (
         <span>До конца раунда {counter} сек</span>
-    );
-};
+    )
+}
 
 
-const Ability = ({ ability }) => {
 
-    const getMinDamage = () => {
-        return Math.floor(ability.damage * 0.7);
-    }
-
-    const getMaxDamage = () => {
-        return Math.floor(ability.damage * 1.3);
-    }
-
-    const getDescription = () => {
-        if (ability.damage != 0) {
-            return <span style={{ fontWeight: 'bold' }}>Урон: ({getMinDamage()}-{getMaxDamage()})</span>
-        }
-        else if (ability.hp != 0) {
-            return <span style={{ fontWeight: 'bold' }}>Восстановление здоровья: {ability.hp}</span>
-        }
-    }
-
-    return (
-        <div>
-            <span style={{ fontWeight: 'bold' }}>{ability.name}</span>
-            <br />
-            {getDescription()}
-        </div>
-    );
-};
 
 export default Fight;
