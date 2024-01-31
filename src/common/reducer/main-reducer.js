@@ -4,7 +4,7 @@ const SET_MAIN_MISTAKE = "SET_MAIN_MISTAKE";
 const SET_MAIN_FIGHT = "SET_MAIN_FIGHT";
 
 let initialState = {
-    playerId: {},
+    player: {},
     location: {},
     enemies: [],
     players: [],

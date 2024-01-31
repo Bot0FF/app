@@ -14,7 +14,7 @@
 }
 
 .modal__content {
-    padding: 20px;
+    padding: 10px;
     border-radius: 12px;
     background-color: var(--color-bg);
     transition: 0.3s all;
@@ -25,6 +25,7 @@
     display: grid;
     text-align:center; 
     font-size: 17px;
+    color: var(--primary-color);
     font-family: var(--font-family);
     font-size: medium;
 }

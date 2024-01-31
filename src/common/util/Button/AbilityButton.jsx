@@ -42,9 +42,9 @@ const ButtonTheme = createTheme({
                 {
                     props: { variant: "bold" },
                     style: {
-                        color: "#8b6e6e",
+                        color: "#816767",
                         marginBottom: "1px",
-                        border: "1px solid #493a3a",
+                        border: "1px solid #574444",
                         width: "100%",
                         fontSize: "11px"
                     }

@@ -20,7 +20,12 @@
 
 .player__info {
     font-family: var(--font-family);
+    color: var(--primary-color);
     font-weight: bold;
+}
+
+.player__info u {
+    color: var(--info-color);
 }
 
 .button__move {
@@ -37,7 +42,6 @@
     margin-bottom: 3px;
     display: flex;
     justify-content: center;
-    width: 60%;
 }
 
 .button__items {

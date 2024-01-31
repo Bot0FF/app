@@ -25,8 +25,8 @@ const CustomTheme = createTheme({
                     props: { variant: "bold" },
                     style: {
                         fontWeight: "bold",
-                        color: "#8b6e6e",
-                        border: "2px solid #493a3a",
+                        color: "#816767",
+                        border: "2px solid #574444",
                         width: "100%",
                         marginBottom: 1
                     }

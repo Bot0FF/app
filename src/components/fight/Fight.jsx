@@ -29,9 +29,10 @@ const Fight = (props) => {
     return (
         <div className="header-fight">
             <div className="header-fight--info">
-                <span>{props.info}</span>
-                {getResultRound().map(item => <span key={item}>{item}</span>)}
-                <span className="border-fight--info" />
+                <span className="border-action--info">{props.info}</span>
+                {getResultRound().map(item =>
+                    <span className="border-history--info" key={item}>{item}</span>
+                )}
                 <span>Раунд:{props.countRound} </span>
                 <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
             </div>
@@ -95,7 +96,12 @@ const Team = (props) => {
                 <span>
                     <u>{unit.name} </u>
                     <br />
-                    <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
+                    {props.player.id == unit.id
+                        ?
+                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.maxHp}) / Мана: {unit.mana}  ({unit.maxMana})</span>
+                        :
+                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
+                    }
                 </span>
             </div>
         )
