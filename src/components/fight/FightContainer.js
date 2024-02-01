@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
 import { loadRound, setCurrentHit } from "../../common/reducer/fight-reducer";
 import { Preloader } from './../../common/preloader/Preloader';
-import _ from "underscore";
 
 class FightContainer extends React.Component {
 
