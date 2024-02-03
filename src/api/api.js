@@ -62,10 +62,46 @@ export const API = {
             });
     },
 
-    //главная страница
+    //главная страница user + location
     getMain() {
         return instanse
             .get("/api/main/im")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //запрос списка ais
+    getAis() {
+        return instanse
+            .get("/api/main/location/ais")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //запрос списка units
+    getUnits() {
+        return instanse
+            .get("/api/main/location/units")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //запрос списка things
+    getThings() {
+        return instanse
+            .get("/api/main/location/things")
             .then(response => {
                 return response.data;
             })
@@ -88,7 +124,7 @@ export const API = {
 
     //атака выбранного противника
     getAttack(targetId) {
-        if(targetId == undefined) {
+        if (targetId === undefined) {
             targetId = 0;
         }
         return instanse

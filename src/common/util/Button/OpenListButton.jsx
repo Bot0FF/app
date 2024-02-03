@@ -8,7 +8,7 @@ const OpenListButton = (props) => {
             <ThemeProvider theme={CustomTheme}>
                 <Button
                     variant="bold"
-                    onClick={() => props.setOpen()}
+                    onClick={() => {props.setOpen(); props.setEntity();}}
                 >
                     {props.name}
                 </Button>

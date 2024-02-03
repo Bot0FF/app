@@ -1,18 +1,28 @@
 import { API } from '../../api/api';
 const SET_MAIN_STATE = "SET_MAIN_STATE";
+const SET_AIS = "SET_AIS";
+const SET_UNITS = "SET_UNITS";
+const SET_THINGS = "SET_THINGS";
 const SET_MAIN_MISTAKE = "SET_MAIN_MISTAKE";
 const SET_MAIN_FIGHT = "SET_MAIN_FIGHT";
 
 let initialState = {
     player: {},
     location: {},
-    enemies: [],
-    players: [],
+    aisSize: 0,
+    ais: [],
+    unitsSize: 0,
+    units: [],
+    thingsSize: 0,
+    things: [],
     info: "",
     status: 0
 }
 
 export const setMainState = (data) => ({ type: SET_MAIN_STATE, data: data });
+export const setAisData = (data) => ({ type: SET_AIS, data: data });
+export const setUnitsData = (data) => ({ type: SET_UNITS, data: data });
+export const setThingsData = (data) => ({ type: SET_THINGS, data: data });
 export const setMainMistake = (data) => ({ type: SET_MAIN_MISTAKE, data: data });
 export const setMainFight = (data) => ({ type: SET_MAIN_FIGHT, data: data });
 
@@ -23,21 +33,37 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 player: action.data.player,
                 location: action.data.location,
-                enemies: action.data.enemies,
-                players: action.data.players,
+                aisSize: action.data.ais,
+                unitsSize: action.data.units,
+                thingsSize: action.data.things,
+                info: action.data.info,
+                status: action.data.status
+            };
+        case SET_AIS:
+            return {
+                ...state,
+                ais: action.data
+            };
+        case SET_UNITS:
+            return {
+                ...state,
+                ais: action.data
+            };
+        case SET_THINGS:
+            return {
+                ...state,
+                ais: action.data
+            };
+        case SET_MAIN_FIGHT:
+            return {
+                ...state,
+                player: action.data.player,
                 info: action.data.info,
                 status: action.data.status
             };
         case SET_MAIN_MISTAKE:
             return {
                 ...state,
-                info: action.data.info,
-                status: action.data.status
-            };
-        case SET_MAIN_FIGHT:
-            return {
-                ...state,
-                player: action.data.player,
                 info: action.data.info,
                 status: action.data.status
             };
@@ -55,6 +81,27 @@ export const getMain = () => (dispatch) => {
             else {
                 dispatch(setMainMistake(data));
             }
+        });
+};
+
+export const getAis = () => (dispatch) => {
+    return API.getAis()
+        .then(data => {
+            dispatch(setAisData(data));
+        });
+};
+
+export const getUnits = () => (dispatch) => {
+    return API.getUnits()
+        .then(data => {
+            dispatch(setUnitsData(data));
+        });
+};
+
+export const getThings = () => (dispatch) => {
+    return API.getThings()
+        .then(data => {
+            dispatch(setThingsData(data));
         });
 };
 

@@ -55,7 +55,6 @@ const ButtonTheme = createTheme({
             styleOverrides: {
                 tooltip: {
                     textAlign: "center",
-                    height: "40px"
                 }
             }
         }

@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "./Main";
 import { connect } from "react-redux";
-import { setFight, getMain, movePlayer } from "../../common/reducer/main-reducer";
+import { getMain, getAis, getUnits, getThings, movePlayer, setFight } from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 import { Navigate } from "react-router-dom";
 
@@ -20,18 +20,25 @@ class MainContainer extends React.Component {
     }
 
     render() {
-        if (this.props.player.status == "FIGHT") {
+        if (this.props.player.status === "FIGHT") {
             return <Navigate replace to="/fight" />
         }
         return <>
             <Main
+                player={this.props.player}
                 locationName={this.props.location.name}
                 x={this.props.location.x}
                 y={this.props.location.y}
-                player={this.props.player}
-                enemies={this.props.enemies}
-                players={this.props.players}
+                ais={this.props.ais}
+                units={this.props.units}
+                things={this.props.things}
                 info={this.props.info}
+                aisSize={this.props.aisSize}
+                getAis={this.props.getAis}
+                unitsSize={this.props.unitsSize}
+                getUnits={this.props.getUnits}
+                thingsSize={this.props.thingsSize}
+                getThings={this.props.getThings}
                 onMovePlayer={this.onMovePlayer}
                 setFight={this.setFight}
             />
@@ -43,8 +50,12 @@ let mapStateToProps = (state) => {
     return {
         player: state.mainState.player,
         location: state.mainState.location,
-        enemies: state.mainState.enemies,
-        players: state.mainState.players,
+        aisSize: state.mainState.aisSize,
+        ais: state.mainState.ais,
+        unitsSize: state.mainState.unitsSize,
+        units: state.mainState.units,
+        thingsSize: state.mainState.thingsSize,
+        things: state.mainState.things,
         info: state.mainState.info,
         status: state.mainState.status,
         isAuth: state.authState.isAuth
@@ -53,6 +64,9 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getMain,
+    getAis,
+    getUnits,
+    getThings,
     movePlayer,
     setFight
 })(withAuthRedirect(MainContainer));

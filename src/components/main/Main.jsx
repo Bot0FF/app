@@ -7,9 +7,9 @@ import "./main.css";
 import OpenListButton from "../../common/util/Button/OpenListButton";
 
 const Main = (props) => {
-    const [isOpenEnemy, setOpenEnemy] = useState(false);
-    const [isOpenPlayer, setOpenPlayer] = useState(false);
-    const [isOpenThing, setOpenThing] = useState(false);
+    const [isOpenAis, setOpenAis] = useState(false);
+    const [isOpenUnits, setOpenUnits] = useState(false);
+    const [isOpenThings, setOpenThings] = useState(false);
     const [modalActive, setModalActive] = useState(false);
     const [entity, setEntity] = useState({});
 
@@ -55,30 +55,33 @@ const Main = (props) => {
                 <div>
                     <div className="button__items">
                         <OpenListButton
-                            name={`Существа ${props.enemies.length}`}
-                            setOpen={() => setOpenEnemy(!isOpenEnemy)}
+                            name={`Существа ${props.aisSize}`}
+                            setOpen={() => setOpenAis(!isOpenAis)}
+                            setEntity={props.getAis}
                         />
                         <CollapsibleList
-                            isOpen={isOpenEnemy}
-                            entities={props.enemies}
+                            isOpen={isOpenAis}
+                            entities={props.ais}
                             setModal={setModal}
                         />
                         <OpenListButton
-                            name={`Герои ${props.players.length}`}
-                            setOpen={() => setOpenPlayer(!isOpenPlayer)}
+                            name={`Герои ${props.unitsSize}`}
+                            setOpen={() => setOpenUnits(!isOpenUnits)}
+                            setEntity={props.getUnits}
                         />
                         <CollapsibleList
-                            isOpen={isOpenPlayer}
-                            entities={props.players}
+                            isOpen={isOpenUnits}
+                            entities={props.units}
                             setModal={setModal}
                         />
                         <OpenListButton
-                            name={`Вещи под ногами ${0}`}
-                            setOpen={() => setOpenThing(!isOpenThing)}
+                            name={`Вещи под ногами ${props.thingsSize}`}
+                            setOpen={() => setOpenThings(!isOpenThings)}
+                            setEntity={props.getThings}
                         />
                         <CollapsibleList
-                            isOpen={isOpenThing}
-                            entities={[]}
+                            isOpen={isOpenThings}
+                            entities={props.things}
                             setModal={setModal}
                         />
                     </div>
@@ -92,13 +95,24 @@ const Main = (props) => {
                     <br />
                     <span>Мана: {props.player.mana} ({props.player.maxMana})</span>
                 </span>
-                <Button
-                    variant="outlined"
-                    style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                    onClick={() => props.setFight(entity.id)}
-                >
-                    Напасть
-                </Button>
+                {entity.hp > 0
+                    ?
+                    <Button
+                        variant="outlined"
+                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                        onClick={() => props.setFight(entity.id)}
+                    >
+                        Напасть
+                    </Button>
+                    :
+                    <Button
+                        variant="outlined"
+                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                    >
+                        Осмотреть
+                    </Button>
+                }
+
             </Modal>
         </div>
     );

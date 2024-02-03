@@ -13,7 +13,12 @@ const CollapsibleList = (props) => {
                             key={entity.id}
                             onClick={() => props.setModal(true, entity)}
                         >
-                            <span>{entity.name}</span>
+                            {entity.hp > 0
+                                ?
+                                <span>{entity.name} </span>
+                                :
+                                <span style={{color: "#744444"}}>{entity.name}</span>
+                            }
                         </div>
                     )}
                 </ul>
