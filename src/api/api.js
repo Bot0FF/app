@@ -172,4 +172,19 @@ export const API = {
                 return error;
             });
     },
+
+    //забрать выбранную вещь
+    takeThing(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/main/thing/take?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
 }

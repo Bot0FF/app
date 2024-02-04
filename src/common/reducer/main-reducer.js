@@ -3,7 +3,7 @@ const SET_MAIN_STATE = "SET_MAIN_STATE";
 const SET_AIS = "SET_AIS";
 const SET_UNITS = "SET_UNITS";
 const SET_THINGS = "SET_THINGS";
-const SET_MAIN_MISTAKE = "SET_MAIN_MISTAKE";
+const SET_MAIN_INFO = "SET_MAIN_INFO";
 const SET_MAIN_FIGHT = "SET_MAIN_FIGHT";
 
 let initialState = {
@@ -23,7 +23,7 @@ export const setMainState = (data) => ({ type: SET_MAIN_STATE, data: data });
 export const setAisData = (data) => ({ type: SET_AIS, data: data });
 export const setUnitsData = (data) => ({ type: SET_UNITS, data: data });
 export const setThingsData = (data) => ({ type: SET_THINGS, data: data });
-export const setMainMistake = (data) => ({ type: SET_MAIN_MISTAKE, data: data });
+export const setMainInfo = (data) => ({ type: SET_MAIN_INFO, data: data });
 export const setMainFight = (data) => ({ type: SET_MAIN_FIGHT, data: data });
 
 const mainReducer = (state = initialState, action) => {
@@ -47,12 +47,12 @@ const mainReducer = (state = initialState, action) => {
         case SET_UNITS:
             return {
                 ...state,
-                ais: action.data
+                units: action.data
             };
         case SET_THINGS:
             return {
                 ...state,
-                ais: action.data
+                things: action.data
             };
         case SET_MAIN_FIGHT:
             return {
@@ -61,7 +61,7 @@ const mainReducer = (state = initialState, action) => {
                 info: action.data.info,
                 status: action.data.status
             };
-        case SET_MAIN_MISTAKE:
+        case SET_MAIN_INFO:
             return {
                 ...state,
                 info: action.data.info,
@@ -79,7 +79,7 @@ export const getMain = () => (dispatch) => {
                 dispatch(setMainState(data));
             }
             else {
-                dispatch(setMainMistake(data));
+                dispatch(setMainInfo(data));
             }
         });
 };
@@ -98,6 +98,14 @@ export const getUnits = () => (dispatch) => {
         });
 };
 
+export const takeThing = (thingId) => (dispatch) => {
+    return API.takeThing(thingId)
+        .then(data => {
+            dispatch(setMainState(data));
+            dispatch(getThings(data));
+        });
+};
+
 export const getThings = () => (dispatch) => {
     return API.getThings()
         .then(data => {
@@ -112,7 +120,7 @@ export const movePlayer = (direction) => (dispatch) => {
                 dispatch(setMainState(data));
             }
             else {
-                dispatch(setMainMistake(data));
+                dispatch(setMainInfo(data));
             }
         });
 };
@@ -125,7 +133,7 @@ export const setFight = (targetId) => (dispatch) => {
                 dispatch(setMainFight(data));
             }
             else {
-                dispatch(setMainMistake(data));
+                dispatch(setMainInfo(data));
             }
         });
 };

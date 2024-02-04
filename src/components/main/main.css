@@ -21,7 +21,6 @@
 .player__info {
     font-family: var(--font-family);
     color: var(--primary-color);
-    font-weight: bold;
 }
 
 .player__info u {

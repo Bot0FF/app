@@ -7,7 +7,7 @@ const Navbar = (props) => {
     const [isOpen, setOpen] = useState(false);
     const menuRef = useRef(null);
     useClickOutside(menuRef, () => {
-        if(isOpen) setTimeout(() => setOpen(!isOpen), 50);
+        if (isOpen) setTimeout(() => setOpen(!isOpen), 50);
     });
 
     return (
@@ -33,9 +33,27 @@ const Navbar = (props) => {
                         </div>
                         <nav className={`navbar-menu ${isOpen ? "active" : ""}`} ref={menuRef}>
                             <ul className="navbar-menu--list">
-                                <li className="menu-list--item">Профиль</li>
-                                <li className="menu-list--item">Почта</li>
-                                <li className="menu-list--item">Магазин</li>
+                                <NavLink
+                                    to="/profile"
+                                    className="menu-list--item"
+                                    onClick={() => { setOpen(!isOpen) }}
+                                >
+                                    Профиль
+                                </NavLink>
+                                <NavLink
+                                    to="/messanger"
+                                    className="menu-list--item"
+                                    onClick={() => { setOpen(!isOpen) }}
+                                >
+                                    Почта
+                                </NavLink>
+                                <NavLink
+                                    to="/shop"
+                                    className="menu-list--item"
+                                    onClick={() => { setOpen(!isOpen) }}
+                                >
+                                    Магазин
+                                </NavLink>
                             </ul>
                         </nav>
                     </>

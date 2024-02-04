@@ -7,7 +7,7 @@ const CollapsibleList = (props) => {
         <div>
             <CSSTransition classNames="my-node" in={props.isOpen} timeout={200} unmountOnExit>
                 <ul className="menu__list">
-                    {props.entities.map(entity =>
+                    {props.entities?.map(entity =>
                         <div
                             className="menu__item"
                             key={entity.id}

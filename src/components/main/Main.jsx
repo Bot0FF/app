@@ -88,34 +88,91 @@ const Main = (props) => {
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <span>
-                    <u>{entity.name}</u>
-                    <br />
-                    <span>Здоровье: {entity.hp} ({entity.maxHp})</span>
-                    <br />
-                    <span>Мана: {props.player.mana} ({props.player.maxMana})</span>
-                </span>
-                {entity.hp > 0
+                {entity.subjectType === "AI" || entity.subjectType === "UNIT"
                     ?
-                    <Button
-                        variant="outlined"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                        onClick={() => props.setFight(entity.id)}
-                    >
-                        Напасть
-                    </Button>
+                    <UNIT
+                        entity={entity}
+                        player={props.player}
+                        setFight={props.setFight}
+                    />
                     :
-                    <Button
-                        variant="outlined"
-                        style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                    >
-                        Осмотреть
-                    </Button>
+                    <THING
+                        entity={entity}
+                        takeThing={props.takeThing}
+                    />
                 }
+
 
             </Modal>
         </div>
     );
 };
+
+const UNIT = ({entity, player, setFight}) => {
+    return (<>
+        <span>
+            <u>{entity.name}</u>
+            <br />
+            <span>Здоровье: {entity.hp} ({entity.maxHp})</span>
+            <br />
+            <span>Мана: {player.mana} ({player.maxMana})</span>
+        </span>
+        {entity.hp > 0
+            ?
+            <Button
+                variant="outlined"
+                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                onClick={() => setFight(entity.id)}
+            >
+                Напасть
+            </Button>
+            :
+            <Button
+                variant="outlined"
+                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+            >
+                Осмотреть
+            </Button>
+        }
+    </>
+    );
+};
+
+const THING = ({entity, takeThing}) => {
+    return (<>
+        <span>
+            <u>{entity.name}</u>
+            <br />
+            <span>Описание: {entity.description}</span>
+            <br />
+            <span>Добавляет здоровья: {entity.hp}</span>
+            <br />
+            <span>Добавляет маны: {entity.mana}</span>
+            <br />
+            <span>Добавляет урона: {entity.damage}</span>
+            <br />
+            <span>Добавляет защиты: {entity.defense}</span>
+        </span>
+        {entity.hp > 0
+            ?
+            <Button
+                variant="outlined"
+                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+                onClick={() => takeThing(entity.id)}
+            >
+                Забрать
+            </Button>
+            :
+            <Button
+                variant="outlined"
+                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+            >
+                Осмотреть
+            </Button>
+        }
+    </>
+    );
+};
+
 
 export default Main;

@@ -41,13 +41,14 @@
   width: 100%;
   padding: 0;
   list-style-type: none;
+  color: var(--primary-color);
 }
 
 .menu-list--item{
   display: flex;
   align-items: center;
-  font-size: 17px;
-  font-weight: 500;
+  font-family: var(--font-family);
+  font-weight: bold;
   cursor: default;
 }
 

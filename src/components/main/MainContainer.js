@@ -1,7 +1,15 @@
 import React from "react";
 import Main from "./Main";
 import { connect } from "react-redux";
-import { getMain, getAis, getUnits, getThings, movePlayer, setFight } from "../../common/reducer/main-reducer";
+import {
+    getMain,
+    getAis,
+    getUnits,
+    getThings,
+    movePlayer,
+    setFight,
+    takeThing
+} from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 import { Navigate } from "react-router-dom";
 
@@ -41,6 +49,7 @@ class MainContainer extends React.Component {
                 getThings={this.props.getThings}
                 onMovePlayer={this.onMovePlayer}
                 setFight={this.setFight}
+                takeThing={this.props.takeThing}
             />
         </>
     };
@@ -68,5 +77,6 @@ export default connect(mapStateToProps, {
     getUnits,
     getThings,
     movePlayer,
-    setFight
+    setFight,
+    takeThing
 })(withAuthRedirect(MainContainer));
