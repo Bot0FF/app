@@ -5,6 +5,8 @@ import GreetingContainer from "./components/greeting/GreetingContainer";
 import RegisterContainer from "./components/register/RegisterContainer";
 import MainContainer from "./components/main/MainContainer";
 import FightContainer from "./components/fight/FightContainer";
+import ProfileContainer from "./components/profile/ProfileContainer";
+import Inventory from "./components/profile/Inventory";
 import { initializeApp } from "./common/reducer/auth-reducer";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
@@ -32,7 +34,8 @@ class App extends React.Component {
           <Route path="/login" element={<LoginContainer />} />
           <Route path="/register" element={<RegisterContainer />} />
           <Route path="/im" element={<MainContainer />} />
-          <Route path="/fight" element={<FightContainer />} />  
+          <Route path="/fight" element={<FightContainer />} />
+          <Route path="/profile/*" element={<ProfileContainer />}/>
         </Routes>
       </div>
     );

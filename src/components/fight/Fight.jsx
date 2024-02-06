@@ -30,7 +30,7 @@ const Fight = (props) => {
         <div className="header-fight">
             <div className="header-fight--info">
                 <span className="border-action--info">{props.info}</span>
-                {getResultRound().map(item =>
+                {getResultRound()?.map(item =>
                     <span className="border-history--info" key={item}>{item}</span>
                 )}
                 <span>Раунд:{props.countRound} </span>

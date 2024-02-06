@@ -1,4 +1,4 @@
-import { API } from '../../api/api';
+import { API_FIGHT } from './../../api/api_fight';
 const SET_FIGHT_STATE = "SET_FIGHT_STATE";
 const SET_FIGHT_MISTAKE = "SET_FIGHT_MISTAKE";
 const SET_FIGHT_ABILITY = "SET_FIGHT_ABILITY";
@@ -67,7 +67,7 @@ export const loadRound = () => (dispatch) => {
 };
 
 export const getFightState = () => (dispatch) => {
-    return API.getFightRefresh()
+    return API_FIGHT.getFightRefresh()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setFightState(data));
@@ -79,14 +79,14 @@ export const getFightState = () => (dispatch) => {
 };
 
 export const getAbility = () => (dispatch) => {
-    return API.getAbility()
+    return API_FIGHT.getAbility()
         .then(data => {
             dispatch(setFightAbility(data));
         });
 };
 
 export const setCurrentHit = (abilityId, targetId) => (dispatch) => {
-    return API.setHit(abilityId, targetId)
+    return API_FIGHT.setHit(abilityId, targetId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setFightState(data));

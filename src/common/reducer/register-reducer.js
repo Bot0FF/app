@@ -1,4 +1,4 @@
-import { API } from "../../api/api";
+import { API_AUTH } from './../../api/api_auth';
 const SET_IS_AUTH = "SET_IS_AUTH";
 
 let initialState = {
@@ -19,7 +19,7 @@ const registerReducer = (state = initialState, action) => {
 
 export const tryRegister = (formData) => {
     return (dispatch) => {
-        API.setRegister(formData.username, formData.email, formData.password)
+        API_AUTH.setRegister(formData.username, formData.email, formData.password)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setIsAuth(true));

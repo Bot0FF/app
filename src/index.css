@@ -11,6 +11,12 @@
   --color-card: #2A2D3A;
 }
 
+@media (max-width:600px) {
+  .navbar-item--right, .navbar-item--left{
+      display:none;
+  }
+}
+
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
   * {

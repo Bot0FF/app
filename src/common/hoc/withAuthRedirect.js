@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 export const withAuthRedirect = (Component) => {
     function ComponentWithRouterProp(props) {
         if (!props.isAuth) return <Navigate replace to="/" />
-        if (props.status == 3) window.location.replace("/im")
+        if (props.status === 3) window.location.replace("/im")
         return (
             <Component
                 {...props}

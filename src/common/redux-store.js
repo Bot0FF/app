@@ -3,6 +3,7 @@ import mainReducer from "./reducer/main-reducer";
 import registerReducer from './reducer/register-reducer';
 import fightReducer from "./reducer/fight-reducer";
 import authReducer from './reducer/auth-reducer';
+import profileReducer from "./reducer/profile-reducer";
 import { thunk as thunkMidleware } from "redux-thunk";
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 
@@ -12,7 +13,8 @@ let reducers = combineReducers({
     greetingPage: greetingReducer,
     registerPage: registerReducer,
     mainState: mainReducer,
-    fightState: fightReducer
+    fightState: fightReducer,
+    profileState: profileReducer
 });
 
 //создаем store с данными 

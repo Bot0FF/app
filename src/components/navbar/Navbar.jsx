@@ -24,7 +24,7 @@ const Navbar = (props) => {
                                     border: "2px solid #493a3a",
                                     fontWeight: "bold",
                                     borderRadius: "6px",
-                                    width: "100px"
+                                    height: "40px"
                                 }}
                                 onClick={() => { setOpen(!isOpen) }}
                             >
@@ -66,7 +66,7 @@ const Navbar = (props) => {
                                 border: "2px solid #493a3a",
                                 fontWeight: "bold",
                                 borderRadius: "6px",
-                                width: "100px"
+                                height: "40px"
                             }}
                         >
                             Вход
@@ -90,7 +90,7 @@ const Navbar = (props) => {
                                 border: "2px solid #493a3a",
                                 fontWeight: "bold",
                                 borderRadius: "6px",
-                                width: "100px"
+                                height: "40px"
                             }}
                             onClick={() => props.logout()}
                         >
@@ -106,6 +106,7 @@ const Navbar = (props) => {
                                 border: "2px solid #493a3a",
                                 fontWeight: "bold",
                                 borderRadius: "6px",
+                                height: "40px"
                             }}
                             onClick={() => props.logout()}
                         >

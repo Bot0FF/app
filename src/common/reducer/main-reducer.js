@@ -1,8 +1,8 @@
-import { API } from '../../api/api';
+import { API_MAIN } from './../../api/api_main';
 const SET_MAIN_STATE = "SET_MAIN_STATE";
-const SET_AIS = "SET_AIS";
-const SET_UNITS = "SET_UNITS";
-const SET_THINGS = "SET_THINGS";
+const SET_MAIN_AIS = "SET_MAIN_AIS";
+const SET_MAIN_UNITS = "SET_MAIN_UNITS";
+const SET_MAIN_THINGS = "SET_MAIN_THINGS";
 const SET_MAIN_INFO = "SET_MAIN_INFO";
 const SET_MAIN_FIGHT = "SET_MAIN_FIGHT";
 
@@ -20,9 +20,9 @@ let initialState = {
 }
 
 export const setMainState = (data) => ({ type: SET_MAIN_STATE, data: data });
-export const setAisData = (data) => ({ type: SET_AIS, data: data });
-export const setUnitsData = (data) => ({ type: SET_UNITS, data: data });
-export const setThingsData = (data) => ({ type: SET_THINGS, data: data });
+export const setAisData = (data) => ({ type: SET_MAIN_AIS, data: data });
+export const setUnitsData = (data) => ({ type: SET_MAIN_UNITS, data: data });
+export const setThingsData = (data) => ({ type: SET_MAIN_THINGS, data: data });
 export const setMainInfo = (data) => ({ type: SET_MAIN_INFO, data: data });
 export const setMainFight = (data) => ({ type: SET_MAIN_FIGHT, data: data });
 
@@ -39,17 +39,17 @@ const mainReducer = (state = initialState, action) => {
                 info: action.data.info,
                 status: action.data.status
             };
-        case SET_AIS:
+        case SET_MAIN_AIS:
             return {
                 ...state,
                 ais: action.data
             };
-        case SET_UNITS:
+        case SET_MAIN_UNITS:
             return {
                 ...state,
                 units: action.data
             };
-        case SET_THINGS:
+        case SET_MAIN_THINGS:
             return {
                 ...state,
                 things: action.data
@@ -73,7 +73,7 @@ const mainReducer = (state = initialState, action) => {
 };
 
 export const getMain = () => (dispatch) => {
-    return API.getMain()
+    return API_MAIN.getMain()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setMainState(data));
@@ -85,21 +85,21 @@ export const getMain = () => (dispatch) => {
 };
 
 export const getAis = () => (dispatch) => {
-    return API.getAis()
+    return API_MAIN.getLocationAis()
         .then(data => {
             dispatch(setAisData(data));
         });
 };
 
 export const getUnits = () => (dispatch) => {
-    return API.getUnits()
+    return API_MAIN.getLocationUnits()
         .then(data => {
             dispatch(setUnitsData(data));
         });
 };
 
 export const takeThing = (thingId) => (dispatch) => {
-    return API.takeThing(thingId)
+    return API_MAIN.takeThing(thingId)
         .then(data => {
             dispatch(setMainState(data));
             dispatch(getThings(data));
@@ -107,14 +107,14 @@ export const takeThing = (thingId) => (dispatch) => {
 };
 
 export const getThings = () => (dispatch) => {
-    return API.getThings()
+    return API_MAIN.getLocationThings()
         .then(data => {
             dispatch(setThingsData(data));
         });
 };
 
 export const movePlayer = (direction) => (dispatch) => {
-    return API.getMove(direction)
+    return API_MAIN.getMove(direction)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setMainState(data));
@@ -127,7 +127,7 @@ export const movePlayer = (direction) => (dispatch) => {
 
 
 export const setFight = (targetId) => (dispatch) => {
-    return API.getAttack(targetId)
+    return API_MAIN.getAttack(targetId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setMainFight(data));

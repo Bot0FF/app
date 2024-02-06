@@ -28,7 +28,7 @@ class MainContainer extends React.Component {
     }
 
     render() {
-        if (this.props.player.status === "FIGHT") {
+        if (this.props.player?.status === "FIGHT") {
             return <Navigate replace to="/fight" />
         }
         return <>

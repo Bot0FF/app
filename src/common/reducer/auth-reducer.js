@@ -1,4 +1,4 @@
-import { API } from '../../api/api';
+import { API_AUTH } from './../../api/api_auth';
 const SET_AUTH_DATA = "SET_AUTH_DATA";
 const SET_LOGOUT = "SET_LOGOUT";
 const SET_APP_INITIALIZE = "SET_APP_INITIALIZE";
@@ -47,7 +47,7 @@ export const initializeApp = () => (dispatch) => {
 };
 
 export const checkAuth = () => (dispatch) => {
-    return API.checkAuth()
+    return API_AUTH.checkAuth()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setAuthData(data));
@@ -59,7 +59,7 @@ export const checkAuth = () => (dispatch) => {
 };
 
 export const setAuth = (formData) => (dispatch) => {
-    return API.setAuth(formData.username, formData.password)
+    return API_AUTH.setAuth(formData.username, formData.password)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setAuthData(data));
@@ -71,7 +71,7 @@ export const setAuth = (formData) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-    return API.setLogout()
+    return API_AUTH.setLogout()
         .then(() => {
             dispatch(setLogout());
         });
