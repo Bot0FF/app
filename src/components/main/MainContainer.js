@@ -3,12 +3,12 @@ import Main from "./Main";
 import { connect } from "react-redux";
 import {
     getMain,
-    getAis,
-    getUnits,
-    getThings,
+    getLocationAis,
+    getLocationUnits,
+    getLocationThings,
     movePlayer,
     setFight,
-    takeThing
+    takeLocationThing
 } from "../../common/reducer/main-reducer";
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
 import { Navigate } from "react-router-dom";
@@ -42,14 +42,14 @@ class MainContainer extends React.Component {
                 things={this.props.things}
                 info={this.props.info}
                 aisSize={this.props.aisSize}
-                getAis={this.props.getAis}
+                getLocationAis={this.props.getLocationAis}
                 unitsSize={this.props.unitsSize}
-                getUnits={this.props.getUnits}
+                getLocationUnits={this.props.getLocationUnits}
                 thingsSize={this.props.thingsSize}
-                getThings={this.props.getThings}
+                getLocationThings={this.props.getLocationThings}
                 onMovePlayer={this.onMovePlayer}
                 setFight={this.setFight}
-                takeThing={this.props.takeThing}
+                takeLocationThing={this.props.takeLocationThing}
             />
         </>
     };
@@ -73,10 +73,10 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getMain,
-    getAis,
-    getUnits,
-    getThings,
+    getLocationAis,
+    getLocationUnits,
+    getLocationThings,
     movePlayer,
     setFight,
-    takeThing
+    takeLocationThing
 })(withAuthRedirect(MainContainer));

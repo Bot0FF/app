@@ -3,27 +3,16 @@ import { ThemeProvider } from '@emotion/react';
 import { Button, createTheme } from '@mui/material';
 
 const MainButton = (props) => {
-    return (
-        <div>
-            <ThemeProvider theme={CustomTheme}>
-                {props.getData
-                    ?
-                    <Button
-                        variant="bold"
-                        onClick={() => props.getData()}
-                    >
-                        {props.name}
-                    </Button>
-                    :
-                    <Button
-                        variant="bold"
-                    >
-                        {props.name}
-                    </Button>
-                }
-
-            </ThemeProvider>
-        </div>
+    return (<>
+        <ThemeProvider theme={CustomTheme}>
+            <Button
+                variant="bold"
+                onClick={() => props.onClick()}
+            >
+                {props.name}
+            </Button>
+        </ThemeProvider>
+    </>
     );
 };
 
@@ -37,8 +26,10 @@ const CustomTheme = createTheme({
                         fontWeight: "bold",
                         color: "#816767",
                         border: "2px solid #574444",
+                        borderRadius: "10px",
                         width: "100%",
-                        marginBottom: 2
+                        marginTop: 3,
+                        cursor: "default"
                     }
                 }
             ]

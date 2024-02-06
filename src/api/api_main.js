@@ -55,18 +55,6 @@ export const API_MAIN = {
             });
     },
 
-    //запрос списка things из инвентаря
-    getInventoryThings() {
-        return instanse
-            .get("/api/main/inventory/things")
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => {
-                return error;
-            });
-    },
-
     //перемещение
     getMove(direction) {
         return instanse
@@ -94,13 +82,70 @@ export const API_MAIN = {
             });
     },
 
-    //забрать выбранную вещь
-    takeThing(thingId) {
+    //забрать выбранную вещь с локации
+    takeLocationThing(thingId) {
         if (thingId === undefined) {
             thingId = 0;
         }
         return instanse
-            .get("/api/main/thing/take?thingId=" + thingId)
+            .get("/api/main/location/take?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //запрос списка things из инвентаря
+    getInventoryThings() {
+        return instanse
+            .get("/api/main/inventory/things")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //удалить вещь из инвентаря
+    removeInventoryThing(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/main/inventory/remove?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //надеть вещь из инвентаря
+    putOnInventoryThing(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/main/inventory/puton?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //снять вещь из инвентаря
+    takeOffInventoryThing(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/main/inventory/takeoff?thingId=" + thingId)
             .then(response => {
                 return response.data;
             })

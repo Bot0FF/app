@@ -84,29 +84,29 @@ export const getMain = () => (dispatch) => {
         });
 };
 
-export const getAis = () => (dispatch) => {
+export const getLocationAis = () => (dispatch) => {
     return API_MAIN.getLocationAis()
         .then(data => {
             dispatch(setAisData(data));
         });
 };
 
-export const getUnits = () => (dispatch) => {
+export const getLocationUnits = () => (dispatch) => {
     return API_MAIN.getLocationUnits()
         .then(data => {
             dispatch(setUnitsData(data));
         });
 };
 
-export const takeThing = (thingId) => (dispatch) => {
-    return API_MAIN.takeThing(thingId)
+export const takeLocationThing = (thingId) => (dispatch) => {
+    return API_MAIN.takeLocationThing(thingId)
         .then(data => {
             dispatch(setMainState(data));
-            dispatch(getThings(data));
+            dispatch(getLocationThings(data));
         });
 };
 
-export const getThings = () => (dispatch) => {
+export const getLocationThings = () => (dispatch) => {
     return API_MAIN.getLocationThings()
         .then(data => {
             dispatch(setThingsData(data));

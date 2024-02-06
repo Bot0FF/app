@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
-import CollapsibleList from "../../common/util/transition/CollapsibleList";
-import MoveButton from "../../common/util/Button/MoveButton";
+import MoveButton from "../../common/util/button/MoveButton";
+import MainButton from './../../common/util/button/MainButton';
+import { CSSTransition } from "react-transition-group";
 import "./main.css";
-import OpenListButton from "../../common/util/Button/OpenListButton";
 
 const Main = (props) => {
     const [isOpenAis, setOpenAis] = useState(false);
@@ -13,132 +13,140 @@ const Main = (props) => {
     const [modalActive, setModalActive] = useState(false);
     const [entity, setEntity] = useState({});
 
+    //разворачивает список и загружает сущности для него
+    const setAiToList = (isOpenAis) => {
+        setOpenAis(isOpenAis);
+        props.getLocationAis();
+    }
+
+    const setUnitsToList = (isOpenUnits) => {
+        setOpenUnits(isOpenUnits);
+        props.getLocationUnits();
+    }
+
+    const setThingsToList = (isOpenThings) => {
+        setOpenThings(isOpenThings);
+        props.getLocationThings();
+    }
+
+    //делает модальное окно активным и устанавливает в useState выбранную сущность
     const setModal = (isActive, entity) => {
         setModalActive(isActive);
         setEntity(entity);
     }
 
-    return (
-        <div className="header">
-            <div className="parent-content--main">
-                <div className="player__info">
-                    <u>{props.info}</u>
-                    <br />
-                    <span>Локация: {props.locationName}</span>
-                    <br />
-                    <span>Здоровье: {props.player.hp} ({props.player.maxHp})</span>
-                    <br />
-                    <span>Мана: {props.player.mana} ({props.player.maxMana})</span>
-                    <br />
-                    <span>Координаты: {props.x} / {props.y}</span>
-                </div>
-                <div className="button__move">
-                    <MoveButton
-                        move={() => props.onMovePlayer("up")}
-                        name={"Север"}
-                    />
-                    <div className="button__row">
-                        <MoveButton
-                            move={() => props.onMovePlayer("left")}
-                            name={"Запад"}
-                        />
-                        <MoveButton
-                            move={() => props.onMovePlayer("right")}
-                            name={"Восток"}
-                        />
-                    </div>
-                    <MoveButton
-                        move={() => props.onMovePlayer("down")}
-                        name={"Юг"}
-                    />
-                </div>
-                <div>
-                    <div className="button__items">
-                        <OpenListButton
-                            name={`Существа ${props.aisSize}`}
-                            setOpen={() => setOpenAis(!isOpenAis)}
-                            setEntity={props.getAis}
-                        />
-                        <CollapsibleList
-                            isOpen={isOpenAis}
-                            entities={props.ais}
-                            setModal={setModal}
-                        />
-                        <OpenListButton
-                            name={`Герои ${props.unitsSize}`}
-                            setOpen={() => setOpenUnits(!isOpenUnits)}
-                            setEntity={props.getUnits}
-                        />
-                        <CollapsibleList
-                            isOpen={isOpenUnits}
-                            entities={props.units}
-                            setModal={setModal}
-                        />
-                        <OpenListButton
-                            name={`Вещи под ногами ${props.thingsSize}`}
-                            setOpen={() => setOpenThings(!isOpenThings)}
-                            setEntity={props.getThings}
-                        />
-                        <CollapsibleList
-                            isOpen={isOpenThings}
-                            entities={props.things}
-                            setModal={setModal}
-                        />
-                    </div>
-                </div>
+    return (<>
+        <div className="parent-content--main">
+            <div className="info-status--notification">
+                <u>{props.info}</u>
             </div>
-            <Modal active={modalActive} setActive={setModalActive}>
-                {entity.subjectType === "AI" || entity.subjectType === "UNIT"
-                    ?
-                    <UNIT
-                        entity={entity}
-                        player={props.player}
-                        setFight={props.setFight}
+            <div className="info-status--current">
+                Локация: {props.locationName}
+                <br />
+                Здоровье: {props.player.hp} ({props.player.fullHp})
+                <br />
+                Мана: {props.player.mana} ({props.player.fullMana})
+                <br />
+                Координаты: {props.x} / {props.y}
+            </div>
+            <div className="button--move">
+                <MoveButton
+                    name={"Север"}
+                    onClick={() => props.onMovePlayer("up")}
+                />
+                <div className="button--row">
+                    <MoveButton
+                        name={"Запад"}
+                        onClick={() => props.onMovePlayer("left")}
                     />
-                    :
-                    <THING
-                        entity={entity}
-                        takeThing={props.takeThing}
+                    <MoveButton
+                        name={"Восток"}
+                        onClick={() => props.onMovePlayer("right")}
                     />
-                }
-
-
-            </Modal>
+                </div>
+                <MoveButton
+                    name={"Юг"}
+                    onClick={() => props.onMovePlayer("down")}
+                />
+            </div>
+            <div className="button--items">
+                <MainButton
+                    name={`Существа ${props.aisSize}`}
+                    onClick={() => setAiToList(!isOpenAis)}
+                />
+                <CollapsibleList
+                    isOpen={isOpenAis}
+                    entities={props.ais}
+                    setModal={setModal}
+                />
+                <MainButton
+                    name={`Герои ${props.unitsSize}`}
+                    onClick={() => setUnitsToList(!isOpenUnits)}
+                />
+                <CollapsibleList
+                    isOpen={isOpenUnits}
+                    entities={props.units}
+                    setModal={setModal}
+                />
+                <MainButton
+                    name={`Вещи под ногами ${props.thingsSize}`}
+                    onClick={() => setThingsToList(!isOpenThings)}
+                />
+                <CollapsibleList
+                    isOpen={isOpenThings}
+                    entities={props.things}
+                    setModal={setModal}
+                />
+            </div>
         </div>
+        <Modal active={modalActive} setActive={setModalActive}>
+            {entity.subjectType === "AI" || entity.subjectType === "UNIT"
+                ?
+                <Unit
+                    entity={entity}
+                    player={props.player}
+                    setFight={props.setFight}
+                />
+                :
+                <Thing
+                    entity={entity}
+                    takeLocationThing={props.takeLocationThing}
+                />
+            }
+        </Modal>
+    </>
     );
 };
 
-const UNIT = ({entity, player, setFight}) => {
+
+//информация по unit в модальном окне
+const Unit = ({ entity, player, setFight }) => {
     return (<>
         <span>
             <u>{entity.name}</u>
             <br />
-            <span>Здоровье: {entity.hp} ({entity.maxHp})</span>
+            <span>Здоровье: {entity.hp} ({entity.fullHp})</span>
             <br />
-            <span>Мана: {player.mana} ({player.maxMana})</span>
+            <span>Мана: {player.mana} ({player.fullMana})</span>
         </span>
         {entity.hp > 0
             ?
-            <Button
-                variant="outlined"
-                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
+            <MainButton
+                name={"Напасть"}
                 onClick={() => setFight(entity.id)}
-            >
-                Напасть
-            </Button>
+            />
             :
-            <Button
-                variant="outlined"
-                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-            >
-                Осмотреть
-            </Button>
+            <MainButton
+                name={"Осмотреть"}
+                onClick={() => { }}
+            />
         }
     </>
     );
 };
 
-const THING = ({entity, takeThing}) => {
+//информация по вещам в модальном окне
+const Thing = ({ entity, takeLocationThing }) => {
     return (<>
         <span>
             <u>{entity.name}</u>
@@ -158,7 +166,7 @@ const THING = ({entity, takeThing}) => {
             <Button
                 variant="outlined"
                 style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                onClick={() => takeThing(entity.id)}
+                onClick={() => takeLocationThing(entity.id)}
             >
                 Забрать
             </Button>
@@ -170,6 +178,30 @@ const THING = ({entity, takeThing}) => {
                 Осмотреть
             </Button>
         }
+    </>
+    );
+};
+
+//разворачивоющийся список сущностей по нажатию на кнопку
+const CollapsibleList = (props) => {
+    return (<>
+        <CSSTransition classNames="my-node" in={props.isOpen} timeout={200} unmountOnExit>
+            <ul className="menu--list">
+                {props.entities?.map(entity =>
+                    <li
+                        key={entity.id}
+                        onClick={() => props.setModal(true, entity)}
+                    >
+                        {entity.hp > 0
+                            ?
+                            <span>{entity.name} </span>
+                            :
+                            <span style={{ color: "#744444" }}>{entity.name}</span>
+                        }
+                    </li>
+                )}
+            </ul>
+        </CSSTransition>
     </>
     );
 };

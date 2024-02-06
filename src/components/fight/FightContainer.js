@@ -10,7 +10,7 @@ class FightContainer extends React.Component {
     componentDidMount() {
         this.props.loadRound();
     }
-    
+
     setHit = (abilityId, targetId) => {
         this.props.setCurrentHit(abilityId, targetId);
     }
@@ -20,20 +20,18 @@ class FightContainer extends React.Component {
             return <Preloader />
         }
         return <>
-            <div>
-                <Fight
-                    player={this.props.player}
-                    teamOne={this.props.teamOne}
-                    teamTwo={this.props.teamTwo}
-                    resultRound={this.props.resultRound}
-                    ability={this.props.ability}
-                    countRound={this.props.countRound}
-                    endRoundTimer={this.props.endRoundTimer}
-                    info={this.props.info}
-                    loadRound={this.props.loadRound}
-                    setHit={this.setHit}
-                />
-            </div>
+            <Fight
+                player={this.props.player}
+                teamOne={this.props.teamOne}
+                teamTwo={this.props.teamTwo}
+                resultRound={this.props.resultRound}
+                ability={this.props.ability}
+                countRound={this.props.countRound}
+                endRoundTimer={this.props.endRoundTimer}
+                info={this.props.info}
+                loadRound={this.props.loadRound}
+                setHit={this.setHit}
+            />
         </>
     };
 };

@@ -1,16 +1,19 @@
-import React from "react";
-import MainButton from './../../common/util/Button/MainButton';
-import Player from "./Player";
+import React from 'react';
+import MainButton from '../../common/util/button/MainButton';
+import Player from './Player';
 import Inventory from './Inventory';
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from 'react-router-dom';
 import {
     getProfile,
-    getThings
-} from "../../common/reducer/profile-reducer";
-import { connect } from "react-redux";
+    getThings,
+    removeInventoryThing,
+    putOnInventoryThing,
+    takeOffInventoryThing
+} from '../../common/reducer/profile-reducer';
+import { connect } from 'react-redux';
 import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
-import { Navigate } from "react-router-dom";
-import "./profile.css";
+import { Navigate } from 'react-router-dom';
+import './profile.css';
 
 class ProfileContainer extends React.Component {
 
@@ -23,48 +26,51 @@ class ProfileContainer extends React.Component {
             return <Navigate replace to="/fight" />
         }
         return <>
-            <div className="header">
-                <div className="parent-content--profile">
-                    <div className="profile--button">
-                        <NavLink to="">
-                            <MainButton
-                                name={"Игрок"}
-                            />
-                        </NavLink>
-                        <NavLink to="inventory">
-                            <MainButton
-                                name={"Инвентарь"}
-                                getData={this.props.getThings}
-                            />
-                        </NavLink>
-                        <NavLink to="ability">
-                            <MainButton
-                                name={"Умения"}
-                            />
-                        </NavLink>
-                        <NavLink to="skill">
-                            <MainButton
-                                name={"Навыки"}
-                            />
-                        </NavLink>
-                    </div>
-                    <div className="profile--content">
-                        <Routes>
-                            <Route
-                                path=""
-                                element={<Player
-                                    player={this.props.player}
-                                />}
-                            />
-                            <Route
-                                path="/inventory"
-                                element={<Inventory
-                                    player={this.props.player}
-                                    things={this.props.things}
-                                />}
-                            />
-                        </Routes>
-                    </div>
+            <div className="parent-content--profile">
+                <div className="profile--button">
+                    <NavLink to="">
+                        <MainButton
+                            name={"Игрок"}
+                            doAction={() => this.props.getProfile()}
+                        />
+                    </NavLink>
+                    <NavLink to="inventory">
+                        <MainButton
+                            name={"Инвентарь"}
+                        />
+                    </NavLink>
+                    <NavLink to="ability">
+                        <MainButton
+                            name={"Умения"}
+                        />
+                    </NavLink>
+                    <NavLink to="skill">
+                        <MainButton
+                            name={"Навыки"}
+                        />
+                    </NavLink>
+                </div>
+                <div className="profile--content">
+                    <Routes>
+                        <Route
+                            path=""
+                            element={<Player
+                                player={this.props.player}
+                            />}
+                        />
+                        <Route
+                            path="/inventory"
+                            element={<Inventory
+                                player={this.props.player}
+                                info={this.props.info}
+                                things={this.props.things}
+                                getThings={this.props.getThings}
+                                putOnInventoryThing={this.props.putOnInventoryThing}
+                                takeOffInventoryThing={this.props.takeOffInventoryThing}
+                                removeInventoryThing={this.props.removeInventoryThing}
+                            />}
+                        />
+                    </Routes>
                 </div>
             </div>
         </>
@@ -83,5 +89,8 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getProfile,
-    getThings
+    getThings,
+    removeInventoryThing,
+    putOnInventoryThing,
+    takeOffInventoryThing
 })(withAuthRedirect(ProfileContainer));

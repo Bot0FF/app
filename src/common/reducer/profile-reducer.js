@@ -19,8 +19,8 @@ const profileReducer = (state = initialState, action) => {
         case SET_PROFILE_STATE:
             return {
                 ...state,
-                player: action.data.player,
                 info: action.data.info,
+                player: action.data.player,
                 status: action.data.status
             };
         case SET_PROFILE_THINGS:
@@ -58,5 +58,28 @@ export const getThings = () => (dispatch) => {
         });
 };
 
+export const removeInventoryThing = (thingId) => (dispatch) => {
+    return API_MAIN.removeInventoryThing(thingId)
+        .then(data => {
+            dispatch(setProfileInfo(data));
+            dispatch(getThings());
+        });
+};
+
+export const putOnInventoryThing = (thingId) => (dispatch) => {
+    return API_MAIN.putOnInventoryThing(thingId)
+        .then(data => {
+            dispatch(setProfileInfo(data));
+            dispatch(getThings());
+        });
+};
+
+export const takeOffInventoryThing = (thingId) => (dispatch) => {
+    return API_MAIN.takeOffInventoryThing(thingId)
+        .then(data => {
+            dispatch(setProfileInfo(data));
+            dispatch(getThings());
+        });
+};
 
 export default profileReducer;

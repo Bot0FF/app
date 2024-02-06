@@ -2,18 +2,17 @@ import React from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { Button, createTheme } from '@mui/material';
 
-const OpenListButton = (props) => {
-    return (
-        <div>
-            <ThemeProvider theme={CustomTheme}>
-                <Button
-                    variant="bold"
-                    onClick={() => {props.setOpen(); props.setEntity();}}
-                >
-                    {props.name}
-                </Button>
-            </ThemeProvider>
-        </div>
+const NavbarButton = (props) => {
+    return (<>
+        <ThemeProvider theme={CustomTheme}>
+            <Button
+                variant="bold"
+                onClick={() => props.onClick()}
+            >
+                {props.name}
+            </Button>
+        </ThemeProvider>
+    </>
     );
 };
 
@@ -27,8 +26,9 @@ const CustomTheme = createTheme({
                         fontWeight: "bold",
                         color: "#816767",
                         border: "2px solid #574444",
-                        width: "100%",
-                        marginBottom: 1
+                        borderRadius: "10px",
+                        width: "150px",
+                        cursor: "default"
                     }
                 }
             ]
@@ -36,4 +36,4 @@ const CustomTheme = createTheme({
     }
 });
 
-export default OpenListButton;
+export default NavbarButton;

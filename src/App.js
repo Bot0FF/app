@@ -27,16 +27,20 @@ class App extends React.Component {
 
     return (
       <div>
-        <NavbarContainer />
-        <Routes>
-          <Route path="/" element={<GreetingContainer />} />
-          <Route path="/fight" element={<FightContainer />} />
-          <Route path="/login" element={<LoginContainer />} />
-          <Route path="/register" element={<RegisterContainer />} />
-          <Route path="/im" element={<MainContainer />} />
-          <Route path="/fight" element={<FightContainer />} />
-          <Route path="/profile/*" element={<ProfileContainer />}/>
-        </Routes>
+        <div className="navbar">
+          <NavbarContainer />
+        </div>
+        <div className="header">
+          <Routes>
+            <Route path="/" element={<GreetingContainer />} />
+            <Route path="/fight" element={<FightContainer />} />
+            <Route path="/login" element={<LoginContainer />} />
+            <Route path="/register" element={<RegisterContainer />} />
+            <Route path="/im" element={<MainContainer />} />
+            <Route path="/fight" element={<FightContainer />} />
+            <Route path="/profile/*" element={<ProfileContainer />} />
+          </Routes>
+        </div>
       </div>
     );
   };

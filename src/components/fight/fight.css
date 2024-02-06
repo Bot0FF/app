@@ -3,26 +3,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: 10px;
+    font-size: small;
+    font-family: var(--font-family);
 }
 
 .header-fight--info {
-    margin: 10px;
     display: grid;
-    padding: 10px 5px;
+    padding: 10px;
     color: var(--primary-color);
-    width: 70%;
-    font-family: var(--font-family);
-    font-size: medium;
     border: 1px solid #493a3a;
     border-radius: 10px;
     text-align: center;
-    font-size: small;
     cursor: default;
+    width: 550px;
+}
+
+.header-fight--content {
+    display: flex;
+    margin: 10px;
+    gap: 10px;
+    padding: 10px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    text-align: center;
+    cursor: default;
+    width: 500px;
 }
 
 .border-action--info {
-    margin-top: 3px;
     margin-bottom: 3px;
     border-bottom: 1px dashed var(--info-color);
     color: var(--info-color);
@@ -34,17 +43,6 @@
     border-bottom: 1px dashed var(--secondary-color);
 }
 
-.parent-fight--content {
-    margin: 20px;
-    display: flex;
-    gap: 10px;
-    padding: 20px 5px;
-    width: 60%;
-    border: 2px solid var(--secondary-color);
-    border-radius: 10px;
-    text-align: center;
-    cursor: default;
-}
 
 .unit__list {
     display: inline-grid;
@@ -64,7 +62,7 @@
 }
 
 .player {
-    background-color: var(--secondary-color);
+    background-color: #3a2f2f;
     box-shadow: inset 0 0 2px 2px #24252d;
 }
 

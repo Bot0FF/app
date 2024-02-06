@@ -2,9 +2,40 @@ body {
     background: var(--color-bg);
     scroll-behavior: smooth;
     padding: 0 calc(20px - (100vw - 100%)) 0 0;
+    font-family: var(--font-family);
 }
 
 a {
     text-decoration: none;
     color: inherit;
+}
+
+u {
+    color: var(--info-color);
+}
+
+ul {
+    display: inline-block;
+    text-align: center;
+    list-style-type: none;
+    margin:0 auto;
+    padding: 0px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 11rem;
+    border-bottom: 2px solid #493a3a;
+    cursor: default;
+    gap: 40px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }

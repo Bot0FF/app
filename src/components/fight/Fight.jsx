@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Modal from "../../common/util/modal/Modal";
-import "./fight.css";
-import AbilityButton from './../../common/util/Button/AbilityButton';
+import Modal from '../../common/util/modal/Modal';
+import AbilityButton from './../../common/util/button/AbilityButton';
+import './fight.css';
 
 const Fight = (props) => {
 
@@ -36,7 +36,7 @@ const Fight = (props) => {
                 <span>Раунд:{props.countRound} </span>
                 <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
             </div>
-            <div className="parent-fight--content">
+            <div className="header-fight--content">
                 <div className="unit__list">
                     <Team
                         player={props.player}
@@ -63,19 +63,17 @@ const Fight = (props) => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
                         return (
                             <AbilityButton
-                                key={a.id}
-                                ability={a}
-                                enemy={unit}
-                                setCurrentHit={setCurrentHit}
+                                description={a.description}
+                                name={a.name}
+                                onClick={() => setCurrentHit(false, a.id, unit.id)}
                             />);
                     }
                     else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.hitType)) {
                         return (
                             <AbilityButton
-                                key={a.id}
-                                ability={a}
-                                enemy={unit}
-                                setCurrentHit={setCurrentHit}
+                                description={a.description}
+                                name={a.name}
+                                onClick={() => setCurrentHit(false, a.id, unit.id)}
                             />);
                     }
                 }
@@ -98,7 +96,7 @@ const Team = (props) => {
                     <br />
                     {props.player.id == unit.id
                         ?
-                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.maxHp}) / Мана: {unit.mana}  ({unit.maxMana})</span>
+                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.fullHp}) / Мана: {unit.mana}  ({unit.fullMana})</span>
                         :
                         <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
                     }
