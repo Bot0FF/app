@@ -29,7 +29,6 @@ const CustomTheme = createTheme({
                         borderRadius: "10px",
                         width: "100%",
                         marginTop: 3,
-                        cursor: "default"
                     }
                 }
             ]

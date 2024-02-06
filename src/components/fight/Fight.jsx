@@ -30,7 +30,7 @@ const Fight = (props) => {
         <div className="header-fight">
             <div className="header-fight--info">
                 <span className="border-action--info">{props.info}</span>
-                {getResultRound()?.map(item =>
+                {Array.from(getResultRound()).map(item =>
                     <span className="border-history--info" key={item}>{item}</span>
                 )}
                 <span>Раунд:{props.countRound} </span>
@@ -59,7 +59,7 @@ const Fight = (props) => {
                     <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
                 </span>
                 <u style={{ marginBottom: 5 }}>Доступные умения:</u>
-                {props.ability.map(a => {
+                {Array.from(props.ability).map(a => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
                         return (
                             <AbilityButton
@@ -85,7 +85,7 @@ const Fight = (props) => {
 
 const Team = (props) => {
     return (
-        props.teamList.map(unit =>
+        Array.from(props.teamList).map(unit =>
             <div
                 className={props.player.id == unit.id ? "unit-item player" : "unit-item"}
                 key={unit.id}

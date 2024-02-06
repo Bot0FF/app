@@ -36,7 +36,6 @@ const ButtonTheme = createTheme({
                         border: "1px solid #574444",
                         width: "100%",
                         fontSize: "11px",
-                        cursor: "default"
                     }
                 }
             ]

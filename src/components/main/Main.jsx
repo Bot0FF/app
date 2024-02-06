@@ -38,11 +38,14 @@ const Main = (props) => {
     return (<>
         <div className="parent-content--main">
             <div className="info-status--notification">
-                <u>{props.info}</u>
+                {props.info
+                    ?
+                    <u>{props.info}</u>
+                    :
+                    <u>Локация: {props.locationName}</u>
+                }
             </div>
             <div className="info-status--current">
-                Локация: {props.locationName}
-                <br />
                 Здоровье: {props.player.hp} ({props.player.fullHp})
                 <br />
                 Мана: {props.player.mana} ({props.player.fullMana})
@@ -187,7 +190,7 @@ const CollapsibleList = (props) => {
     return (<>
         <CSSTransition classNames="my-node" in={props.isOpen} timeout={200} unmountOnExit>
             <ul className="menu--list">
-                {props.entities?.map(entity =>
+                {Array.from(props.entities).map(entity =>
                     <li
                         key={entity.id}
                         onClick={() => props.setModal(true, entity)}

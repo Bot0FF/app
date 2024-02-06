@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { Button, createTheme } from '@mui/material';
 
-const NavbarButton = (props) => {
+const SortButton = (props) => {
     return (<>
         <ThemeProvider theme={CustomTheme}>
             <Button
@@ -25,9 +25,12 @@ const CustomTheme = createTheme({
                     style: {
                         fontWeight: "bold",
                         color: "#816767",
-                        border: "2px solid #574444",
+                        border: "1px dashed #574444",
                         borderRadius: "10px",
-                        width: "150px",
+                        marginTop: 3,
+                        marginBottom: 3,
+                        marginLeft: 4,
+                        width: 70                      
                     }
                 }
             ]
@@ -35,4 +38,4 @@ const CustomTheme = createTheme({
     }
 });
 
-export default NavbarButton;
+export default SortButton;

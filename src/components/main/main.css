@@ -7,7 +7,7 @@
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
-    cursor: default;
+    cursor: pointer;
 }
 
 .info-status--notification {

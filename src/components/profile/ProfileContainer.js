@@ -31,22 +31,25 @@ class ProfileContainer extends React.Component {
                     <NavLink to="">
                         <MainButton
                             name={"Игрок"}
-                            doAction={() => this.props.getProfile()}
+                            onClick={() => this.props.getProfile()}
                         />
                     </NavLink>
                     <NavLink to="inventory">
                         <MainButton
                             name={"Инвентарь"}
+                            onClick={() => { }}
                         />
                     </NavLink>
                     <NavLink to="ability">
                         <MainButton
                             name={"Умения"}
+                            onClick={() => { }}
                         />
                     </NavLink>
                     <NavLink to="skill">
                         <MainButton
                             name={"Навыки"}
+                            onClick={() => { }}
                         />
                     </NavLink>
                 </div>

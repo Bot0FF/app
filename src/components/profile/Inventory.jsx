@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../../common/util/modal/Modal';
 import MainButton from '../../common/util/button/MainButton';
+import SortButton from './../../common/util/button/SortButton';
 
 const Inventory = (props) => {
     const [thing, setThing] = useState({});
     const [modalActive, setModalActive] = useState(false);
-
+    console.log(props)
     useEffect(() => {
         props.getThings();
     }, [])
@@ -16,6 +17,28 @@ const Inventory = (props) => {
         setThing(thing);
     }
     return (<>
+        <div className="content-inventory--sort">
+            <SortButton
+                name={"Все"}
+                onClick={() => { }}
+            />
+            <SortButton
+                name={"Оружие"}
+                onClick={() => { }}
+            />
+            <SortButton
+                name={"Броня"}
+                onClick={() => { }}
+            />
+            <SortButton
+                name={"Зелья"}
+                onClick={() => { }}
+            />
+            <SortButton
+                name={"Свитки"}
+                onClick={() => { }}
+            />
+        </div>
         {props.info
             ?
             <u>{props.info}</u>
@@ -23,8 +46,8 @@ const Inventory = (props) => {
             <u>Вещи игрока {props.player.name}</u>
         }
         <br />
-        <div>
-            {props.things?.map(thing => {
+        <ul>
+            {Array.from(props.things).map(thing => {
                 if (thing.use === true) {
                     return <li
                         key={thing.id}
@@ -35,7 +58,7 @@ const Inventory = (props) => {
                     </li>
                 }
                 else {
-                    return <li
+                    return <li className="content-inventory--item"
                         key={thing.id}
                         style={{ borderBottom: "1px dashed #574444" }}
                         onClick={() => setModal(true, thing)}
@@ -44,7 +67,7 @@ const Inventory = (props) => {
                     </li>
                 }
             })}
-        </div>
+        </ul>
         <Modal active={modalActive} setActive={setModalActive}>
             <span>
                 <u>{thing.name}</u>
@@ -60,15 +83,15 @@ const Inventory = (props) => {
                 <span>Добавляет защиты: {thing.defense}</span>
                 <MainButton
                     name={"Надеть"}
-                    doAction={() => props.putOnInventoryThing(thing.id)}
+                    onClick={() => props.putOnInventoryThing(thing.id)}
                 />
                 <MainButton
                     name={"Снять"}
-                    doAction={() => props.takeOffInventoryThing(thing.id)}
+                    onClick={() => props.takeOffInventoryThing(thing.id)}
                 />
                 <MainButton
                     name={"Выбросить"}
-                    doAction={() => props.removeInventoryThing(thing.id)}
+                    onClick={() => props.removeInventoryThing(thing.id)}
                 />
             </span>
         </Modal>
