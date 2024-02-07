@@ -2,6 +2,7 @@ import React from 'react';
 import MainButton from '../../common/util/button/MainButton';
 import Player from './Player';
 import Inventory from './Inventory';
+import Point from './Point';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
     getProfile,
@@ -42,13 +43,19 @@ class ProfileContainer extends React.Component {
                     </NavLink>
                     <NavLink to="ability">
                         <MainButton
-                            name={"Умения"}
+                            name={"Способности"}
                             onClick={() => { }}
                         />
                     </NavLink>
                     <NavLink to="skill">
                         <MainButton
                             name={"Навыки"}
+                            onClick={() => { }}
+                        />
+                    </NavLink>
+                    <NavLink to="point">
+                        <MainButton
+                            name={"Умения"}
                             onClick={() => { }}
                         />
                     </NavLink>
@@ -71,6 +78,12 @@ class ProfileContainer extends React.Component {
                                 putOnInventoryThing={this.props.putOnInventoryThing}
                                 takeOffInventoryThing={this.props.takeOffInventoryThing}
                                 removeInventoryThing={this.props.removeInventoryThing}
+                            />}
+                        />
+                        <Route
+                            path="point"
+                            element={<Point
+                                player={this.props.player}
                             />}
                         />
                     </Routes>

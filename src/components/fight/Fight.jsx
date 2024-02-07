@@ -19,7 +19,7 @@ const Fight = (props) => {
     }
 
     const isMyTeam = () => {
-        return props.player.teamNumber == unit.teamNumber ? true : false;
+        return props.player.teamNumber === unit.teamNumber ? true : false;
     }
 
     const getResultRound = () => {
@@ -58,6 +58,17 @@ const Fight = (props) => {
                     <br />
                     <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
                 </span>
+                {isMyTeam()
+                    ?
+                    <></>
+                    :
+                    <div className="content-fight--filed">
+                        <PositionUnits
+                            player={props.player}
+                            unit={unit}
+                        />
+                    </div>
+                }
                 <u style={{ marginBottom: 5 }}>Доступные умения:</u>
                 {Array.from(props.ability).map(a => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
@@ -82,6 +93,25 @@ const Fight = (props) => {
         </div>
     );
 };
+
+const PositionUnits = (props) => {
+    let filed = [];
+    for (let i = 0; i < 8; i++) {
+        if (props.player.unitFightPosition === i) {
+            filed.push(<div key={i} className="fight-filed-elements">{props.player.name}</div>)
+        }
+        else if (props.unit.unitFightPosition === i) {
+            filed.push(<div key={i} className="fight-filed-elements">{props.unit.name}</div>)
+        }
+        else {
+            filed.push(<div key={i} className="fight-filed-elements"></div>)
+        }
+    }
+    return (<>
+        {filed}
+    </>
+    );
+}
 
 const Team = (props) => {
     return (
