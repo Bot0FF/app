@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@emotion/react';
 import { Tooltip, Button, createTheme } from '@mui/material';
 
-const AbilityButton = (props) => {
+const FightButton = (props) => {
 
     return (<>
         <ThemeProvider theme={ButtonTheme}>
@@ -11,7 +11,8 @@ const AbilityButton = (props) => {
                 title={props.description}
                 placement="top"
                 disableInteractive
-                arrow>
+                arrow
+            >
                 <Button
                     variant="bold"
                     onClick={() => props.onClick()}
@@ -36,6 +37,7 @@ const ButtonTheme = createTheme({
                         border: "1px solid #574444",
                         width: "100%",
                         fontSize: "11px",
+                        borderRadius: "10px"
                     }
                 }
             ]
@@ -50,4 +52,4 @@ const ButtonTheme = createTheme({
     }
 });
 
-export default AbilityButton;
+export default FightButton;

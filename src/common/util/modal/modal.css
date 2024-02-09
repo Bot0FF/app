@@ -1,3 +1,4 @@
+/* модальное окно с фоном */
 .modal {
     left: 0;
     right: 0;
@@ -15,14 +16,16 @@
     cursor: default;
 }
 
+/* модальное окно для информации */
 .modal__content {
     padding: 10px;
     border-radius: 12px;
     background-color: var(--color-bg);
     transition: 0.3s all;
-    width: 60vw;
+    width: 50vw;
 }
 
+/* расположение информации в модальном окне */
 .modal-item {
     display: grid;
     text-align:center; 

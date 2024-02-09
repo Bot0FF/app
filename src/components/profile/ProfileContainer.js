@@ -12,7 +12,7 @@ import {
     takeOffInventoryThing
 } from '../../common/reducer/profile-reducer';
 import { connect } from 'react-redux';
-import { withAuthRedirect } from './../../common/hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
 import { Navigate } from 'react-router-dom';
 import './profile.css';
 

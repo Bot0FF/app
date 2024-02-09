@@ -8,7 +8,8 @@
     font-family: var(--font-family);
 }
 
-.header-fight--info {
+/* информация о сражении */
+.fight-info {
     display: grid;
     padding: 10px;
     color: var(--primary-color);
@@ -19,7 +20,22 @@
     width: 550px;
 }
 
-.header-fight--content {
+/* информация о произведенном действии */
+.border-action--info {
+    margin-bottom: 3px;
+    border-bottom: 1px dashed var(--info-color);
+    color: var(--info-color);
+}
+
+/* информация об истории действий в раунде */
+.border-history--info {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-bottom: 1px dashed var(--secondary-color);
+}
+
+/* расположение участников сражения */
+.fight-units {
     display: flex;
     margin: 10px;
     gap: 10px;
@@ -31,39 +47,7 @@
     width: 500px;
 }
 
-.content-fight--filed {
-    height: 43px;
-    border: 2px solid var(--secondary-color);
-    border-radius: 10px;
-    display: flex;
-}
-
-.fight-filed-elements {
-    font-size: small;
-    display: grid;
-    align-items: center;
-    height: 40px;
-    width: 66px;
-    margin: 1px;
-    overflow: hidden;
-    border: 1px dashed var(--secondary-color);
-    border-radius: 10px;
-}
-
-.border-action--info {
-    margin-bottom: 3px;
-    border-bottom: 1px dashed var(--info-color);
-    color: var(--info-color);
-}
-
-.border-history--info {
-    margin-top: 3px;
-    margin-bottom: 3px;
-    border-bottom: 1px dashed var(--secondary-color);
-}
-
-
-.unit__list {
+.unit-list {
     display: inline-grid;
     margin: auto;
     width: 100%;
@@ -83,6 +67,39 @@
 .player {
     background-color: #3a2f2f;
     box-shadow: inset 0 0 2px 2px #24252d;
+}
+
+/* информация о противнике в модальном окне */
+.modal-fight--info {
+    margin-bottom: 10px;
+}
+
+/* поле с графическим расположением units */
+.modal-fight--filed {
+    height: 20px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* элемент unit на графическом поле сражения */
+.modal-fight--element {
+    font-size: x-small;
+    align-items: center;
+    margin: 1px;
+    height: 16px;
+    overflow: hidden;
+    border: 1px dashed var(--secondary-color);
+    border-radius: 7px;
+    width: 100%;
+}
+
+/* кнопки перемещения в сражении */
+.fight-move-button {
+    display: flex;
+    gap: 20px;
 }
 
 .my-node-enter {

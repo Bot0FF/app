@@ -98,18 +98,18 @@ export const getLocationUnits = () => (dispatch) => {
         });
 };
 
-export const takeLocationThing = (thingId) => (dispatch) => {
-    return API_MAIN.takeLocationThing(thingId)
-        .then(data => {
-            dispatch(setMainState(data));
-            dispatch(getLocationThings(data));
-        });
-};
-
 export const getLocationThings = () => (dispatch) => {
     return API_MAIN.getLocationThings()
         .then(data => {
             dispatch(setThingsData(data));
+        });
+};
+
+export const takeLocationThing = (thingId) => (dispatch) => {
+    return API_MAIN.takeLocationThing(thingId)
+        .then(data => {
+            dispatch(setMainInfo(data));
+            dispatch(getLocationThings(data));
         });
 };
 

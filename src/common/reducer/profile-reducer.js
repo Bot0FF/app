@@ -1,4 +1,4 @@
-import { API_MAIN } from './../../api/api_main';
+import { API_MAIN } from '../../api/api_main';
 const SET_PROFILE_STATE = "SET_PROFILE_STATE";
 const SET_PROFILE_THINGS = "SET_PROFILE_THINGS";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
@@ -19,8 +19,8 @@ const profileReducer = (state = initialState, action) => {
         case SET_PROFILE_STATE:
             return {
                 ...state,
-                info: action.data.info,
                 player: action.data.player,
+                info: action.data.info,
                 status: action.data.status
             };
         case SET_PROFILE_THINGS:

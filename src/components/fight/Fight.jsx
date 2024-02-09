@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../../common/util/modal/Modal';
-import AbilityButton from './../../common/util/button/AbilityButton';
+import FightButton from '../../common/util/button/FightButton';
 import './fight.css';
+import { Tooltip } from '@mui/material';
 
 const Fight = (props) => {
 
@@ -13,9 +14,14 @@ const Fight = (props) => {
         setUnit(unit);
     }
 
-    const setCurrentHit = (isActive, abilityId, targetId) => {
+    const setHitWeapon = (isActive, targetId) => {
         setModalActive(isActive);
-        props.setHit(abilityId, targetId);
+        props.setHitWeapon(targetId);
+    }
+
+    const setHitAbility = (isActive, abilityId, targetId) => {
+        setModalActive(isActive);
+        props.setHitAbility(abilityId, targetId);
     }
 
     const isMyTeam = () => {
@@ -28,23 +34,28 @@ const Fight = (props) => {
 
     return (
         <div className="header-fight">
-            <div className="header-fight--info">
-                <span className="border-action--info">{props.info}</span>
+            <div className="fight-info">
+                {modalActive
+                    ?
+                    <span className="border-action--info"></span>
+                    :
+                    <span className="border-action--info">{props.info}</span>
+                }
                 {Array.from(getResultRound()).map(item =>
                     <span className="border-history--info" key={item}>{item}</span>
                 )}
                 <span>Раунд:{props.countRound} </span>
                 <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
             </div>
-            <div className="header-fight--content">
-                <div className="unit__list">
+            <div className="fight-units">
+                <div className="unit-list">
                     <Team
                         player={props.player}
                         teamList={props.teamOne}
                         setModal={setModal}
                     />
                 </div>
-                <div className="unit__list">
+                <div className="unit-list">
                     <Team
                         player={props.player}
                         teamList={props.teamTwo}
@@ -53,38 +64,56 @@ const Fight = (props) => {
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <span style={{ padding: 10 }}>
-                    <u>Выбран: {unit.name} </u>
+                <div className="modal-fight--info">
+                    <u>{props.info} </u>
+                    <br />
+                    <span>{unit.name}</span>
                     <br />
                     <span>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
-                </span>
+                </div>
                 {isMyTeam()
                     ?
                     <></>
                     :
-                    <div className="content-fight--filed">
-                        <PositionUnits
-                            player={props.player}
-                            unit={unit}
-                        />
-                    </div>
+                    <>
+                        <div className="modal-fight--filed">
+                            <PositionUnits
+                                player={props.player}
+                                unit={unit}
+                            />
+                        </div>
+                        <div className="fight-move-button">
+                            <FightButton
+                                name="Шаг влево"
+                                onClick={() => { props.setMove("left") }}
+                            />
+                            <FightButton
+                                name="Шаг вправо"
+                                onClick={() => props.setMove("right")}
+                            />
+                        </div>
+                    </>
                 }
-                <u style={{ marginBottom: 5 }}>Доступные умения:</u>
+                <FightButton
+                    name={"Удар оружием"}
+                    onClick={() => setHitWeapon(false, unit.id)}
+                />
+                <u>Доступные умения:</u>
                 {Array.from(props.ability).map(a => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
                         return (
-                            <AbilityButton
+                            <FightButton
                                 description={a.description}
                                 name={a.name}
-                                onClick={() => setCurrentHit(false, a.id, unit.id)}
+                                onClick={() => setHitAbility(false, a.id, unit.id)}
                             />);
                     }
                     else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.hitType)) {
                         return (
-                            <AbilityButton
+                            <FightButton
                                 description={a.description}
                                 name={a.name}
-                                onClick={() => setCurrentHit(false, a.id, unit.id)}
+                                onClick={() => setHitAbility(false, a.id, unit.id)}
                             />);
                     }
                 }
@@ -94,17 +123,50 @@ const Fight = (props) => {
     );
 };
 
+//массив div с позицией units
 const PositionUnits = (props) => {
     let filed = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 1; i < 9; i++) {
         if (props.player.unitFightPosition === i) {
-            filed.push(<div key={i} className="fight-filed-elements">{props.player.name}</div>)
+            filed.push(
+                <Tooltip
+                    key={i}
+                    title={props.player.name}
+                    placement="top"
+                    disableInteractive
+                    arrow
+                >
+                    <div
+                        key={i}
+                        style={{ background: "#464c80" }}
+                        className="modal-fight--element"
+                    >
+                        ОД:{props.player.movePoint}/{props.player.maxMovePoint}
+                    </div>
+                </Tooltip>
+            )
         }
         else if (props.unit.unitFightPosition === i) {
-            filed.push(<div key={i} className="fight-filed-elements">{props.unit.name}</div>)
+            filed.push(
+                <Tooltip
+                    key={i}
+                    title={props.unit.name}
+                    placement="top"
+                    disableInteractive
+                    arrow
+                >
+                    <div
+                        key={i}
+                        style={{ background: "#744444" }}
+                        className="modal-fight--element"
+                    >
+                        ОД:{props.unit.movePoint}/{props.unit.maxMovePoint}
+                    </div>
+                </Tooltip>
+            )
         }
         else {
-            filed.push(<div key={i} className="fight-filed-elements"></div>)
+            filed.push(<div key={i} className="modal-fight--element" />)
         }
     }
     return (<>

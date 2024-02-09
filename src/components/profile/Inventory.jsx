@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../../common/util/modal/Modal';
 import MainButton from '../../common/util/button/MainButton';
-import SortButton from './../../common/util/button/SortButton';
+import SortButton from '../../common/util/button/SortButton';
 
 const Inventory = (props) => {
     const [thing, setThing] = useState({});

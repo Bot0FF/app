@@ -7,6 +7,7 @@ import { CSSTransition } from "react-transition-group";
 import "./main.css";
 
 const Main = (props) => {
+    console.log(props)
     const [isOpenAis, setOpenAis] = useState(false);
     const [isOpenUnits, setOpenUnits] = useState(false);
     const [isOpenThings, setOpenThings] = useState(false);
@@ -46,9 +47,9 @@ const Main = (props) => {
                 }
             </div>
             <div className="info-status--current">
-                Здоровье: {props.player.hp} ({props.player.fullHp})
+                Здоровье: {props.player.hp} ({props.player.maxHp})
                 <br />
-                Мана: {props.player.mana} ({props.player.fullMana})
+                Мана: {props.player.mana} ({props.player.mxMana})
                 <br />
                 Координаты: {props.x} / {props.y}
             </div>

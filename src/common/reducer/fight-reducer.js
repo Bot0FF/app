@@ -85,8 +85,32 @@ export const getAbility = () => (dispatch) => {
         });
 };
 
-export const setCurrentHit = (abilityId, targetId) => (dispatch) => {
-    return API_FIGHT.setHit(abilityId, targetId)
+export const setMove = (direction) => (dispatch) => {
+    return API_FIGHT.setMove(direction)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setFightState(data));
+            }
+            else {
+                dispatch(setFightMistake(data));
+            }
+        });
+};
+
+export const setHitWeapon = (targetId) => (dispatch) => {
+    return API_FIGHT.setHitWeapon(targetId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setFightState(data));
+            }
+            else {
+                dispatch(setFightMistake(data));
+            }
+        });
+};
+
+export const setHitAbility = (abilityId, targetId) => (dispatch) => {
+    return API_FIGHT.setHitAbility(abilityId, targetId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setFightState(data));
