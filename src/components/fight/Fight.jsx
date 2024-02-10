@@ -5,7 +5,7 @@ import './fight.css';
 import { Tooltip } from '@mui/material';
 
 const Fight = (props) => {
-
+    console.log(props)
     const [modalActive, setModalActive] = useState(false);
     const [unit, setUnit] = useState({});
 
@@ -82,7 +82,7 @@ const Fight = (props) => {
                                 unit={unit}
                             />
                         </div>
-                        <div className="fight-move-button">
+                        <div className="fight-move--button">
                             <FightButton
                                 name="Шаг влево"
                                 onClick={() => { props.setMove("left") }}
@@ -92,12 +92,12 @@ const Fight = (props) => {
                                 onClick={() => props.setMove("right")}
                             />
                         </div>
+                        <FightButton
+                            name={"Атака"}
+                            onClick={() => setHitWeapon(false, unit.id)}
+                        />
                     </>
                 }
-                <FightButton
-                    name={"Удар оружием"}
-                    onClick={() => setHitWeapon(false, unit.id)}
-                />
                 <u>Доступные умения:</u>
                 {Array.from(props.ability).map(a => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.hitType)) {
@@ -127,7 +127,24 @@ const Fight = (props) => {
 const PositionUnits = (props) => {
     let filed = [];
     for (let i = 1; i < 9; i++) {
-        if (props.player.unitFightPosition === i) {
+        if (props.player.fightPosition === i && props.unit.fightPosition === i) {
+            filed.push(
+                <Tooltip
+                    key={i}
+                    title={`${props.player.name}, ${props.unit.name}`}
+                    placement="top"
+                    disableInteractive
+                    arrow
+                >
+                    <div
+                        key={i}
+                        className="modal-fight--element  color--join"
+                    >
+                    </div>
+                </Tooltip>
+            )
+        }
+        else if (props.player.fightPosition === i) {
             filed.push(
                 <Tooltip
                     key={i}
@@ -141,12 +158,12 @@ const PositionUnits = (props) => {
                         style={{ background: "#464c80" }}
                         className="modal-fight--element"
                     >
-                        ОД:{props.player.movePoint}/{props.player.maxMovePoint}
+                        ОД:{props.player.pointAction}/{props.player.maxPointAction}
                     </div>
                 </Tooltip>
             )
         }
-        else if (props.unit.unitFightPosition === i) {
+        else if (props.unit.fightPosition === i) {
             filed.push(
                 <Tooltip
                     key={i}
@@ -160,13 +177,16 @@ const PositionUnits = (props) => {
                         style={{ background: "#744444" }}
                         className="modal-fight--element"
                     >
-                        ОД:{props.unit.movePoint}/{props.unit.maxMovePoint}
+                        ОД:{props.unit.pointAction}/{props.unit.maxPointAction}
                     </div>
                 </Tooltip>
             )
         }
         else {
-            filed.push(<div key={i} className="modal-fight--element" />)
+            filed.push(<div
+                key={i}
+                className="modal-fight--element"
+            />)
         }
     }
     return (<>
@@ -188,7 +208,7 @@ const Team = (props) => {
                     <br />
                     {props.player.id == unit.id
                         ?
-                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.fullHp}) / Мана: {unit.mana}  ({unit.fullMana})</span>
+                        <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.maxHp}) / Мана: {unit.mana}  ({unit.maxMana})</span>
                         :
                         <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} / Мана: {unit.mana}</span>
                     }

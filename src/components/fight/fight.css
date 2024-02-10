@@ -96,10 +96,15 @@
     width: 100%;
 }
 
+.color--join {
+    background: linear-gradient(to right, #464c80 50%, #744444 0%);
+}
+
 /* кнопки перемещения в сражении */
-.fight-move-button {
+.fight-move--button {
     display: flex;
     gap: 20px;
+    margin-bottom: 2px;
 }
 
 .my-node-enter {

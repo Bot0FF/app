@@ -41,9 +41,9 @@ class ProfileContainer extends React.Component {
                             onClick={() => { }}
                         />
                     </NavLink>
-                    <NavLink to="ability">
+                    <NavLink to="attribute">
                         <MainButton
-                            name={"Способности"}
+                            name={"Характеристики"}
                             onClick={() => { }}
                         />
                     </NavLink>
@@ -53,7 +53,7 @@ class ProfileContainer extends React.Component {
                             onClick={() => { }}
                         />
                     </NavLink>
-                    <NavLink to="point">
+                    <NavLink to="ability">
                         <MainButton
                             name={"Умения"}
                             onClick={() => { }}

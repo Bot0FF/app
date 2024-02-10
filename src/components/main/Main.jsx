@@ -7,7 +7,6 @@ import { CSSTransition } from "react-transition-group";
 import "./main.css";
 
 const Main = (props) => {
-    console.log(props)
     const [isOpenAis, setOpenAis] = useState(false);
     const [isOpenUnits, setOpenUnits] = useState(false);
     const [isOpenThings, setOpenThings] = useState(false);
@@ -49,7 +48,7 @@ const Main = (props) => {
             <div className="info-status--current">
                 Здоровье: {props.player.hp} ({props.player.maxHp})
                 <br />
-                Мана: {props.player.mana} ({props.player.mxMana})
+                Мана: {props.player.mana} ({props.player.maxMana})
                 <br />
                 Координаты: {props.x} / {props.y}
             </div>
@@ -129,9 +128,17 @@ const Unit = ({ entity, player, setFight }) => {
         <span>
             <u>{entity.name}</u>
             <br />
-            <span>Здоровье: {entity.hp} ({entity.fullHp})</span>
+            <span>Здоровье: {entity.hp}</span>
             <br />
-            <span>Мана: {player.mana} ({player.fullMana})</span>
+            <span>Мана: {player.mana}</span>
+            <br />
+            <span>Физический урон: {entity.physDamage}</span>
+            <br />
+            <span>Сила магии: {player.magModifier} %</span>
+            <br />
+            <span>Физическиая защита: {entity.physDefense}</span>
+            <br />
+            <span>Магическая защита: {player.magDefense}</span>
         </span>
         {entity.hp > 0
             ?
