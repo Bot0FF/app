@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from '@mui/material/Button';
 import Modal from "../../common/util/modal/Modal";
 import MoveButton from "../../common/util/button/MoveButton";
 import MainButton from './../../common/util/button/MainButton';
@@ -13,26 +12,34 @@ const Main = (props) => {
     const [modalActive, setModalActive] = useState(false);
     const [entity, setEntity] = useState({});
 
-    //разворачивает список и загружает сущности для него
+    //делает модальное окно активным и устанавливает в useState выбранную сущность
+    const setModal = (isActive, entity) => {
+        setModalActive(isActive);
+        setEntity(entity);
+    }
+
+    //открыть и загрузить список ai на локации
     const setAiToList = (isOpenAis) => {
         setOpenAis(isOpenAis);
         props.getLocationAis();
     }
 
+    //открыть и загрузить список игроков на локации
     const setUnitsToList = (isOpenUnits) => {
         setOpenUnits(isOpenUnits);
         props.getLocationUnits();
     }
 
+    //открыть и загрузить список вещей на локации
     const setThingsToList = (isOpenThings) => {
         setOpenThings(isOpenThings);
         props.getLocationThings();
     }
 
-    //делает модальное окно активным и устанавливает в useState выбранную сущность
-    const setModal = (isActive, entity) => {
+    //забрать вещь с локации, закрыть модальное окно
+    const takeLocationThing = (isActive, thingId) => {
         setModalActive(isActive);
-        setEntity(entity);
+        props.takeLocationThing(thingId);
     }
 
     return (<>
@@ -113,7 +120,7 @@ const Main = (props) => {
                 :
                 <Thing
                     entity={entity}
-                    takeLocationThing={props.takeLocationThing}
+                    takeLocationThing={takeLocationThing}
                 />
             }
         </Modal>
@@ -168,27 +175,20 @@ const Thing = ({ entity, takeLocationThing }) => {
             <br />
             <span>Добавляет маны: {entity.mana}</span>
             <br />
-            <span>Добавляет урона: {entity.damage}</span>
+            <span>Добавляет физического урона: {entity.physDamage}</span>
             <br />
-            <span>Добавляет защиты: {entity.defense}</span>
+            <span>Добавляет магического урона: {entity.magDamage}</span>
+            <br />
+            <span>Модификатор магического урона: {entity.magDamageModifier}</span>
+            <br />
+            <span>Добавляет физической защиты: {entity.physDefense}</span>
+            <br />
+            <span>Добавляет магической защиты: {entity.magDefense}</span>
         </span>
-        {entity.hp > 0
-            ?
-            <Button
-                variant="outlined"
-                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-                onClick={() => takeLocationThing(entity.id)}
-            >
-                Забрать
-            </Button>
-            :
-            <Button
-                variant="outlined"
-                style={{ color: "#8b6e6e", border: "2px solid #493a3a", marginTop: 3 }}
-            >
-                Осмотреть
-            </Button>
-        }
+        <MainButton
+            name={"Забрать"}
+            onClick={() => takeLocationThing(false, entity.id)}
+        />
     </>
     );
 };

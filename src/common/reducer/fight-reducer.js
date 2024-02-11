@@ -1,8 +1,6 @@
 import { API_FIGHT } from './../../api/api_fight';
 const SET_FIGHT_STATE = "SET_FIGHT_STATE";
 const SET_FIGHT_MISTAKE = "SET_FIGHT_MISTAKE";
-const SET_FIGHT_ABILITY = "SET_FIGHT_ABILITY";
-const SET_FIGHT_INITIALIZE = "SET_FIGHT_INITIALIZE";
 
 let initialState = {
     player: {},
@@ -13,13 +11,10 @@ let initialState = {
     countRound: 0,
     endRoundTimer: 0,
     info: "",
-    status: 0,
-    initialize: false
+    status: 0
 }
 
 export const setFightState = (data) => ({ type: SET_FIGHT_STATE, data: data });
-export const setFightAbility = (data) => ({ type: SET_FIGHT_ABILITY, data: data });
-export const setFightInitialize = () => ({ type: SET_FIGHT_INITIALIZE });
 export const setFightMistake = (data) => ({ type: SET_FIGHT_MISTAKE, data: data });
 
 const fightReducer = (state = initialState, action) => {
@@ -30,21 +25,12 @@ const fightReducer = (state = initialState, action) => {
                 player: action.data.player,
                 teamOne: action.data.teamOne,
                 teamTwo: action.data.teamTwo,
+                ability: action.data.ability,
                 resultRound: action.data.resultRound,
                 countRound: action.data.countRound,
                 endRoundTimer: action.data.endRoundTimer,
                 info: action.data.info,
                 status: action.data.status
-            };
-        case SET_FIGHT_ABILITY:
-            return {
-                ...state,
-                ability: action.data
-            };
-        case SET_FIGHT_INITIALIZE:
-            return {
-                ...state,
-                initialize: true
             };
         case SET_FIGHT_MISTAKE:
             return {
@@ -57,15 +43,7 @@ const fightReducer = (state = initialState, action) => {
     };
 };
 
-export const loadRound = () => (dispatch) => {
-    let dispatchFigth = dispatch(getFightState());
-    let dispatchAbility = dispatch(getAbility());
-    Promise.all([dispatchFigth, dispatchAbility])
-        .then(() => {
-            dispatch(setFightInitialize());
-        });
-};
-
+//информация о сражении
 export const getFightState = () => (dispatch) => {
     return API_FIGHT.getFightRefresh()
         .then(data => {
@@ -78,13 +56,7 @@ export const getFightState = () => (dispatch) => {
         });
 };
 
-export const getAbility = () => (dispatch) => {
-    return API_FIGHT.getAbility()
-        .then(data => {
-            dispatch(setFightAbility(data));
-        });
-};
-
+//перемещение по линии сражения
 export const setMove = (direction) => (dispatch) => {
     return API_FIGHT.setMove(direction)
         .then(data => {
@@ -97,6 +69,7 @@ export const setMove = (direction) => (dispatch) => {
         });
 };
 
+//удар оружием
 export const setHitWeapon = (targetId) => (dispatch) => {
     return API_FIGHT.setHitWeapon(targetId)
         .then(data => {
@@ -109,8 +82,22 @@ export const setHitWeapon = (targetId) => (dispatch) => {
         });
 };
 
+//применение умения
 export const setHitAbility = (abilityId, targetId) => (dispatch) => {
     return API_FIGHT.setHitAbility(abilityId, targetId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setFightState(data));
+            }
+            else {
+                dispatch(setFightMistake(data));
+            }
+        });
+};
+
+//завершение хода
+export const setActionEnd = () => (dispatch) => {
+    return API_FIGHT.setActionEnd()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setFightState(data));

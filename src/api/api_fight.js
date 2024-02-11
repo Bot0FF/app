@@ -55,10 +55,10 @@ export const API_FIGHT = {
             });
     },
 
-    //выбор умения и цели при атаке
-    getAbility() {
+    //завершение хода
+    setActionEnd() {
         return instanse
-            .get("/api/fight/ability")
+            .get("/api/fight/action/end")
             .then(response => {
                 return response.data;
             })

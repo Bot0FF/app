@@ -3,23 +3,19 @@ import Fight from "./Fight";
 import { connect } from "react-redux";
 import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
 import {
-    loadRound,
+    getFightState,
     setHitWeapon,
-    setHitAbility,
-    setMove
+    setMove,
+    setActionEnd
 } from "../../common/reducer/fight-reducer";
-import { Preloader } from './../../common/preloader/Preloader';
 
 class FightContainer extends React.Component {
 
     componentDidMount() {
-        this.props.loadRound();
+        this.props.getFightState();
     }
 
     render() {
-        if (!this.props.initialize) {
-            return <Preloader />
-        }
         return <>
             <Fight
                 player={this.props.player}
@@ -30,10 +26,11 @@ class FightContainer extends React.Component {
                 countRound={this.props.countRound}
                 endRoundTimer={this.props.endRoundTimer}
                 info={this.props.info}
-                loadRound={this.props.loadRound}
+                getFightState={this.props.getFightState}
                 setMove={this.props.setMove}
                 setHitWeapon={this.props.setHitWeapon}
                 setHitAbility={this.props.setHitAbility}
+                setActionEnd={this.props.setActionEnd}
             />
         </>
     };
@@ -58,9 +55,9 @@ let mapStateToProps = (state) => {
 let WithDataFightContainer = withAuthRedirect(FightContainer);
 
 export default connect(mapStateToProps, {
-    loadRound,
+    getFightState,
     setMove,
     setHitWeapon,
-    setHitAbility
+    setActionEnd
 })(WithDataFightContainer);
 

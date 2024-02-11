@@ -97,10 +97,10 @@ export const API_MAIN = {
             });
     },
 
-    //запрос списка things из инвентаря
-    getInventoryThings() {
+    //главная страница user + location
+    getProgile() {
         return instanse
-            .get("/api/main/inventory/things")
+            .get("/api/main/profile")
             .then(response => {
                 return response.data;
             })

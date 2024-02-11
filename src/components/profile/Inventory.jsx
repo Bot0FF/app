@@ -6,16 +6,19 @@ import SortButton from '../../common/util/button/SortButton';
 const Inventory = (props) => {
     const [thing, setThing] = useState({});
     const [modalActive, setModalActive] = useState(false);
-    console.log(props)
-    useEffect(() => {
-        props.getThings();
-    }, [])
 
     //делает модальное окно активным и устанавливает в useState выбранную вещь
     const setModal = (isActive, thing) => {
         setModalActive(isActive);
         setThing(thing);
     }
+
+    //удалить вещь из инвентаря, закрыть модальное окно
+    const removeInventoryThing = (isActive, thingId) => {
+        setModalActive(isActive);
+        props.removeInventoryThing(thingId);
+    }
+
     return (<>
         <div className="content-inventory--sort">
             <SortButton
@@ -91,7 +94,7 @@ const Inventory = (props) => {
                 />
                 <MainButton
                     name={"Выбросить"}
-                    onClick={() => props.removeInventoryThing(thing.id)}
+                    onClick={() => removeInventoryThing(false, thing.id)}
                 />
             </span>
         </Modal>

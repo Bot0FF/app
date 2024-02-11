@@ -3,31 +3,42 @@ import Modal from '../../common/util/modal/Modal';
 import FightButton from '../../common/util/button/FightButton';
 import './fight.css';
 import { Tooltip } from '@mui/material';
+import { getFightState } from './../../common/reducer/fight-reducer';
 
 const Fight = (props) => {
-    console.log(props)
     const [modalActive, setModalActive] = useState(false);
     const [unit, setUnit] = useState({});
 
+    //открытие модального окна, сохранение в useState unit
     const setModal = (isActive, unit) => {
         setModalActive(isActive);
         setUnit(unit);
     }
 
+    //атака оружием, закрытие модального окна
     const setHitWeapon = (isActive, targetId) => {
         setModalActive(isActive);
         props.setHitWeapon(targetId);
     }
 
+    //выбор умения, закрытие модального окна
     const setHitAbility = (isActive, abilityId, targetId) => {
         setModalActive(isActive);
         props.setHitAbility(abilityId, targetId);
     }
 
+    //завершение хода, закрытие модального окна
+    const setActionEnd = (isActive) => {
+        setModalActive(isActive);
+        props.setActionEnd();
+    }
+
+    //проверка является ли выбранный unit союзником
     const isMyTeam = () => {
         return props.player.teamNumber === unit.teamNumber ? true : false;
     }
 
+    //формирование истории раунда из ответа сервера, в массив
     const getResultRound = () => {
         return props.resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
     }
@@ -45,7 +56,7 @@ const Fight = (props) => {
                     <span className="border-history--info" key={item}>{item}</span>
                 )}
                 <span>Раунд:{props.countRound} </span>
-                <Timer endRoundTimer={props.endRoundTimer} loadRound={props.loadRound} setCurrentHit={props.setCurrentHit} />
+                <Timer endRoundTimer={props.endRoundTimer} getFightState={props.getFightState} setCurrentHit={props.setCurrentHit} />
             </div>
             <div className="fight-units">
                 <div className="unit-list">
@@ -73,7 +84,10 @@ const Fight = (props) => {
                 </div>
                 {isMyTeam()
                     ?
-                    <></>
+                    <FightButton
+                        name={"Завершить ход"}
+                        onClick={() => setActionEnd(false)}
+                    />
                     :
                     <>
                         <div className="modal-fight--filed">
@@ -95,6 +109,10 @@ const Fight = (props) => {
                         <FightButton
                             name={"Атака"}
                             onClick={() => setHitWeapon(false, unit.id)}
+                        />
+                        <FightButton
+                            name={"Завершить ход"}
+                            onClick={() => setActionEnd(false)}
                         />
                     </>
                 }
@@ -131,7 +149,8 @@ const PositionUnits = (props) => {
             filed.push(
                 <Tooltip
                     key={i}
-                    title={`${props.player.name}, ${props.unit.name}`}
+                    title={`${props.player.name}(ОД${props.player.pointAction}/${props.player.maxPointAction}), 
+                            ${props.unit.name}(ОД${props.unit.pointAction}/${props.unit.maxPointAction})`}
                     placement="top"
                     disableInteractive
                     arrow
@@ -195,6 +214,7 @@ const PositionUnits = (props) => {
     );
 }
 
+//список состава команд в сражении
 const Team = (props) => {
     return (
         Array.from(props.teamList).map(unit =>
@@ -218,7 +238,8 @@ const Team = (props) => {
     )
 }
 
-const Timer = ({ endRoundTimer, loadRound }) => {
+//таймер раунда
+const Timer = ({ endRoundTimer, getFightState }) => {
     const [counter, setCounter] = useState(60);
     let timeToEndRound = ((Math.round(endRoundTimer / 1000 - Date.now() / 1000)));
 
@@ -227,7 +248,7 @@ const Timer = ({ endRoundTimer, loadRound }) => {
             setTimeout(() => setCounter(timeToEndRound - 1), 1000);
         }
         else {
-            loadRound();
+            getFightState();
             setCounter(60);
         }
     }, [counter]);

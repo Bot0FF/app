@@ -72,6 +72,7 @@ const mainReducer = (state = initialState, action) => {
     };
 };
 
+//главная страница
 export const getMain = () => (dispatch) => {
     return API_MAIN.getMain()
         .then(data => {
@@ -84,6 +85,7 @@ export const getMain = () => (dispatch) => {
         });
 };
 
+//информация по списку существ на локации
 export const getLocationAis = () => (dispatch) => {
     return API_MAIN.getLocationAis()
         .then(data => {
@@ -91,6 +93,7 @@ export const getLocationAis = () => (dispatch) => {
         });
 };
 
+//информация по списку героев на локации
 export const getLocationUnits = () => (dispatch) => {
     return API_MAIN.getLocationUnits()
         .then(data => {
@@ -98,6 +101,7 @@ export const getLocationUnits = () => (dispatch) => {
         });
 };
 
+//информация по списку вещей на локации
 export const getLocationThings = () => (dispatch) => {
     return API_MAIN.getLocationThings()
         .then(data => {
@@ -105,14 +109,21 @@ export const getLocationThings = () => (dispatch) => {
         });
 };
 
+//взять вещь с локации
 export const takeLocationThing = (thingId) => (dispatch) => {
     return API_MAIN.takeLocationThing(thingId)
         .then(data => {
-            dispatch(setMainInfo(data));
-            dispatch(getLocationThings(data));
+            if (data.status === 1) {
+                dispatch(setMainState(data));
+                dispatch(getLocationThings());
+            }
+            else {
+                dispatch(setMainInfo(data));
+            }
         });
 };
 
+//перемещение по локациям
 export const movePlayer = (direction) => (dispatch) => {
     return API_MAIN.getMove(direction)
         .then(data => {
@@ -125,7 +136,7 @@ export const movePlayer = (direction) => (dispatch) => {
         });
 };
 
-
+//начать сражение с выбранным противником
 export const setFight = (targetId) => (dispatch) => {
     return API_MAIN.getAttack(targetId)
         .then(data => {

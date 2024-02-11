@@ -6,7 +6,6 @@ import Point from './Point';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
     getProfile,
-    getThings,
     removeInventoryThing,
     putOnInventoryThing,
     takeOffInventoryThing
@@ -74,7 +73,6 @@ class ProfileContainer extends React.Component {
                                 player={this.props.player}
                                 info={this.props.info}
                                 things={this.props.things}
-                                getThings={this.props.getThings}
                                 putOnInventoryThing={this.props.putOnInventoryThing}
                                 takeOffInventoryThing={this.props.takeOffInventoryThing}
                                 removeInventoryThing={this.props.removeInventoryThing}
@@ -105,7 +103,6 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getProfile,
-    getThings,
     removeInventoryThing,
     putOnInventoryThing,
     takeOffInventoryThing
