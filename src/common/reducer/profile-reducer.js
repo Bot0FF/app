@@ -4,6 +4,7 @@ const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 
 let initialState = {
     player: {},
+    unitSkill: {},
     things: [],
     info: "",
     status: 0
@@ -18,6 +19,7 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 player: action.data.player,
+                unitSkill: action.data.unitSkill,
                 things: action.data.things,
                 info: action.data.info,
                 status: action.data.status

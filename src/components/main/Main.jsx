@@ -132,21 +132,13 @@ const Main = (props) => {
 //информация по unit в модальном окне
 const Unit = ({ entity, player, setFight }) => {
     return (<>
-        <span>
-            <u>{entity.name}</u>
-            <br />
-            <span>Здоровье: {entity.hp}</span>
-            <br />
-            <span>Мана: {player.mana}</span>
-            <br />
-            <span>Физический урон: {entity.physDamage}</span>
-            <br />
-            <span>Сила магии: {player.magModifier} %</span>
-            <br />
-            <span>Физическиая защита: {entity.physDefense}</span>
-            <br />
-            <span>Магическая защита: {player.magDefense}</span>
-        </span>
+        <u>{entity.name}</u>
+        <li>Здоровье: {entity.hp}</li>
+        <li>Мана: {player.mana}</li>
+        <li>Физический урон: {entity.physDamage}</li>
+        <li>Сила магии: {player.magModifier} %</li>
+        <li>Физическиая защита: {entity.physDefense}</li>
+        <li>Магическая защита: {player.magDefense}</li>
         {entity.hp > 0
             ?
             <MainButton
@@ -168,22 +160,15 @@ const Thing = ({ entity, takeLocationThing }) => {
     return (<>
         <span>
             <u>{entity.name}</u>
-            <br />
-            <span>Описание: {entity.description}</span>
-            <br />
-            <span>Добавляет здоровья: {entity.hp}</span>
-            <br />
-            <span>Добавляет маны: {entity.mana}</span>
-            <br />
-            <span>Добавляет физического урона: {entity.physDamage}</span>
-            <br />
-            <span>Добавляет магического урона: {entity.magDamage}</span>
-            <br />
-            <span>Модификатор магического урона: {entity.magDamageModifier}</span>
-            <br />
-            <span>Добавляет физической защиты: {entity.physDefense}</span>
-            <br />
-            <span>Добавляет магической защиты: {entity.magDefense}</span>
+            <li>Описание: {entity.description}</li>
+            <li>Добавляет здоровья: {entity.hp}</li>
+            <li>Добавляет маны: {entity.mana}</li>
+            <li>Добавляет физического урона: {entity.physDamage}</li>
+            <li>Добавляет магического урона: {entity.magDamage}</li>
+            <li>Модификатор магического урона: {entity.magDamageModifier}</li>
+            <li>Добавляет физической защиты: {entity.physDefense}</li>
+            <li>Добавляет магической защиты: {entity.magDefense}</li>
+            <li>Состояние: {entity.duration}/100</li>
         </span>
         <MainButton
             name={"Забрать"}

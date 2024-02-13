@@ -5,6 +5,7 @@ import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
 import {
     getFightState,
     setHitWeapon,
+    setHitAbility,
     setMove,
     setActionEnd
 } from "../../common/reducer/fight-reducer";
@@ -58,6 +59,7 @@ export default connect(mapStateToProps, {
     getFightState,
     setMove,
     setHitWeapon,
+    setHitAbility,
     setActionEnd
 })(WithDataFightContainer);
 

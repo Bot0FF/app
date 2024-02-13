@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from '../../common/util/modal/Modal';
 import MainButton from '../../common/util/button/MainButton';
 import SortButton from '../../common/util/button/SortButton';
@@ -13,6 +13,18 @@ const Inventory = (props) => {
         setThing(thing);
     }
 
+    //надеть вещь из инвентаря, закрыть модальное окно
+    const putOnInventoryThing = (isActive, thingId) => {
+        setModalActive(isActive);
+        props.putOnInventoryThing(thingId);
+    }
+
+    //снять вещь из инвентаря, закрыть модальное окно
+    const takeOffInventoryThing = (isActive, thingId) => {
+        setModalActive(isActive);
+        props.takeOffInventoryThing(thingId);
+    }
+
     //удалить вещь из инвентаря, закрыть модальное окно
     const removeInventoryThing = (isActive, thingId) => {
         setModalActive(isActive);
@@ -22,7 +34,7 @@ const Inventory = (props) => {
     return (<>
         <div className="content-inventory--sort">
             <SortButton
-                name={"Все"}
+                name={"Надето"}
                 onClick={() => { }}
             />
             <SortButton
@@ -41,6 +53,14 @@ const Inventory = (props) => {
                 name={"Свитки"}
                 onClick={() => { }}
             />
+            <SortButton
+                name={"Книги"}
+                onClick={() => { }}
+            />
+            <SortButton
+                name={"Разное"}
+                onClick={() => { }}
+            />
         </div>
         {props.info
             ?
@@ -49,21 +69,19 @@ const Inventory = (props) => {
             <u>Вещи игрока {props.player.name}</u>
         }
         <br />
-        <ul>
+        <ul  className="content-inventory--item">
             {Array.from(props.things).map(thing => {
                 if (thing.use === true) {
                     return <li
                         key={thing.id}
-                        style={{ borderBottom: "1px dashed #574444" }}
                         onClick={() => setModal(true, thing)}
                     >
                         (Н){thing.name} (Состояние: {thing.duration})
                     </li>
                 }
                 else {
-                    return <li className="content-inventory--item"
+                    return <li
                         key={thing.id}
-                        style={{ borderBottom: "1px dashed #574444" }}
                         onClick={() => setModal(true, thing)}
                     >
                         {thing.name} (Состояние: {thing.duration})
@@ -74,23 +92,22 @@ const Inventory = (props) => {
         <Modal active={modalActive} setActive={setModalActive}>
             <span>
                 <u>{thing.name}</u>
-                <br />
-                <span>Описание: {thing.description}</span>
-                <br />
-                <span>Добавляет здоровья: {thing.hp}</span>
-                <br />
-                <span>Добавляет маны: {thing.mana}</span>
-                <br />
-                <span>Добавляет урона: {thing.damage}</span>
-                <br />
-                <span>Добавляет защиты: {thing.defense}</span>
+                <li>Описание: {thing.description}</li>
+                <li>Добавляет здоровья: {thing.hp}</li>
+                <li>Добавляет маны: {thing.mana}</li>
+                <li>Добавляет физического урона: {thing.physDamage}</li>
+                <li>Добавляет магического урона: {thing.magDamage}</li>
+                <li>Модификатор магического урона: {thing.magDamageModifier}</li>
+                <li>Добавляет физической защиты: {thing.physDefense}</li>
+                <li>Добавляет магической защиты: {thing.magDefense}</li>
+                <li>Состояние: {thing.duration}/100</li>
                 <MainButton
                     name={"Надеть"}
-                    onClick={() => props.putOnInventoryThing(thing.id)}
+                    onClick={() => putOnInventoryThing(false, thing.id)}
                 />
                 <MainButton
                     name={"Снять"}
-                    onClick={() => props.takeOffInventoryThing(thing.id)}
+                    onClick={() => takeOffInventoryThing(false, thing.id)}
                 />
                 <MainButton
                     name={"Выбросить"}

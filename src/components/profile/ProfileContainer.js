@@ -2,7 +2,8 @@ import React from 'react';
 import MainButton from '../../common/util/button/MainButton';
 import Player from './Player';
 import Inventory from './Inventory';
-import Point from './Point';
+import Attribute from './Attribute';
+import Skill from './Skill';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
     getProfile,
@@ -37,25 +38,25 @@ class ProfileContainer extends React.Component {
                     <NavLink to="inventory">
                         <MainButton
                             name={"Инвентарь"}
-                            onClick={() => { }}
+                            onClick={() => this.props.getProfile()}
                         />
                     </NavLink>
                     <NavLink to="attribute">
                         <MainButton
                             name={"Характеристики"}
-                            onClick={() => { }}
+                            onClick={() => this.props.getProfile()}
                         />
                     </NavLink>
                     <NavLink to="skill">
                         <MainButton
                             name={"Навыки"}
-                            onClick={() => { }}
+                            onClick={() => this.props.getProfile()}
                         />
                     </NavLink>
                     <NavLink to="ability">
                         <MainButton
                             name={"Умения"}
-                            onClick={() => { }}
+                            onClick={() => this.props.getProfile()}
                         />
                     </NavLink>
                 </div>
@@ -79,9 +80,15 @@ class ProfileContainer extends React.Component {
                             />}
                         />
                         <Route
-                            path="point"
-                            element={<Point
+                            path="attribute"
+                            element={<Attribute
                                 player={this.props.player}
+                            />}
+                        />
+                        <Route
+                            path="skill"
+                            element={<Skill
+                                unitSkill={this.props.unitSkill}
                             />}
                         />
                     </Routes>
@@ -94,6 +101,7 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         player: state.profileState.player,
+        unitSkill: state.profileState.unitSkill,
         things: state.profileState.things,
         info: state.profileState.info,
         status: state.profileState.status,

@@ -31,10 +31,28 @@
 
 .content-inventory--sort {
     display: flex;
+    justify-content: center;
+    gap: 2px;
     border-bottom: 1px solid #493a3a;
     margin-bottom: 3px;
 }
 
+.content-help--change {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    border-bottom: 1px solid #493a3a;
+    margin-bottom: 3px;
+}
+
+.content-attribute--button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .content-inventory--item {
     cursor: pointer;
+    border-bottom: 1px dashed #574444;
 }
