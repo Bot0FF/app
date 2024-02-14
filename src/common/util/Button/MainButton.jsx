@@ -1,39 +1,72 @@
 import React from 'react';
-import { ThemeProvider } from '@emotion/react';
-import { Button, createTheme } from '@mui/material';
+import { Button } from '@mui/material';
 
-const MainButton = (props) => {
-    return (<>
-        <ThemeProvider theme={CustomTheme}>
+const MoveButton = (props) => {
+    return (
+        <div>
             <Button
                 variant="bold"
+                style={{
+                    color: "#816767",
+                    marginBottom: "1px",
+                    fontSize: "14px",
+                    border: "2px solid #574444",
+                    fontWeight: "bold",
+                    borderRadius: 8,
+                    width: 100,
+                    height: 35,
+                }}
                 onClick={() => props.onClick()}
             >
                 {props.name}
             </Button>
-        </ThemeProvider>
+        </div>
+    );
+};
+
+const EntityButton = (props) => {
+    return (<>
+        <Button
+            variant="bold"
+            style={{
+                fontWeight: "bold",
+                color: "#816767",
+                border: "2px solid #574444",
+                borderRadius: "10px",
+                width: "100%",
+                marginTop: 3,
+            }}
+            onClick={() => props.onClick()}
+        >
+            {props.name}
+        </Button>
     </>
     );
 };
 
-const CustomTheme = createTheme({
-    components: {
-        MuiButton: {
-            variants: [
-                {
-                    props: { variant: "bold" },
-                    style: {
-                        fontWeight: "bold",
-                        color: "#816767",
-                        border: "2px solid #574444",
-                        borderRadius: "10px",
-                        width: "100%",
-                        marginTop: 3,
-                    }
-                }
-            ]
-        }
-    }
-});
+const ActionButton = (props) => {
+    return (<>
+        <Button
+            variant="outlined"
+            size="small"
+            style={{
+                fontWeight: "bold",
+                color: "#816767",
+                border: "2px solid #574444",
+                borderRadius: "10px",
+                width: "250px",
+                marginTop: 3,
+            }}
+            onClick={() => props.onClick()}
+        >
+            {props.name}
+        </Button>
+    </>
+    );
+};
 
-export default MainButton;
+export {
+    EntityButton,
+    MoveButton,
+    ActionButton
+};

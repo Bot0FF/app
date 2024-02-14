@@ -3,10 +3,10 @@ import React from 'react';
 const Player = (props) => {
     return (<>
         <u>Имя: {props.player.name}</u>
-        <li>Здоровье: {props.player.hp} (Максимум: {props.player.fullHp})</li>
-        <li>Мана: {props.player.mana} (Максимум: {props.player.fullMana})</li>
+        <li>Здоровье: {props.player.hp} (Максимум: {props.player.maxHp})</li>
+        <li>Мана: {props.player.mana} (Максимум: {props.player.maxMana})</li>
         <li>Физический урон: {props.player.physDamage}</li>
-        <li>Модификатор магического урона: {props.player.magModifier} %</li>
+        <li>Увеличение силы магии: {props.player.magModifier} %</li>
         <li>Физическиая защита: {props.player.physDefense}</li>
         <li>Магическая защита: {props.player.magDefense}</li>
         <li>Инициатива: {props.player.initiative}</li>

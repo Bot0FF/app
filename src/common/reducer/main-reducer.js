@@ -34,8 +34,11 @@ const mainReducer = (state = initialState, action) => {
                 player: action.data.player,
                 location: action.data.location,
                 aisSize: action.data.ais,
+                ais: initialState.ais,
                 unitsSize: action.data.units,
+                units: initialState.units,
                 thingsSize: action.data.things,
+                things: initialState.things,
                 info: action.data.info,
                 status: action.data.status
             };

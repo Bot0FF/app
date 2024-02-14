@@ -8,7 +8,6 @@
     font-family: var(--font-family);
 }
 
-/* информация о сражении */
 .fight-info {
     display: grid;
     padding: 10px;
@@ -20,21 +19,18 @@
     width: 550px;
 }
 
-/* информация о произведенном действии */
 .border-action--info {
     margin-bottom: 3px;
     border-bottom: 1px dashed var(--info-color);
     color: var(--info-color);
 }
 
-/* информация об истории действий в раунде */
 .border-history--info {
     margin-top: 3px;
     margin-bottom: 3px;
     border-bottom: 1px dashed var(--secondary-color);
 }
 
-/* расположение участников сражения */
 .fight-units {
     display: flex;
     margin: 10px;
@@ -69,12 +65,10 @@
     box-shadow: inset 0 0 2px 2px #24252d;
 }
 
-/* информация о противнике в модальном окне */
 .modal-fight--info {
     margin-bottom: 10px;
 }
 
-/* поле с графическим расположением units */
 .modal-fight--filed {
     height: 20px;
     border: 2px solid var(--secondary-color);
@@ -84,7 +78,6 @@
     align-items: center;
 }
 
-/* элемент unit на графическом поле сражения */
 .modal-fight--element {
     font-size: x-small;
     align-items: center;
@@ -100,11 +93,15 @@
     background: linear-gradient(to right, #464c80 50%, #744444 0%);
 }
 
-/* кнопки перемещения в сражении */
 .fight-move--button {
     display: flex;
     gap: 20px;
     margin-bottom: 2px;
+}
+
+.fight-action--button{
+    display: grid;
+    justify-content: center;
 }
 
 .my-node-enter {

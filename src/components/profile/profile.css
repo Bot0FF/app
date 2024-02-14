@@ -56,3 +56,7 @@
     cursor: pointer;
     border-bottom: 1px dashed #574444;
 }
+
+.content-inventory--special {
+    margin-top: 10px;
+}

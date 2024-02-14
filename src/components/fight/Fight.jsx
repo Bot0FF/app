@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../../common/util/modal/Modal';
-import FightButton from '../../common/util/button/FightButton';
+import { ActionButton } from '../../common/util/button/FightButton';
 import { Tooltip } from '@mui/material';
 import './fight.css';
 
@@ -91,7 +91,7 @@ const Fight = (props) => {
                 </div>
                 {isMyTeam()
                     ?
-                    <FightButton
+                    <ActionButton
                         name={"Завершить ход"}
                         onClick={() => setActionEnd(false)}
                     />
@@ -104,30 +104,32 @@ const Fight = (props) => {
                             />
                         </div>
                         <div className="fight-move--button">
-                            <FightButton
+                            <ActionButton
                                 name="Шаг влево"
                                 onClick={() => setMove("left")}
                             />
-                            <FightButton
+                            <ActionButton
                                 name="Шаг вправо"
                                 onClick={() => setMove("right")}
                             />
                         </div>
-                        <FightButton
+                        <div className="fight-action--button">
+                        <ActionButton
                             name={"Атака"}
                             onClick={() => props.setHitWeapon(unit.id)}
                         />
-                        <FightButton
+                        <ActionButton
                             name={"Завершить ход"}
                             onClick={() => setActionEnd(false)}
                         />
+                        </div>
                     </>
                 }
                 <u>Доступные умения:</u>
                 {Array.from(props.ability).map(a => {
                     if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.applyType)) {
                         return (
-                            <FightButton
+                            <ActionButton
                                 description={a.description}
                                 name={a.name}
                                 onClick={() => props.setHitAbility(a.id, unit.id)}
@@ -135,7 +137,7 @@ const Fight = (props) => {
                     }
                     else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.applyType)) {
                         return (
-                            <FightButton
+                            <ActionButton
                                 description={a.description}
                                 name={a.name}
                                 onClick={() => props.setHitAbility(a.id, unit.id)}

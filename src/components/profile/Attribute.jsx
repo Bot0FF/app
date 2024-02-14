@@ -1,4 +1,4 @@
-import AttributeButton from '../../common/util/button/AttributeButton';
+import { AttributeButton } from '../../common/util/button/ProfileButton';
 import React from 'react';
 
 const Attribute = (props) => {

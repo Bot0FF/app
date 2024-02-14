@@ -153,4 +153,35 @@ export const API_MAIN = {
                 return error;
             });
     },
+
+    //------------------------------
+    //добавить вещь в инвентарь (admin)
+    addThingToInventory(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/special/thing/add?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //удалить вещь из БД (admin)
+    removeThingFromDB(thingId) {
+        if (thingId === undefined) {
+            thingId = 0;
+        }
+        return instanse
+            .get("/api/special/thing/remove?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
 }

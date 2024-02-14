@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { NavLink } from "react-router-dom";
 import { useClickOutside } from './../../common/hook/useClickOutside';
-import NavbarButton from './../../common/util/button/NavbarButton';
+import { NavbarButton } from './../../common/util/button/NavbarButton';
 
 const Navbar = (props) => {
     const [isOpen, setOpen] = useState(false);

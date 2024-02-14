@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../../common/util/modal/Modal';
-import MainButton from '../../common/util/button/MainButton';
-import SortButton from '../../common/util/button/SortButton';
+import { SortButton, InventoryButton } from '../../common/util/button/ProfileButton';
 
 const Inventory = (props) => {
     const [thing, setThing] = useState({});
@@ -29,6 +28,12 @@ const Inventory = (props) => {
     const removeInventoryThing = (isActive, thingId) => {
         setModalActive(isActive);
         props.removeInventoryThing(thingId);
+    }
+
+    //удалить вещь из инвентаря, закрыть модальное окно
+    const removeThingFromDB = (isActive, thingId) => {
+        setModalActive(isActive);
+        props.removeThingFromDB(thingId);
     }
 
     return (<>
@@ -69,14 +74,14 @@ const Inventory = (props) => {
             <u>Вещи игрока {props.player.name}</u>
         }
         <br />
-        <ul  className="content-inventory--item">
+        <ul className="content-inventory--item">
             {Array.from(props.things).map(thing => {
                 if (thing.use === true) {
                     return <li
                         key={thing.id}
                         onClick={() => setModal(true, thing)}
                     >
-                        (Н){thing.name} (Состояние: {thing.duration})
+                        (Н){thing.name} (Состояние: {thing.condition})
                     </li>
                 }
                 else {
@@ -84,36 +89,44 @@ const Inventory = (props) => {
                         key={thing.id}
                         onClick={() => setModal(true, thing)}
                     >
-                        {thing.name} (Состояние: {thing.duration})
+                        {thing.name} (Состояние: {thing.condition})
                     </li>
                 }
             })}
         </ul>
         <Modal active={modalActive} setActive={setModalActive}>
-            <span>
+            <div>
                 <u>{thing.name}</u>
                 <li>Описание: {thing.description}</li>
                 <li>Добавляет здоровья: {thing.hp}</li>
                 <li>Добавляет маны: {thing.mana}</li>
                 <li>Добавляет физического урона: {thing.physDamage}</li>
-                <li>Добавляет магического урона: {thing.magDamage}</li>
-                <li>Модификатор магического урона: {thing.magDamageModifier}</li>
+                <li>Увеличение силы магии: {thing.magModifier}%</li>
                 <li>Добавляет физической защиты: {thing.physDefense}</li>
                 <li>Добавляет магической защиты: {thing.magDefense}</li>
-                <li>Состояние: {thing.duration}/100</li>
-                <MainButton
+                <li>Состояние: {thing.condition}/100</li>
+                <InventoryButton
                     name={"Надеть"}
                     onClick={() => putOnInventoryThing(false, thing.id)}
                 />
-                <MainButton
+                <InventoryButton
                     name={"Снять"}
                     onClick={() => takeOffInventoryThing(false, thing.id)}
                 />
-                <MainButton
+                <InventoryButton
                     name={"Выбросить"}
                     onClick={() => removeInventoryThing(false, thing.id)}
                 />
-            </span>
+                {props.player.unitType === 'ADMIN'
+                    ?
+                    <InventoryButton
+                        name={"Удалить из БД"}
+                        onClick={() => removeThingFromDB(false, thing.id)}
+                    />
+                    :
+                    <></>
+                }
+            </div>
         </Modal>
     </>
     );

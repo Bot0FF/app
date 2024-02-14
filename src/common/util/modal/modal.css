@@ -28,7 +28,8 @@
 /* расположение информации в модальном окне */
 .modal-item {
     display: grid;
-    text-align:center; 
+    text-align: center;
+    justify-content: center;
     font-size: 17px;
     color: var(--primary-color);
     font-family: var(--font-family);

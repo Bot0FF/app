@@ -1,55 +1,37 @@
 import React from 'react';
-import { ThemeProvider } from '@emotion/react';
-import { Tooltip, Button, createTheme } from '@mui/material';
+import { Tooltip, Button } from '@mui/material';
 
-const FightButton = (props) => {
+const ActionButton = (props) => {
 
     return (<>
-        <ThemeProvider theme={ButtonTheme}>
-            <Tooltip
-                theme={ButtonTheme}
-                title={props.description}
-                placement="top"
-                disableInteractive
-                arrow
+        <Tooltip
+            title={props.description}
+            placement="top"
+            style={{
+                textAlign: "center"
+            }}
+            disableInteractive
+            arrow
+        >
+            <Button
+                variant="bold"
+                style={{
+                    color: "#816767",
+                    marginBottom: "1px",
+                    border: "1px solid #574444",
+                    width: "200px",
+                    fontSize: "11px",
+                    borderRadius: "10px"
+                }}
+                onClick={() => props.onClick()}
             >
-                <Button
-                    variant="bold"
-                    onClick={() => props.onClick()}
-                >
-                    {props.name}
-                </Button>
-            </Tooltip>
-        </ThemeProvider>
+                {props.name}
+            </Button>
+        </Tooltip>
     </>
     );
 };
 
-const ButtonTheme = createTheme({
-    components: {
-        MuiButton: {
-            variants: [
-                {
-                    props: { variant: "bold" },
-                    style: {
-                        color: "#816767",
-                        marginBottom: "1px",
-                        border: "1px solid #574444",
-                        width: "100%",
-                        fontSize: "11px",
-                        borderRadius: "10px"
-                    }
-                }
-            ]
-        },
-        MuiTooltip: {
-            styleOverrides: {
-                tooltip: {
-                    textAlign: "center",
-                }
-            }
-        }
-    }
-});
-
-export default FightButton;
+export {
+    ActionButton
+}

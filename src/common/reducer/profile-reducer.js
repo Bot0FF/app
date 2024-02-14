@@ -68,4 +68,33 @@ export const takeOffInventoryThing = (thingId) => (dispatch) => {
         });
 };
 
+
+//-------------------------
+//добавить предмет в инвентарь
+export const addThingToInventory = (thingId) => (dispatch) => {
+    return API_MAIN.addThingToInventory(thingId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//удалить предмет из БД
+export const removeThingFromDB = (thingId) => (dispatch) => {
+    return API_MAIN.removeThingFromDB(thingId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+
 export default profileReducer;

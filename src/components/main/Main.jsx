@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../common/util/modal/Modal";
-import MoveButton from "../../common/util/button/MoveButton";
-import MainButton from './../../common/util/button/MainButton';
+import { MoveButton, EntityButton, ActionButton } from './../../common/util/button/MainButton';
 import { CSSTransition } from "react-transition-group";
 import "./main.css";
 
@@ -80,7 +79,7 @@ const Main = (props) => {
                 />
             </div>
             <div className="button--items">
-                <MainButton
+                <EntityButton
                     name={`Существа ${props.aisSize}`}
                     onClick={() => setAiToList(!isOpenAis)}
                 />
@@ -89,7 +88,7 @@ const Main = (props) => {
                     entities={props.ais}
                     setModal={setModal}
                 />
-                <MainButton
+                <EntityButton
                     name={`Герои ${props.unitsSize}`}
                     onClick={() => setUnitsToList(!isOpenUnits)}
                 />
@@ -98,7 +97,7 @@ const Main = (props) => {
                     entities={props.units}
                     setModal={setModal}
                 />
-                <MainButton
+                <EntityButton
                     name={`Вещи под ногами ${props.thingsSize}`}
                     onClick={() => setThingsToList(!isOpenThings)}
                 />
@@ -110,7 +109,7 @@ const Main = (props) => {
             </div>
         </div>
         <Modal active={modalActive} setActive={setModalActive}>
-            {entity.subjectType === "AI" || entity.subjectType === "UNIT"
+            {entity.unitType
                 ?
                 <Unit
                     entity={entity}
@@ -141,12 +140,12 @@ const Unit = ({ entity, player, setFight }) => {
         <li>Магическая защита: {player.magDefense}</li>
         {entity.hp > 0
             ?
-            <MainButton
+            <ActionButton
                 name={"Напасть"}
                 onClick={() => setFight(entity.id)}
             />
             :
-            <MainButton
+            <ActionButton
                 name={"Осмотреть"}
                 onClick={() => { }}
             />
@@ -164,13 +163,12 @@ const Thing = ({ entity, takeLocationThing }) => {
             <li>Добавляет здоровья: {entity.hp}</li>
             <li>Добавляет маны: {entity.mana}</li>
             <li>Добавляет физического урона: {entity.physDamage}</li>
-            <li>Добавляет магического урона: {entity.magDamage}</li>
-            <li>Модификатор магического урона: {entity.magDamageModifier}</li>
+            <li>Увеличение силы магии: {entity.magModifier}%</li>
             <li>Добавляет физической защиты: {entity.physDefense}</li>
             <li>Добавляет магической защиты: {entity.magDefense}</li>
-            <li>Состояние: {entity.duration}/100</li>
+            <li>Состояние: {entity.condition}/100</li>
         </span>
-        <MainButton
+        <EntityButton
             name={"Забрать"}
             onClick={() => takeLocationThing(false, entity.id)}
         />
