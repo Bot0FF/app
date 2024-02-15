@@ -1,14 +1,46 @@
 .parent-content--profile {
-    display: flex;
+    display: grid;
     margin: 20px;
     padding: 5px 5px;
+    position: relative;
     border: 2px solid #493a3a;
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
     cursor: default;
-    width: 700px;
+    max-width: 700px;
     gap: 5px;
+}
+
+.content-attribute--bonus{
+    width: 700px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-attribute--button{
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-family);
+    color: var(--primary-color);
+    font-size: 12px;
+    margin-top: 5px;
+    align-items: center;
+    gap: 5px;
+    user-select: none;
+}
+
+.attribute-button--item{
+    display: flex;
+    border: 2px solid #493a3a;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.content-profile--main {
+    display: flex;
 }
 
 .profile--button {
@@ -45,12 +77,7 @@
     margin-bottom: 3px;
 }
 
-.content-attribute--button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
+
 
 .content-inventory--item {
     cursor: pointer;

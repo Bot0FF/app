@@ -30,7 +30,7 @@ const Inventory = (props) => {
         props.removeInventoryThing(thingId);
     }
 
-    //удалить вещь из инвентаря, закрыть модальное окно
+    //удалить вещь из БД, закрыть модальное окно
     const removeThingFromDB = (isActive, thingId) => {
         setModalActive(isActive);
         props.removeThingFromDB(thingId);

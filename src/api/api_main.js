@@ -154,8 +154,23 @@ export const API_MAIN = {
             });
     },
 
-    //------------------------------
-    //добавить вещь в инвентарь (admin)
+    //повысить аттрибут
+    setUpAttribute(attribute) {
+        if (attribute === undefined) {
+            attribute = "";
+        }
+        return instanse
+            .get("/api/main/attribute/up?attribute=" + attribute)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //----------для админа-------------
+    //добавить вещь в инвентарь 
     addThingToInventory(thingId) {
         if (thingId === undefined) {
             thingId = 0;
@@ -170,13 +185,28 @@ export const API_MAIN = {
             });
     },
 
-    //удалить вещь из БД (admin)
+    //удалить вещь из БД 
     removeThingFromDB(thingId) {
         if (thingId === undefined) {
             thingId = 0;
         }
         return instanse
             .get("/api/special/thing/remove?thingId=" + thingId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //понизить аттрибут
+    setDownAttribute(attribute) {
+        if (attribute === undefined) {
+            attribute = "";
+        }
+        return instanse
+            .get("/api/main/attribute/down?attribute=" + attribute)
             .then(response => {
                 return response.data;
             })

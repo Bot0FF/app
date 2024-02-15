@@ -35,6 +35,7 @@ const profileReducer = (state = initialState, action) => {
     };
 };
 
+//страница профиля со всеми характеристиками и инвентарем
 export const getProfile = () => (dispatch) => {
     return API_MAIN.getProgile()
         .then(data => {
@@ -47,29 +48,60 @@ export const getProfile = () => (dispatch) => {
         });
 };
 
+//выбросить предмет из инвентаря
 export const removeInventoryThing = (thingId) => (dispatch) => {
     return API_MAIN.removeInventoryThing(thingId)
         .then(data => {
-            dispatch(setProfileState(data));
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
         });
 };
 
+//надеть вещь
 export const putOnInventoryThing = (thingId) => (dispatch) => {
     return API_MAIN.putOnInventoryThing(thingId)
         .then(data => {
-            dispatch(setProfileState(data));
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
         });
 };
 
+//снять вещь
 export const takeOffInventoryThing = (thingId) => (dispatch) => {
     return API_MAIN.takeOffInventoryThing(thingId)
         .then(data => {
-            dispatch(setProfileState(data));
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//повысить аттрибут
+export const setUpAttribute = (attribute) => (dispatch) => {
+    return API_MAIN.setUpAttribute(attribute)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
         });
 };
 
 
-//-------------------------
+//-------для админа---------
 //добавить предмет в инвентарь
 export const addThingToInventory = (thingId) => (dispatch) => {
     return API_MAIN.addThingToInventory(thingId)
@@ -96,5 +128,17 @@ export const removeThingFromDB = (thingId) => (dispatch) => {
         });
 };
 
+//понизить аттрибут
+export const setDownAttribute = (attribute) => (dispatch) => {
+    return API_MAIN.setDownAttribute(attribute)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
 
 export default profileReducer;

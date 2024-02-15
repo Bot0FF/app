@@ -7,7 +7,7 @@ const Player = (props) => {
         <li>Мана: {props.player.mana} (Максимум: {props.player.maxMana})</li>
         <li>Физический урон: {props.player.physDamage}</li>
         <li>Увеличение силы магии: {props.player.magModifier} %</li>
-        <li>Физическиая защита: {props.player.physDefense}</li>
+        <li>Физическая защита: {props.player.physDefense}</li>
         <li>Магическая защита: {props.player.magDefense}</li>
         <li>Инициатива: {props.player.initiative}</li>
         <li>Очки движения: {props.player.pointAction} (Максимум: {props.player.maxPointAction})</li>
