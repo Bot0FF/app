@@ -11,13 +11,15 @@ class NavbarContainer extends React.Component {
             <Navbar
                 isAuth={this.props.isAuth}
                 logout={this.props.logout}
+                player={this.props.player}
             />
         </>
     };
 };
 
 const mapStateToProps = (state) => ({
-    isAuth: state.authState.isAuth
+    isAuth: state.authState.isAuth,
+    player: state.fightState.player
 });
 
 export default connect(mapStateToProps, {

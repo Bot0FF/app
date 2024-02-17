@@ -7,6 +7,12 @@ const Navbar = (props) => {
     const [isOpen, setOpen] = useState(false);
     const menuRef = useRef(null);
 
+    const checkFight = (bool) => {
+        if(props.player.status !== "FIGHT") {
+            setOpen(bool);
+        }
+    }
+
     useClickOutside(menuRef, () => {
         if (isOpen) setTimeout(() => setOpen(!isOpen), 50);
     });
@@ -19,7 +25,7 @@ const Navbar = (props) => {
                     <div className="navbar-menu--button">
                         <NavbarButton
                             name={"Меню"}
-                            onClick={() => { setOpen(!isOpen) }}
+                            onClick={() => { checkFight(!isOpen) }}
                         />
                     </div>
                     <nav className={`navbar-menu ${isOpen ? "active" : ""}`} ref={menuRef}>

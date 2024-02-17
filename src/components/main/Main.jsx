@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "../../common/util/modal/Modal";
 import { MoveButton, EntityButton, ActionButton } from './../../common/util/button/MainButton';
 import { CSSTransition } from "react-transition-group";
+import fight from "../../image/fight.png";
 import "./main.css";
 
 const Main = (props) => {
@@ -108,12 +109,15 @@ const Main = (props) => {
                 />
             </div>
         </div>
-        <Modal active={modalActive} setActive={setModalActive}>
+        <Modal
+            active={modalActive}
+            setActive={setModalActive}
+            background={require("../../image/fight.png")}    
+        >
             {entity.unitType
                 ?
                 <Unit
                     entity={entity}
-                    player={props.player}
                     setFight={props.setFight}
                 />
                 :
@@ -129,15 +133,17 @@ const Main = (props) => {
 
 
 //информация по unit в модальном окне
-const Unit = ({ entity, player, setFight }) => {
+const Unit = ({ entity, setFight }) => {
     return (<>
         <u>{entity.name}</u>
-        <li>Здоровье: {entity.hp}</li>
-        <li>Мана: {player.mana}</li>
+        <li>Здоровье: {entity.hp}({entity.maxHp})</li>
+        <li>Мана: {entity.mana}({entity.maxMana})</li>
         <li>Физический урон: {entity.physDamage}</li>
-        <li>Сила магии: {player.magModifier} %</li>
+        <li>Сила магии: {entity.magModifier}</li>
         <li>Физическиая защита: {entity.physDefense}</li>
-        <li>Магическая защита: {player.magDefense}</li>
+        <li>Магическая защита: {entity.magDefense}</li>
+        <li>Шанс блокирования: {entity.chanceBlock}%</li>
+        <li>Шанс уворота: {entity.chanceEvade}%</li>
         {entity.hp > 0
             ?
             <ActionButton

@@ -16,6 +16,7 @@
 
 .info-status--current {
     color: var(--primary-color);
+    cursor: default;
 }
 
 .button--move {

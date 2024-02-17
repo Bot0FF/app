@@ -41,6 +41,7 @@
 
 .content-profile--main {
     display: flex;
+    gap: 2px;
 }
 
 .profile--button {
@@ -76,7 +77,6 @@
     border-bottom: 1px solid #493a3a;
     margin-bottom: 3px;
 }
-
 
 
 .content-inventory--item {
