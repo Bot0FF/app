@@ -6,6 +6,7 @@ import './fight.css';
 
 const Fight = (props) => {
     const [modalActive, setModalActive] = useState(false);
+    const [isLineInfoActive, setLineInfoActive] = useState(false);
     const [unit, setUnit] = useState({});
 
     //обновляет unit, когда приходят данные
@@ -26,6 +27,18 @@ const Fight = (props) => {
         setUnit(unit);
     }
 
+    //нанесение удара
+    const setHitWeapon = (unitId) => {
+        props.setHitWeapon(unitId);
+        setLineInfoActive(true);
+    }
+
+    //применение умения
+    const setHitAbility = (abilityId, unitId) => {
+        props.setHitAbility(abilityId, unitId);
+        setLineInfoActive(true);
+    }
+
     //завершение хода, закрытие модального окна
     const setActionEnd = (isActive) => {
         setModalActive(isActive);
@@ -44,23 +57,10 @@ const Fight = (props) => {
         return props.player.teamNumber === unit.teamNumber ? true : false;
     }
 
-    //формирование истории раунда из ответа сервера, в массив
-    const getResultRound = () => {
-        return props.resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
-    }
-
     return (
         <div className="header-fight">
             <div className="fight-info">
-                {props.info
-                    ?
-                    <span className="border-action--info">{props.info}</span>
-                    :
-                    <></>
-                }
-                {Array.from(getResultRound()).map(item =>
-                    <span className="border-history--info" key={item}>{item}</span>
-                )}
+                <ResultRoundHistory resultRound={props.resultRound} />
                 <span>Раунд:{props.countRound} </span>
                 <Timer
                     endRoundTimer={props.endRoundTimer}
@@ -85,80 +85,73 @@ const Fight = (props) => {
                 </div>
             </div>
             <Modal active={modalActive} setActive={setModalActive}>
-                <div className="modal-fight--info">
-                    {props.player.pointAction > 0
+                <div className="modal-fight--filed">
+                    {isLineInfoActive === true
                         ?
-                        <u>{props.info}</u>
+                        <FightLineInfo
+                            info={props.info}
+                            isLineInfoActive={isLineInfoActive}
+                            setLineInfoActive={setLineInfoActive}
+                        />
                         :
-                        <u>Очки движения закончились</u>
+                        <PositionUnits
+                            player={props.player}
+                            unit={unit}
+                        />
                     }
                 </div>
-                {isMyTeam()
-                    ?
-                    <div className="fight-action--button">
+                <div className="fight-move--button">
+                    <ActionButton
+                        name="Шаг влево"
+                        onClick={() => setMove("left")}
+                    />
+                    <ActionButton
+                        name="Шаг вправо"
+                        onClick={() => setMove("right")}
+                    />
+                </div>
+                <div className="fight-action--button">
+                    {isMyTeam()
+                        ?
+                        <></>
+                        :
                         <ActionButton
-                            name={"Завершить ход"}
-                            onClick={() => setActionEnd(false)}
+                            name={"Атака"}
+                            onClick={() => setHitWeapon(unit.id)}
                         />
-                    </div>
-                    :
-                    <>
-                        <div className="modal-fight--filed">
-                            <PositionUnits
-                                player={props.player}
-                                unit={unit}
-                            />
-                        </div>
-                        <div className="fight-move--button">
-                            <ActionButton
-                                name="Шаг влево"
-                                onClick={() => setMove("left")}
-                            />
-                            <ActionButton
-                                name="Шаг вправо"
-                                onClick={() => setMove("right")}
-                            />
-                        </div>
-                        <div className="fight-action--button">
-                            <ActionButton
-                                name={"Атака"}
-                                onClick={() => props.setHitWeapon(unit.id)}
-                            />
-                            <ActionButton
-                                name={"Завершить ход"}
-                                onClick={() => setActionEnd(false)}
-                            />
-                        </div>
-                    </>
-                }
+                    }
+                    <ActionButton
+                        name={"Завершить ход"}
+                        onClick={() => setActionEnd(false)}
+                    />
+                </div>
                 <u>Доступные умения:</u>
                 <div className="fight-ability--current">
-                    {Array.from(props.ability).map(a => {
-                        if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.applyType)) {
-                            return (
-                                <ActionButton
-                                    key={a.id}
-                                    description={a.description}
-                                    name={a.name}
-                                    onClick={() => props.setHitAbility(a.id, unit.id)}
-                                />);
-                        }
-                        else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.applyType)) {
-                            return (
-                                <ActionButton
-                                    key={a.id}
-                                    description={a.description}
-                                    name={a.name}
-                                    onClick={() => props.setHitAbility(a.id, unit.id)}
-                                />);
-                        }
-                    }
-                    )}
+                    <UnitAbility
+                        isMyTeam={isMyTeam}
+                        ability={props.ability}
+                        setHitAbility={setHitAbility}
+                        unit={unit}
+                    />
                 </div>
             </Modal>
         </div>
     );
 };
+
+//результат предыдущего раунда
+const ResultRoundHistory = ({ resultRound }) => {
+    //формирование истории раунда из ответа сервера, в массив
+    const getResultRound = () => {
+        return resultRound.split("][").map(item => item.replace("[", "").replace("]", ""));
+    }
+
+    return <>
+        {Array.from(getResultRound()).map(item =>
+            <i className="border-history--info" key={item}>{item}</i>
+        )}
+    </>
+}
 
 //массив div с позицией units
 const PositionUnits = (props) => {
@@ -231,13 +224,30 @@ const Team = (props) => {
                     unit={unit}
                 />
                 <span className={`unit-info-${unit.id}`}>
-                    <u>{unit.name} </u>
+                    <u>{unit.name} ОД({unit.pointAction}/{unit.maxPointAction}) </u>
                     <br />
                     <span style={{ fontSize: 13 }}>Здоровье: {unit.hp} ({unit.maxHp}) / Мана: {unit.mana}  ({unit.maxMana})</span>
                 </span>
             </div>
         )
     )
+}
+
+//отображает на линии сражения информацию некоторое время
+const FightLineInfo = ({ info, isLineInfoActive, setLineInfoActive }) => {
+    const [counter, setCounter] = useState(1);
+    useEffect(() => {
+        if (counter >= 0) {
+            setTimeout(() => setCounter(counter - 1), 600);
+        }
+        else {
+            setLineInfoActive(false);
+        }
+    }, [counter]);
+
+    if (isLineInfoActive) {
+        return (<span className="fight-line--info">{info}</span>);
+    }
 }
 
 //таймер раунда
@@ -258,6 +268,33 @@ const Timer = ({ endRoundTimer, getFightState, setModalActive }) => {
     return (
         <span>До конца раунда {counter} сек</span>
     )
+}
+
+//доступные умения unit
+const UnitAbility = ({ isMyTeam, ability, setHitAbility, unit }) => {
+    return <>
+        {Array.from(ability).map(a => {
+            if (isMyTeam() && ["RECOVERY", "BOOST"].includes(a.applyType)) {
+                return (
+                    <ActionButton
+                        key={a.id}
+                        description={a.description}
+                        name={a.name}
+                        onClick={() => setHitAbility(a.id, unit.id)}
+                    />);
+            }
+            else if (!isMyTeam() && ["DAMAGE", "LOWER"].includes(a.applyType)) {
+                return (
+                    <ActionButton
+                        key={a.id}
+                        description={a.description}
+                        name={a.name}
+                        onClick={() => setHitAbility(a.id, unit.id)}
+                    />);
+            }
+        }
+        )}
+    </>
 }
 
 export default Fight;

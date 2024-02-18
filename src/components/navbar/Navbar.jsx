@@ -7,7 +7,8 @@ const Navbar = (props) => {
     const [isOpen, setOpen] = useState(false);
     const menuRef = useRef(null);
 
-    const checkFight = (bool) => {
+    //возможность открытия меню только вне сражения
+    const checkIsFight = (bool) => {
         if(props.player.status !== "FIGHT") {
             setOpen(bool);
         }
@@ -25,7 +26,7 @@ const Navbar = (props) => {
                     <div className="navbar-menu--button">
                         <NavbarButton
                             name={"Меню"}
-                            onClick={() => { checkFight(!isOpen) }}
+                            onClick={() => { checkIsFight(!isOpen) }}
                         />
                     </div>
                     <nav className={`navbar-menu ${isOpen ? "active" : ""}`} ref={menuRef}>

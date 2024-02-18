@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Modal from "../../common/util/modal/Modal";
 import { MoveButton, EntityButton, ActionButton } from './../../common/util/button/MainButton';
 import { CSSTransition } from "react-transition-group";
-import fight from "../../image/fight.png";
 import "./main.css";
 
 const Main = (props) => {
