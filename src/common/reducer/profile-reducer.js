@@ -1,4 +1,4 @@
-import { API_MAIN } from '../../api/api_main';
+import { API_PROFILE } from '../../api/api_profile';
 const SET_PROFILE_STATE = "SET_PROFILE_STATE";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 
@@ -6,6 +6,7 @@ let initialState = {
     player: {},
     unitSkill: {},
     things: [],
+    abilities: [],
     info: "",
     status: 0
 }
@@ -21,6 +22,7 @@ const profileReducer = (state = initialState, action) => {
                 player: action.data.player,
                 unitSkill: action.data.unitSkill,
                 things: action.data.things,
+                abilities: action.data.abilities,
                 info: action.data.info,
                 status: action.data.status
             };
@@ -35,9 +37,22 @@ const profileReducer = (state = initialState, action) => {
     };
 };
 
-//страница профиля со всеми характеристиками и инвентарем
+//страница профиля со всеми характеристиками
 export const getProfile = () => (dispatch) => {
-    return API_MAIN.getProgile()
+    return API_PROFILE.getProfile()
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//страница инвентаря
+export const getUnitInventory = () => (dispatch) => {
+    return API_PROFILE.getUnitInventory()
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));
@@ -50,7 +65,7 @@ export const getProfile = () => (dispatch) => {
 
 //выбросить предмет из инвентаря
 export const removeInventoryThing = (thingId) => (dispatch) => {
-    return API_MAIN.removeInventoryThing(thingId)
+    return API_PROFILE.removeInventoryThing(thingId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));
@@ -63,7 +78,7 @@ export const removeInventoryThing = (thingId) => (dispatch) => {
 
 //надеть вещь
 export const putOnInventoryThing = (thingId) => (dispatch) => {
-    return API_MAIN.putOnInventoryThing(thingId)
+    return API_PROFILE.putOnInventoryThing(thingId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));
@@ -76,7 +91,7 @@ export const putOnInventoryThing = (thingId) => (dispatch) => {
 
 //снять вещь
 export const takeOffInventoryThing = (thingId) => (dispatch) => {
-    return API_MAIN.takeOffInventoryThing(thingId)
+    return API_PROFILE.takeOffInventoryThing(thingId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));
@@ -89,35 +104,7 @@ export const takeOffInventoryThing = (thingId) => (dispatch) => {
 
 //повысить аттрибут
 export const setUpAttribute = (attribute) => (dispatch) => {
-    return API_MAIN.setUpAttribute(attribute)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setProfileState(data));
-            }
-            else {
-                dispatch(setProfileInfo(data));
-            }
-        });
-};
-
-
-//-------для админа---------
-//добавить предмет в инвентарь
-export const addThingToInventory = (thingId) => (dispatch) => {
-    return API_MAIN.addThingToInventory(thingId)
-        .then(data => {
-            if (data.status === 1) {
-                dispatch(setProfileState(data));
-            }
-            else {
-                dispatch(setProfileInfo(data));
-            }
-        });
-};
-
-//удалить предмет из БД
-export const removeThingFromDB = (thingId) => (dispatch) => {
-    return API_MAIN.removeThingFromDB(thingId)
+    return API_PROFILE.setUpAttribute(attribute)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));
@@ -130,7 +117,47 @@ export const removeThingFromDB = (thingId) => (dispatch) => {
 
 //понизить аттрибут
 export const setDownAttribute = (attribute) => (dispatch) => {
-    return API_MAIN.setDownAttribute(attribute)
+    return API_PROFILE.setDownAttribute(attribute)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//все умения unit
+export const getAllAbilities = () => (dispatch) => {
+    return API_PROFILE.getAllAbilities()
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//-------для админа---------
+//сгенерировать предмет в инвентарь
+export const addThingToInventory = (thingId) => (dispatch) => {
+    return API_PROFILE.addThingToInventory(thingId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//удалить предмет из БД
+export const removeThingFromDB = (thingId) => (dispatch) => {
+    return API_PROFILE.removeThingFromDB(thingId)
         .then(data => {
             if (data.status === 1) {
                 dispatch(setProfileState(data));

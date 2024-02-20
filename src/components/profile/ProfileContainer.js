@@ -8,12 +8,14 @@ import Characteristic from './Characteristic';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import {
     getProfile,
+    getUnitInventory,
     removeInventoryThing,
     putOnInventoryThing,
     takeOffInventoryThing,
     addThingToInventory,
     setUpAttribute,
     setDownAttribute,
+    getAllAbilities,
     removeThingFromDB
 } from '../../common/reducer/profile-reducer';
 import { MenuButton } from '../../common/util/button/ProfileButton';
@@ -21,6 +23,7 @@ import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../common/hoc/withAuthRedirect';
 import { Navigate } from 'react-router-dom';
 import './profile.css';
+import Ability from './Ability';
 
 class ProfileContainer extends React.Component {
 
@@ -51,31 +54,31 @@ class ProfileContainer extends React.Component {
                         <NavLink to="">
                             <MenuButton
                                 name={"Игрок"}
-                                onClick={() => this.props.getProfile()}
+                                onClick={() => { }}
                             />
                         </NavLink>
                         <NavLink to="inventory">
                             <MenuButton
                                 name={"Инвентарь"}
-                                onClick={() => this.props.getProfile()}
+                                onClick={() => this.props.getUnitInventory()}
                             />
                         </NavLink>
                         <NavLink to="characteristic">
                             <MenuButton
                                 name={"Характеристики"}
-                                onClick={() => this.props.getProfile()}
+                                onClick={() => { }}
                             />
                         </NavLink>
                         <NavLink to="skill">
                             <MenuButton
                                 name={"Навыки"}
-                                onClick={() => this.props.getProfile()}
+                                onClick={() => { }}
                             />
                         </NavLink>
                         <NavLink to="ability">
                             <MenuButton
                                 name={"Умения"}
-                                onClick={() => this.props.getProfile()}
+                                onClick={() => this.props.getAllAbilities()}
                             />
                         </NavLink>
                         {this.props.player.unitType === "ADMIN"
@@ -123,6 +126,13 @@ class ProfileContainer extends React.Component {
                                 />}
                             />
                             <Route
+                                path="ability"
+                                element={<Ability
+                                    player={this.props.player}
+                                    abilities={this.props.abilities}
+                                />}
+                            />
+                            <Route
                                 path="special"
                                 element={<Special
                                     info={this.props.info}
@@ -142,6 +152,7 @@ let mapStateToProps = (state) => {
         player: state.profileState.player,
         unitSkill: state.profileState.unitSkill,
         things: state.profileState.things,
+        abilities: state.profileState.abilities,
         info: state.profileState.info,
         status: state.profileState.status,
         isAuth: state.authState.isAuth
@@ -150,11 +161,13 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getProfile,
+    getUnitInventory,
     removeInventoryThing,
     putOnInventoryThing,
     takeOffInventoryThing,
     addThingToInventory,
     setUpAttribute,
     setDownAttribute,
+    getAllAbilities,
     removeThingFromDB
 })(withAuthRedirect(ProfileContainer));

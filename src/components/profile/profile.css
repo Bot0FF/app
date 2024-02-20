@@ -62,12 +62,17 @@
     border-radius: 10px;
 }
 
-.content-inventory--sort {
+.content-sort {
     display: flex;
     justify-content: center;
     gap: 2px;
     border-bottom: 1px solid #493a3a;
     margin-bottom: 3px;
+}
+
+.content-list--item {
+    cursor: pointer;
+    border-bottom: 1px dashed #574444;
 }
 
 .content-help--change {
@@ -76,12 +81,6 @@
     gap: 2px;
     border-bottom: 1px solid #493a3a;
     margin-bottom: 3px;
-}
-
-
-.content-inventory--item {
-    cursor: pointer;
-    border-bottom: 1px dashed #574444;
 }
 
 .content-inventory--special {

@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../../common/util/modal/Modal';
 import { SortButton, InventoryButton } from '../../common/util/button/ProfileButton';
 
 const Inventory = (props) => {
     const [thing, setThing] = useState({});
+    const [unitThings, setUnitThings] = useState([]);
     const [modalActive, setModalActive] = useState(false);
+
+    useEffect(() => {
+        setUnitThings(props.things)
+    }, [props.things])
+
+    //сортировка предметов по objectType
+    const sortUnitThings = (sort) => {
+        let sortThings = Array.from(props.things).filter(thing => (
+            sort === true ? thing.use === sort : sort.includes(thing.objectType)
+        ));
+        setUnitThings(sortThings);
+    }
 
     //делает модальное окно активным и устанавливает в useState выбранную вещь
     const setModal = (isActive, thing) => {
@@ -37,18 +50,18 @@ const Inventory = (props) => {
     }
 
     return (<>
-        <div className="content-inventory--sort">
+        <div className="content-sort">
             <SortButton
                 name={"Надето"}
-                onClick={() => { }}
+                onClick={() => { sortUnitThings(true) }}
             />
             <SortButton
                 name={"Оружие"}
-                onClick={() => { }}
+                onClick={() => { sortUnitThings("WEAPON")}}
             />
             <SortButton
                 name={"Броня"}
-                onClick={() => { }}
+                onClick={() => { sortUnitThings("HEAD HAND BODY LEG")}}
             />
             <SortButton
                 name={"Зелья"}
@@ -74,62 +87,82 @@ const Inventory = (props) => {
             <u>Вещи игрока {props.player.name}</u>
         }
         <br />
-        <ul className="content-inventory--item">
-            {Array.from(props.things).map(thing => {
-                if (thing.use === true) {
-                    return <li
-                        key={thing.id}
-                        onClick={() => setModal(true, thing)}
-                    >
-                        (Н){thing.name} (Состояние: {thing.condition})
-                    </li>
-                }
-                else {
-                    return <li
-                        key={thing.id}
-                        onClick={() => setModal(true, thing)}
-                    >
-                        {thing.name} (Состояние: {thing.condition})
-                    </li>
-                }
-            })}
-        </ul>
+        <UnitInventory
+            things={unitThings}
+            setModal={setModal}
+        />
         <Modal active={modalActive} setActive={setModalActive}>
-            <div>
-                <u>{thing.name}</u>
-                <li>Описание: {thing.description}</li>
-                <li>Добавляет здоровья: {thing.hp}</li>
-                <li>Добавляет маны: {thing.mana}</li>
-                <li>Добавляет физического урона: {thing.physDamage}</li>
-                <li>Увеличение силы магии: {thing.magModifier}%</li>
-                <li>Добавляет физической защиты: {thing.physDefense}</li>
-                <li>Добавляет магической защиты: {thing.magDefense}</li>
-                <li>Состояние: {thing.condition}/100</li>
-                <InventoryButton
-                    name={"Надеть"}
-                    onClick={() => putOnInventoryThing(false, thing.id)}
-                />
-                <InventoryButton
-                    name={"Снять"}
-                    onClick={() => takeOffInventoryThing(false, thing.id)}
-                />
-                <InventoryButton
-                    name={"Выбросить"}
-                    onClick={() => removeInventoryThing(false, thing.id)}
-                />
-                {props.player.unitType === 'ADMIN'
-                    ?
-                    <InventoryButton
-                        name={"Удалить из БД"}
-                        onClick={() => removeThingFromDB(false, thing.id)}
-                    />
-                    :
-                    <></>
-                }
-            </div>
+            <ModalThing
+                player={props.player}
+                thing={thing}
+                putOnInventoryThing={putOnInventoryThing}
+                takeOffInventoryThing={takeOffInventoryThing}
+                removeInventoryThing={removeInventoryThing}
+                removeThingFromDB={removeThingFromDB}
+            />
         </Modal>
     </>
     );
 };
+
+//инвентарь unit
+const UnitInventory = ({ things, setModal }) => {
+    return <ul>
+        {Array.from(things).map(thing => {
+            if (thing.use === true) {
+                return <li className="content-list--item"
+                    key={thing.id}
+                    onClick={() => setModal(true, thing)}
+                >
+                    (Н){thing.name} (Состояние: {thing.condition})
+                </li>
+            }
+            else {
+                return <li className="content-list--item"
+                    key={thing.id}
+                    onClick={() => setModal(true, thing)}
+                >
+                    {thing.name} (Состояние: {thing.condition})
+                </li>
+            }
+        })}
+    </ul>
+}
+
+//выбранный предмет в модальном окне
+const ModalThing = (props) => {
+    return <div>
+        <u>{props.thing.name}</u>
+        <li>Описание: {props.thing.description}</li>
+        <li>Добавляет здоровья: {props.thing.hp}</li>
+        <li>Добавляет маны: {props.thing.mana}</li>
+        <li>Добавляет физического урона: {props.thing.physDamage}</li>
+        <li>Увеличение силы магии: {props.thing.magModifier}%</li>
+        <li>Добавляет физической защиты: {props.thing.physDefense}</li>
+        <li>Добавляет магической защиты: {props.thing.magDefense}</li>
+        <li>Состояние: {props.thing.condition}/100</li>
+        <InventoryButton
+            name={"Надеть"}
+            onClick={() => props.putOnInventoryThing(false, props.thing.id)}
+        />
+        <InventoryButton
+            name={"Снять"}
+            onClick={() => props.takeOffInventoryThing(false, props.thing.id)}
+        />
+        <InventoryButton
+            name={"Выбросить"}
+            onClick={() => props.removeInventoryThing(false, props.thing.id)}
+        />
+        {props.player.unitType === 'ADMIN'
+            ?
+            <InventoryButton
+                name={"Удалить из БД"}
+                onClick={() => props.removeThingFromDB(false, props.thing.id)}
+            />
+            :
+            <></>
+        }
+    </div>
+}
 
 export default Inventory;

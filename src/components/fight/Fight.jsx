@@ -148,7 +148,7 @@ const ResultRoundHistory = ({ resultRound }) => {
 
     return <>
         {Array.from(getResultRound()).map(item =>
-            <i className="border-history--info" key={item}>{item}</i>
+            <i className="border-history--info" key={Math.random()}>{item}</i>
         )}
     </>
 }

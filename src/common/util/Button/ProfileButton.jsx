@@ -40,18 +40,38 @@ const InventoryButton = (props) => {
     );
 };
 
+const AbilityButton = (props) => {
+    return (<>
+        <Button
+            variant="outlined"
+            style={{
+                color: "#816767",
+                border: "2px solid #574444",
+                borderRadius: "10px",
+                margin: "2px",
+                marginTop: "5px"
+            }}
+            onClick={() => props.onClick()}
+        >
+            {props.name}
+        </Button>
+    </>
+    );
+};
+
 const SortButton = (props) => {
     return (<>
         <Button
             variant="bold"
             style={{
                 fontWeight: "bold",
+                fontSize: 9,
                 color: "#816767",
                 border: "1px dashed #574444",
                 borderRadius: "10px",
                 marginTop: 3,
                 marginBottom: 3,
-                width: 70
+                width: "fit-content"
             }}
             onClick={() => props.onClick()}
         >
@@ -64,5 +84,6 @@ const SortButton = (props) => {
 export {
     MenuButton,
     InventoryButton,
+    AbilityButton,
     SortButton
 };
