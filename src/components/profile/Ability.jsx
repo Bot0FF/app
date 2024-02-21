@@ -25,6 +25,18 @@ const Ability = (props) => {
         setAbilities(sortAbilities);
     }
 
+    //добавляет умение в избранное 
+    const addCurrentUnitAbility = (isActive, abilityId) => {
+        setModalActive(isActive);
+        props.addCurrentUnitAbility(abilityId);
+    }
+
+    //удаляет умение из избранного
+    const removeCurrentUnitAbility = (isActive, abilityId) => {
+        setModalActive(isActive);
+        props.removeCurrentUnitAbility(abilityId);
+    }
+
     return (<>
         <div className="content-sort">
             <SortButton
@@ -61,6 +73,8 @@ const Ability = (props) => {
         <Modal active={modalActive} setActive={setModalActive}>
             <ModalAbility
                 ability={ability}
+                addCurrentUnitAbility={addCurrentUnitAbility}
+                removeCurrentUnitAbility={removeCurrentUnitAbility}
             />
         </Modal>
     </>
@@ -75,7 +89,7 @@ const UnitAbilities = ({ abilities, setModal }) => {
                 key={ability.id}
                 onClick={() => setModal(true, ability)}
             >
-                {ability.name}
+                {ability.currentAbility ? <>(И){ability.name}</> : <>{ability.name}</>}
             </li>
         })}
     </ul>
@@ -92,14 +106,18 @@ const ModalAbility = (props) => {
         <li>Влияние на физическую защиту: {props.ability.physDefense}</li>
         <li>Влияние на магическую защиту: {props.ability.magDefense}</li>
         <li>Затрачиваемая мана: {props.ability.manaCost}</li>
-        <AbilityButton
-            name={""}
-            onClick={() => { }}
-        />
-        <AbilityButton
-            name={"Снять"}
-            onClick={() => { }}
-        />
+        {props.ability.currentAbility
+            ?
+            <AbilityButton
+                name={"Из избранного"}
+                onClick={() => { props.addCurrentUnitAbility(false, props.ability.id) }}
+            />
+            :
+            <AbilityButton
+                name={"В избранное"}
+                onClick={() => { props.removeCurrentUnitAbility(false, props.ability.id) }}
+            />
+        }
     </div>
 }
 

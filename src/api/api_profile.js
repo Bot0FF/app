@@ -118,6 +118,36 @@ export const API_PROFILE = {
             });
     },
 
+    //добавить умение в избранное
+    addCurrentUnitAbility(abilityId) {
+        if (abilityId === undefined) {
+            abilityId = 0;
+        }
+        return instanse
+            .get("/api/profile/abilities/current/add?abilityId=" + abilityId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
+    //удалить умение из избранного 
+    removeCurrentUnitAbility(abilityId) {
+        if (abilityId === undefined) {
+            abilityId = 0;
+        }
+        return instanse
+        .get("/api/profile/abilities/current/remove?abilityId=" + abilityId)
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
     //----------для админа-------------
     //добавить вещь в инвентарь 
     addThingToInventory(thingId) {

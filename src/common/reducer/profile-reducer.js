@@ -141,6 +141,32 @@ export const getAllAbilities = () => (dispatch) => {
         });
 };
 
+//все умения unit
+export const addCurrentUnitAbility = (abilityId) => (dispatch) => {
+    return API_PROFILE.addCurrentUnitAbility(abilityId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
+//все умения unit
+export const removeCurrentUnitAbility = (abilityId) => (dispatch) => {
+    return API_PROFILE.removeCurrentUnitAbility(abilityId)
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setProfileState(data));
+            }
+            else {
+                dispatch(setProfileInfo(data));
+            }
+        });
+};
+
 //-------для админа---------
 //сгенерировать предмет в инвентарь
 export const addThingToInventory = (thingId) => (dispatch) => {

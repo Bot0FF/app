@@ -16,6 +16,8 @@ import {
     setUpAttribute,
     setDownAttribute,
     getAllAbilities,
+    addCurrentUnitAbility,
+    removeCurrentUnitAbility,
     removeThingFromDB
 } from '../../common/reducer/profile-reducer';
 import { MenuButton } from '../../common/util/button/ProfileButton';
@@ -130,6 +132,8 @@ class ProfileContainer extends React.Component {
                                 element={<Ability
                                     player={this.props.player}
                                     abilities={this.props.abilities}
+                                    addCurrentUnitAbility={this.props.addCurrentUnitAbility}
+                                    removeCurrentUnitAbility={this.props.removeCurrentUnitAbility}
                                 />}
                             />
                             <Route
@@ -169,5 +173,7 @@ export default connect(mapStateToProps, {
     setUpAttribute,
     setDownAttribute,
     getAllAbilities,
+    addCurrentUnitAbility,
+    removeCurrentUnitAbility,
     removeThingFromDB
 })(withAuthRedirect(ProfileContainer));

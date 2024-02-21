@@ -5,7 +5,7 @@ const Skill = (props) => {
         <u>Навыки:</u>
         <li>Одноручное оружие: {props.unitSkill.oneHand}</li>
         <li>Двуручное оружие: {props.unitSkill.twoHand}</li>
-        <li>Луки: {props.unitSkill.bow}</li>
+        <li>Стрелковое: {props.unitSkill.shoot}</li>
         <li>Магия огня: {props.unitSkill.fire}</li>
         <li>Магия воды: {props.unitSkill.water}</li>
         <li>Магия земли: {props.unitSkill.land}</li>
