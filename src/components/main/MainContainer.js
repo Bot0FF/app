@@ -35,8 +35,7 @@ class MainContainer extends React.Component {
             <Main
                 player={this.props.player}
                 locationName={this.props.location.name}
-                x={this.props.location.x}
-                y={this.props.location.y}
+                coordinate={this.props.location.coordinate}
                 ais={this.props.ais}
                 units={this.props.units}
                 things={this.props.things}

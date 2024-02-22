@@ -56,7 +56,7 @@ const Main = (props) => {
                 <br />
                 Мана: {props.player.mana} ({props.player.maxMana})
                 <br />
-                Координаты: {props.x} / {props.y}
+                Координаты: {props.coordinate}
             </div>
             <div className="button--move">
                 <MoveButton
