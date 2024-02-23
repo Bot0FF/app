@@ -46,6 +46,7 @@ class MainContainer extends React.Component {
                 getLocationUnits={this.props.getLocationUnits}
                 thingsSize={this.props.thingsSize}
                 getLocationThings={this.props.getLocationThings}
+                doorId={this.props.location.doorId}
                 onMovePlayer={this.onMovePlayer}
                 setFight={this.setFight}
                 takeLocationThing={this.props.takeLocationThing}

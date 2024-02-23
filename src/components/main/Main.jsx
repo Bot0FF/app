@@ -79,6 +79,15 @@ const Main = (props) => {
                 />
             </div>
             <div className="button--items">
+                {props.doorId
+                    ?
+                    <EntityButton
+                        name={props.info}
+                        onClick={() => setAiToList(!isOpenAis)}
+                    />
+                    :
+                    <></>
+                }
                 <EntityButton
                     name={`Существа ${props.aisSize}`}
                     onClick={() => setAiToList(!isOpenAis)}
@@ -111,7 +120,7 @@ const Main = (props) => {
         <Modal
             active={modalActive}
             setActive={setModalActive}
-            background={require("../../image/fight.png")}    
+            background={require("../../image/fight.png")}
         >
             {entity.unitType
                 ?
