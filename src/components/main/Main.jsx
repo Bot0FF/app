@@ -42,13 +42,6 @@ const Main = (props) => {
         props.takeLocationThing(thingId);
     }
 
-
-    //переход в строение
-    const moveToPlace = () => {
-
-    }
-
-
     return (<>
         <div className="parent-content--main">
             <div className="info-status--notification">
@@ -99,7 +92,7 @@ const Main = (props) => {
                 {props.location.doorId
                     ?
                     <NavLink
-                        to="/place"
+                        to={`/${props.location.locationType}`}
                         className="menu-list--item"
                     >
                         <EntityButton

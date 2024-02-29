@@ -6,13 +6,14 @@ import RegisterContainer from "./components/register/RegisterContainer";
 import MainContainer from "./components/main/MainContainer";
 import FightContainer from "./components/fight/FightContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
-import Inventory from "./components/profile/Inventory";
+import ChurchContainer from "./components/places/church/ChurchContainer";
+import HomeContainer from "./components/places/home/HomeContainer";
+import ShopContainer from "./components/places/shop/ShopContainer";
 import { initializeApp } from "./common/reducer/auth-reducer";
 import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { Preloader } from './common/preloader/Preloader';
 import "./App.css";
-
 
 class App extends React.Component {
 
@@ -39,6 +40,9 @@ class App extends React.Component {
             <Route path="/im" element={<MainContainer />} />
             <Route path="/fight" element={<FightContainer />} />
             <Route path="/profile/*" element={<ProfileContainer />} />
+            <Route path="/church/*" element={<ChurchContainer />} />
+            <Route path="/home/*" element={<HomeContainer />} />
+            <Route path="/shop/*" element={<ShopContainer />} />
           </Routes>
         </div>
       </div>

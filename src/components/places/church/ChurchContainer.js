@@ -1,19 +1,19 @@
 import React from 'react';
-import Home from './Home';
+import Church from './Church';
 import { NavLink, Route, Routes } from "react-router-dom";
 import { MenuButton } from '../../../common/util/button/ProfileButton';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../../common/hoc/withAuthRedirect';
 import { getProfile } from '../../../common/reducer/profile-reducer';
-import './home.css';
+import './church.css';
 
-class HomeContainer extends React.Component {
+class ChurchContainer extends React.Component {
 
     render() {
         return <>
-            <div className="parent-content--home">
-                <div className="content-home--main">
-                    <div className="home--button">
+            <div className="parent-content--church">
+                <div className="content-church--main">
+                    <div className="church--button">
                         <NavLink to="">
                             <MenuButton
                                 name={"Святилище"}
@@ -45,11 +45,11 @@ class HomeContainer extends React.Component {
                             />
                         </NavLink>
                     </div>
-                    <div className="home--content">
+                    <div className="church--content">
                         <Routes>
                             <Route
                                 path=""
-                                element={<Home/>}
+                                element={<Church/>}
                             />
                             <Route
                                 path="inventory"
@@ -85,4 +85,4 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getProfile
-})(withAuthRedirect(HomeContainer));
+})(withAuthRedirect(ChurchContainer));

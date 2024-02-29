@@ -1,4 +1,4 @@
-.parent-content--home {
+.parent-content--shop {
     display: grid;
     margin: 20px;
     padding: 5px 5px;
@@ -12,12 +12,12 @@
     gap: 5px;
 }
 
-.content-home--main {
+.content-shop--main {
     display: flex;
     gap: 2px;
 }
 
-.home--button {
+.shop--button {
     flex: 1;
     border: 1px solid #493a3a;
     padding: 5px;
@@ -25,7 +25,7 @@
     width: 30%;
 }
 
-.home--content {
+.shop--content {
     flex: 3;
     display: table;
     font-family: var(--font-family);
