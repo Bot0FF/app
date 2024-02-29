@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../common/util/modal/Modal";
+import { NavLink } from "react-router-dom";
 import { MoveButton, EntityButton, ActionButton } from './../../common/util/button/MainButton';
 import { CSSTransition } from "react-transition-group";
 import "./main.css";
@@ -41,6 +42,13 @@ const Main = (props) => {
         props.takeLocationThing(thingId);
     }
 
+
+    //переход в строение
+    const moveToPlace = () => {
+
+    }
+
+
     return (<>
         <div className="parent-content--main">
             <div className="info-status--notification">
@@ -48,7 +56,7 @@ const Main = (props) => {
                     ?
                     <u>{props.info}</u>
                     :
-                    <u>Локация: {props.locationName}</u>
+                    <u>{props.location.name}</u>
                 }
             </div>
             <div className="info-status--current">
@@ -56,35 +64,49 @@ const Main = (props) => {
                 <br />
                 Мана: {props.player.mana} ({props.player.maxMana})
                 <br />
-                Координаты: {props.coordinate}
+                Координаты: {props.location.coordinate}
             </div>
             <div className="button--move">
                 <MoveButton
                     name={"Север"}
-                    onClick={() => props.onMovePlayer("up")}
+                    onClick={() => props.movePlayer("up")}
                 />
                 <div className="button--row">
                     <MoveButton
                         name={"Запад"}
-                        onClick={() => props.onMovePlayer("left")}
+                        onClick={() => props.movePlayer("left")}
                     />
                     <MoveButton
                         name={"Восток"}
-                        onClick={() => props.onMovePlayer("right")}
+                        onClick={() => props.movePlayer("right")}
                     />
                 </div>
                 <MoveButton
                     name={"Юг"}
-                    onClick={() => props.onMovePlayer("down")}
+                    onClick={() => props.movePlayer("down")}
                 />
             </div>
             <div className="button--items">
-                {props.doorId
+                {props.location.localityId
                     ?
                     <EntityButton
-                        name={props.info}
-                        onClick={() => setAiToList(!isOpenAis)}
+                        name={props.location.localityName}
+                        onClick={() => { props.moveToLocality() }}
                     />
+                    :
+                    <></>
+                }
+                {props.location.doorId
+                    ?
+                    <NavLink
+                        to="/place"
+                        className="menu-list--item"
+                    >
+                        <EntityButton
+                            name={props.location.localityName}
+                            onClick={() => {  }}
+                        />
+                    </NavLink>
                     :
                     <></>
                 }
@@ -138,7 +160,6 @@ const Main = (props) => {
     </>
     );
 };
-
 
 //информация по unit в модальном окне
 const Unit = ({ entity, setFight }) => {

@@ -7,6 +7,7 @@ import {
     getLocationUnits,
     getLocationThings,
     movePlayer,
+    moveToLocality,
     setFight,
     takeLocationThing
 } from "../../common/reducer/main-reducer";
@@ -19,14 +20,6 @@ class MainContainer extends React.Component {
         this.props.getMain();
     }
 
-    onMovePlayer = (direction) => {
-        this.props.movePlayer(direction);
-    }
-
-    setFight = (targetId) => {
-        this.props.setFight(targetId);
-    }
-
     render() {
         if (this.props.player?.status === "FIGHT") {
             return <Navigate replace to="/fight" />
@@ -34,8 +27,7 @@ class MainContainer extends React.Component {
         return <>
             <Main
                 player={this.props.player}
-                locationName={this.props.location.name}
-                coordinate={this.props.location.coordinate}
+                location={this.props.location}
                 ais={this.props.ais}
                 units={this.props.units}
                 things={this.props.things}
@@ -47,8 +39,9 @@ class MainContainer extends React.Component {
                 thingsSize={this.props.thingsSize}
                 getLocationThings={this.props.getLocationThings}
                 doorId={this.props.location.doorId}
-                onMovePlayer={this.onMovePlayer}
-                setFight={this.setFight}
+                movePlayer={this.props.movePlayer}
+                moveToLocality={this.props.moveToLocality}
+                setFight={this.props.setFight}
                 takeLocationThing={this.props.takeLocationThing}
             />
         </>
@@ -77,6 +70,7 @@ export default connect(mapStateToProps, {
     getLocationUnits,
     getLocationThings,
     movePlayer,
+    moveToLocality,
     setFight,
     takeLocationThing
 })(withAuthRedirect(MainContainer));

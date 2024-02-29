@@ -67,6 +67,18 @@ export const API_MAIN = {
             });
     },
 
+    //перемещение в город, подземелье
+    getMoveToLocality() {
+        return instanse
+            .get("/api/main/move/locality")
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error;
+            });
+    },
+
     //атака выбранного противника
     getAttack(targetId) {
         if (targetId === undefined) {

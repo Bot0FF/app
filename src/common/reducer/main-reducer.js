@@ -139,6 +139,19 @@ export const movePlayer = (direction) => (dispatch) => {
         });
 };
 
+//перемещение в город, подземелье
+export const moveToLocality = () => (dispatch) => {
+    return API_MAIN.getMoveToLocality()
+        .then(data => {
+            if (data.status === 1) {
+                dispatch(setMainState(data));
+            }
+            else {
+                dispatch(setMainInfo(data));
+            }
+        });
+};
+
 //начать сражение с выбранным противником
 export const setFight = (targetId) => (dispatch) => {
     return API_MAIN.getAttack(targetId)
