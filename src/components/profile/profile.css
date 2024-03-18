@@ -1,15 +1,18 @@
 .parent-content--profile {
-    display: grid;
     margin: 20px;
     padding: 5px 5px;
-    position: relative;
     border: 2px solid #493a3a;
     border-radius: 10px;
     text-align: center;
     font-weight: bold;
     cursor: default;
-    max-width: 700px;
-    gap: 5px;
+}
+
+.content-profile--main {
+    display: flex;
+    width: 700px;
+    flex-direction: row;
+    gap: 2px;
 }
 
 .content-attribute--bonus{
@@ -39,22 +42,19 @@
     margin: 2px;
 }
 
-.content-profile--main {
-    display: flex;
-    gap: 2px;
-}
-
 .profile--button {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 25%;
     border: 1px solid #493a3a;
     padding: 5px;
     border-radius: 10px;
-    width: 30%;
 }
 
 .profile--content {
-    flex: 3;
-    display: table;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 75%;
     font-family: var(--font-family);
     color: var(--primary-color);
     border: 1px solid #493a3a;

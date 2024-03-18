@@ -12,62 +12,39 @@ class HomeContainer extends React.Component {
     render() {
         return <>
             <div className="parent-content--home">
-                <div className="content-home--main">
-                    <div className="home--button">
-                        <NavLink to="">
-                            <MenuButton
-                                name={"Святилище"}
-                                onClick={() => { }}
-                            />
-                        </NavLink>
-                        <NavLink to="baff">
-                            <MenuButton
-                                name={"Баффы"}
-                                onClick={() => { }}
-                            />
-                        </NavLink>
-                        <NavLink to="pers1">
-                            <MenuButton
-                                name={"Персонаж 1"}
-                                onClick={() => { }}
-                            />
-                        </NavLink>
-                        <NavLink to="pers2">
-                            <MenuButton
-                                name={"Персонаж 2"}
-                                onClick={() => { }}
-                            />
-                        </NavLink>
-                        <NavLink to="pers3">
-                            <MenuButton
-                                name={"Персонаж 3"}
-                                onClick={() => { }}
-                            />
-                        </NavLink>
-                    </div>
-                    <div className="home--content">
-                        <Routes>
-                            <Route
-                                path=""
-                                element={<Home/>}
-                            />
-                            <Route
-                                path="inventory"
-                            />
-                            <Route
-                                path="characteristic"
-                            />
-                            <Route
-                                path="skill"
-                            />
-                            <Route
-                                path="ability"
-                            />
-                            <Route
-                                path="special"
-                            />
-                        </Routes>
-                    </div>
+                <div className="home--button">
+                    <NavLink to="">
+                        <MenuButton
+                            name={"Дом"}
+                            onClick={() => { }}
+                        />
+                    </NavLink>
+                    <NavLink to="warehouse">
+                        <MenuButton
+                            name={"Склад"}
+                            onClick={() => { }}
+                        />
+                    </NavLink>
+                    <NavLink to="workshop">
+                        <MenuButton
+                            name={"Мастерская"}
+                            onClick={() => { }}
+                        />
+                    </NavLink>
+                </div>
+                <div className="home--content">
+                    <Routes>
+                        <Route
+                            path=""
+                            element={<Home />}
+                        />
+                        <Route
+                            path="warehouse"
+                        />
+                        <Route
+                            path="workshop"
+                        />
+                    </Routes>
                 </div>
             </div>
         </>

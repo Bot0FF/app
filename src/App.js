@@ -27,11 +27,11 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <div className="app">
         <div className="navbar">
           <NavbarContainer />
         </div>
-        <div className="header">
+        <div className="main">
           <Routes>
             <Route path="/" element={<GreetingContainer />} />
             <Route path="/fight" element={<FightContainer />} />
