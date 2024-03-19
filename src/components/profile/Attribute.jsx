@@ -9,12 +9,12 @@ const Attribute = (props) => {
             :
             <></>
         }
-        <div className="content-attribute--button">
-            <span className="attribute-button--item">
+        <div className="bonus-attribute-content">
+            <span className="bonus-attribute-item">
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <span>Сила: {props.player.strength}</span>
+                        <text>Сила: {props.player.strength}</text>
                         <span
                             onClick={() => { props.setUpAttribute("strength") }}
 
@@ -27,11 +27,11 @@ const Attribute = (props) => {
                     <></>
                 }
             </span>
-            <span className="attribute-button--item">
+            <span className="bonus-attribute-item">
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <span>Интеллект: {props.player.intelligence}</span>
+                        <text>Интеллект: {props.player.intelligence}</text>
                         <span
                             onClick={() => { props.setUpAttribute("intelligence") }}
                         >(+1)</span>
@@ -43,11 +43,11 @@ const Attribute = (props) => {
                     <></>
                 }
             </span>
-            <span className="attribute-button--item">
+            <span className="bonus-attribute-item">
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <span>Ловкость: {props.player.dexterity}</span>
+                        <text>Ловкость: {props.player.dexterity}</text>
                         <span
                             onClick={() => { props.setUpAttribute("dexterity") }}
                         >(+1)</span>
@@ -59,11 +59,11 @@ const Attribute = (props) => {
                     <></>
                 }
             </span>
-            <span className="attribute-button--item">
+            <span className="bonus-attribute-item">
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <span>Выносливость: {props.player.endurance}</span>
+                        <text>Выносливость: {props.player.endurance}</text>
                         <span
                             onClick={() => { props.setUpAttribute("endurance") }}
                         >(+1)</span>
@@ -75,11 +75,11 @@ const Attribute = (props) => {
                     <></>
                 }
             </span>
-            <span className="attribute-button--item">
+            <span className="bonus-attribute-item">
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <span>Удача: {props.player.luck}</span>
+                        <text>Удача: {props.player.luck}</text>
                         <span
                             onClick={() => { props.setUpAttribute("luck") }}
                         >(+1)</span>

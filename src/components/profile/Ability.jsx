@@ -38,7 +38,7 @@ const Ability = (props) => {
     }
 
     return (<>
-        <div className="content-sort">
+        <div className="profile-ability-sort">
             <SortButton
                 name={"Избранное"}
                 onClick={() => { sortAbilities(true) }}

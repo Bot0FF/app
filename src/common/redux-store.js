@@ -5,6 +5,7 @@ import fightReducer from "./reducer/fight-reducer";
 import authReducer from './reducer/auth-reducer';
 import profileReducer from "./reducer/profile-reducer";
 import { thunk as thunkMidleware } from "redux-thunk";
+import homeReducer from "./reducer/home-reducer";
 import { applyMiddleware, combineReducers, legacy_createStore as createStore } from "redux";
 
 //добавляем reducers
@@ -14,7 +15,8 @@ let reducers = combineReducers({
     registerPage: registerReducer,
     mainState: mainReducer,
     fightState: fightReducer,
-    profileState: profileReducer
+    profileState: profileReducer,
+    homeState: homeReducer
 });
 
 //создаем store с данными 

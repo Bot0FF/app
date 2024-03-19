@@ -50,7 +50,7 @@ const Inventory = (props) => {
     }
 
     return (<>
-        <div className="content-sort">
+        <div className="profile-inventory-sort">
             <SortButton
                 name={"Надето"}
                 onClick={() => { sortUnitThings(true) }}
@@ -86,7 +86,6 @@ const Inventory = (props) => {
             :
             <u>Вещи игрока {props.player.name}</u>
         }
-        <br />
         <UnitInventory
             things={unitThings}
             setModal={setModal}
@@ -110,7 +109,7 @@ const UnitInventory = ({ things, setModal }) => {
     return <ul>
         {Array.from(things).map(thing => {
             if (thing.use === true) {
-                return <li className="content-list--item"
+                return <li className="profile-inventory-item"
                     key={thing.id}
                     onClick={() => setModal(true, thing)}
                 >
@@ -118,7 +117,7 @@ const UnitInventory = ({ things, setModal }) => {
                 </li>
             }
             else {
-                return <li className="content-list--item"
+                return <li className="profile-inventory-item"
                     key={thing.id}
                     onClick={() => setModal(true, thing)}
                 >

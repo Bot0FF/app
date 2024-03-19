@@ -1,27 +1,39 @@
 import React from 'react';
 import Home from './Home';
+import Keep from './Keep';
+import Take from './Take';
 import { NavLink, Route, Routes } from "react-router-dom";
 import { MenuButton } from '../../../common/util/button/ProfileButton';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../../../common/hoc/withAuthRedirect';
-import { getProfile } from '../../../common/reducer/profile-reducer';
+import {
+    getUnitInventory,
+    keepHomeThing,
+    takeHomeThing
+} from '../../../common/reducer/home-reducer';
 import './home.css';
 
 class HomeContainer extends React.Component {
 
     render() {
         return <>
-            <div className="parent-content--home">
-                <div className="home--button">
+            <div className="home-container">
+                <div className="home-main-button">
                     <NavLink to="">
                         <MenuButton
                             name={"Дом"}
                             onClick={() => { }}
                         />
                     </NavLink>
-                    <NavLink to="warehouse">
+                    <NavLink to="keep">
                         <MenuButton
-                            name={"Склад"}
+                            name={"Оставить"}
+                            onClick={() => { }}
+                        />
+                    </NavLink>
+                    <NavLink to="take">
+                        <MenuButton
+                            name={"Забрать"}
                             onClick={() => { }}
                         />
                     </NavLink>
@@ -32,14 +44,26 @@ class HomeContainer extends React.Component {
                         />
                     </NavLink>
                 </div>
-                <div className="home--content">
+                <div className="home-main-content">
                     <Routes>
                         <Route
                             path=""
-                            element={<Home />}
+                            element={<Home
+                                getUnitInventory={this.props.getUnitInventory}
+                            />}
                         />
                         <Route
-                            path="warehouse"
+                            path="keep"
+                            element={<Keep 
+                                player={this.props.player}
+                                thingsUnit={this.props.thingsUnit}
+                                getUnitInventory={this.props.getUnitInventory}
+                                keepHomeThing={this.props.takeHomeThing}
+                            />}
+                        />
+                        <Route
+                            path="take"
+                            element={<Take />}
                         />
                         <Route
                             path="workshop"
@@ -53,13 +77,16 @@ class HomeContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        player: state.profileState.player,
-        info: state.profileState.info,
-        status: state.profileState.status,
+        player: state.homeState.player,
+        thingsUnit: state.homeState.thingsUnit,
+        info: state.homeState.info,
+        status: state.homeState.status,
         isAuth: state.authState.isAuth
     };
 };
 
 export default connect(mapStateToProps, {
-    getProfile
+    getUnitInventory,
+    keepHomeThing,
+    takeHomeThing
 })(withAuthRedirect(HomeContainer));

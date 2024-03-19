@@ -1,4 +1,4 @@
-.parent-content--home {
+.home-container {
     display: flex;
     flex-direction: row;
     width: 700px;
@@ -11,7 +11,7 @@
     cursor: default;
 }
 
-.home--button {
+.home-main-button {
     display: flex;
     flex-direction: column;
     flex-basis: 25%;
@@ -20,7 +20,7 @@
     border-radius: 10px;
 }
 
-.home--content {
+.home-main-content {
     display: flex;
     flex-direction: column;
     flex-basis: 75%;
@@ -29,4 +29,19 @@
     border: 1px solid #493a3a;
     list-style-type: none;
     border-radius: 10px;
+}
+
+.home-content-sort{
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    border-bottom: 1px solid #493a3a;
+    margin-bottom: 3px;
+}
+
+.home-content-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

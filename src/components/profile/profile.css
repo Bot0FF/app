@@ -1,4 +1,8 @@
-.parent-content--profile {
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 20px;
     padding: 5px 5px;
     border: 2px solid #493a3a;
@@ -8,41 +12,43 @@
     cursor: default;
 }
 
-.content-profile--main {
+.profile-bonus-attribute {
     display: flex;
-    width: 700px;
-    flex-direction: row;
-    gap: 2px;
-}
-
-.content-attribute--bonus{
-    width: 700px;
-    position: relative;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
-.content-attribute--button{
+.bonus-attribute-content {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
     font-family: var(--font-family);
     color: var(--primary-color);
     font-size: 12px;
-    margin-top: 5px;
-    align-items: center;
-    gap: 5px;
-    user-select: none;
+    padding-bottom: 3px;
 }
 
-.attribute-button--item{
-    display: flex;
+.bonus-attribute-item {
+    width: fit-content;
     border: 2px solid #493a3a;
     padding: 2px;
     border-radius: 5px;
     margin: 2px;
 }
 
-.profile--button {
+.bonus-attribute-item span {
+    cursor: pointer;
+}
+
+.profile-main-content {
+    display: flex;
+    width: 700px;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.profile-main-button {
     display: flex;
     flex-direction: column;
     flex-basis: 25%;
@@ -51,7 +57,7 @@
     border-radius: 10px;
 }
 
-.profile--content {
+.profile-content-info {
     display: flex;
     flex-direction: column;
     flex-basis: 75%;
@@ -62,7 +68,7 @@
     border-radius: 10px;
 }
 
-.content-sort {
+.profile-inventory-sort {
     display: flex;
     justify-content: center;
     gap: 2px;
@@ -70,19 +76,19 @@
     margin-bottom: 3px;
 }
 
-.content-list--item {
+.profile-ability-sort {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    border-bottom: 1px solid #493a3a;
+    margin-bottom: 3px;
+}
+
+.profile-inventory-item {
     cursor: pointer;
     border-bottom: 1px dashed #574444;
 }
 
-.content-help--change {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-    border-bottom: 1px solid #493a3a;
-    margin-bottom: 3px;
-}
-
-.content-inventory--special {
+.profile-content-special {
     margin-top: 10px;
 }

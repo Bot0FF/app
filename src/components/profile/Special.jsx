@@ -13,7 +13,7 @@ const Special = (props) => {
     };
 
     return (
-        <div className="content-inventory--special">
+        <div className="profile-content-special">
             <u>{props.info}</u>
             <br />
             <span>Сгенерировать предмет по id</span>

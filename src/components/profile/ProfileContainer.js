@@ -38,10 +38,10 @@ class ProfileContainer extends React.Component {
             return <Navigate replace to="/fight" />
         }
         return <>
-            <div className="parent-content--profile">
+            <div className="profile-container">
                 {this.props.player.bonusPoint
                     ?
-                    <div className="content-attribute--bonus">
+                    <div className="profile-bonus-attribute">
                         <Attribute
                             player={this.props.player}
                             setUpAttribute={this.props.setUpAttribute}
@@ -51,8 +51,8 @@ class ProfileContainer extends React.Component {
                     :
                     <></>
                 }
-                <div className="content-profile--main">
-                    <div className="profile--button">
+                <div className="profile-main-content">
+                    <div className="profile-main-button">
                         <NavLink to="">
                             <MenuButton
                                 name={"Игрок"}
@@ -95,7 +95,7 @@ class ProfileContainer extends React.Component {
                             <></>
                         }
                     </div>
-                    <div className="profile--content">
+                    <div className="profile-content-info">
                         <Routes>
                             <Route
                                 path=""
