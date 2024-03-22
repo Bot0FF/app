@@ -14,7 +14,7 @@ const Attribute = (props) => {
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <text>Сила: {props.player.strength}</text>
+                        <u>Сила: {props.player.strength}</u>
                         <span
                             onClick={() => { props.setUpAttribute("strength") }}
 
@@ -31,7 +31,7 @@ const Attribute = (props) => {
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <text>Интеллект: {props.player.intelligence}</text>
+                        <u>Интеллект: {props.player.intelligence}</u>
                         <span
                             onClick={() => { props.setUpAttribute("intelligence") }}
                         >(+1)</span>
@@ -47,7 +47,7 @@ const Attribute = (props) => {
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <text>Ловкость: {props.player.dexterity}</text>
+                        <u>Ловкость: {props.player.dexterity}</u>
                         <span
                             onClick={() => { props.setUpAttribute("dexterity") }}
                         >(+1)</span>
@@ -63,7 +63,7 @@ const Attribute = (props) => {
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <text>Выносливость: {props.player.endurance}</text>
+                        <u>Выносливость: {props.player.endurance}</u>
                         <span
                             onClick={() => { props.setUpAttribute("endurance") }}
                         >(+1)</span>
@@ -79,7 +79,7 @@ const Attribute = (props) => {
                 {props.player.bonusPoint > 0
                     ?
                     <>
-                        <text>Удача: {props.player.luck}</text>
+                        <u>Удача: {props.player.luck}</u>
                         <span
                             onClick={() => { props.setUpAttribute("luck") }}
                         >(+1)</span>

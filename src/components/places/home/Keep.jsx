@@ -90,7 +90,7 @@ const Keep = (props) => {
 const UnitInventory = ({ things, setModal }) => {
     return <ul>
         {Array.from(things).map(thing => {
-            return <li className="content-list--item"
+            return <li className="content-info-list-item"
                 key={thing.id}
                 onClick={() => setModal(true, thing)}
             >

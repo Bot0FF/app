@@ -58,12 +58,17 @@ class HomeContainer extends React.Component {
                                 player={this.props.player}
                                 thingsUnit={this.props.thingsUnit}
                                 getUnitInventory={this.props.getUnitInventory}
-                                keepHomeThing={this.props.takeHomeThing}
+                                keepHomeThing={this.props.keppHomeThing}
                             />}
                         />
                         <Route
                             path="take"
-                            element={<Take />}
+                            element={<Take 
+                                player={this.props.player}
+                                thingsHome={this.props.thingsHome}
+                                getUnitInventory={this.props.getUnitInventory}
+                                takeHomeThing={this.props.takeHomeThing}
+                            />}
                         />
                         <Route
                             path="workshop"
@@ -79,6 +84,7 @@ let mapStateToProps = (state) => {
     return {
         player: state.homeState.player,
         thingsUnit: state.homeState.thingsUnit,
+        thingsHome: state.homeState.thingsHome,
         info: state.homeState.info,
         status: state.homeState.status,
         isAuth: state.authState.isAuth
